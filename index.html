@@ -1,52 +1,541 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IGL Consulting</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: sans-serif; background: #f9f9f9; color: #333; }
-    header { background: #1a1a2e; color: white; padding: 40px 20px; text-align: center; }
-    header h1 { font-size: 2.5rem; }
-    header p { margin-top: 10px; font-size: 1.1rem; opacity: 0.8; }
-    .servicos { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; padding: 60px 20px; }
-    .card { background: white; border-radius: 12px; padding: 32px; width: 280px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); text-align: center; }
-    .card h2 { margin-bottom: 12px; color: #1a1a2e; }
-    .card p { color: #666; line-height: 1.6; }
-    footer { text-align: center; padding: 30px; color: #999; font-size: 0.9rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGL Consulting · Igor Lachowski</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0f14;
+  --ink2: #1a1d25;
+  --ink3: #252932;
+  --gold: #c9a84c;
+  --gold2: #e8c97a;
+  --cream: #f5f0e8;
+  --muted: #8a8d96;
+  --light: #d4cfc6;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 22px 48px; background: linear-gradient(to bottom, rgba(13,15,20,0.97), transparent); backdrop-filter: blur(2px); }
+.nav-wordmark { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.14em; color: var(--cream); text-decoration: none; text-transform: uppercase; }
+.nav-wordmark span { color: var(--gold); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+
+/* HERO */
+.hero { min-height: 100vh; display: flex; align-items: flex-end; padding: 0 48px 80px; position: relative; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,0.07) 0%, transparent 60%), radial-gradient(ellipse 50% 80% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 50%), linear-gradient(160deg, #0d0f14 0%, #141720 100%); }
+.hero-line { position: absolute; top: 0; right: 200px; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.2), transparent); }
+.hero-content { position: relative; z-index: 1; max-width: 900px; }
+.hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: flex; align-items: center; gap: 16px; animation: fadeUp 0.8s ease both; }
+.hero-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.6; }
+.hero h1 { font-family: var(--serif); font-size: clamp(3.5rem, 8vw, 7.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 32px; animation: fadeUp 0.8s 0.15s ease both; }
+.hero h1 em { font-style: italic; color: var(--gold2); }
+.hero-sub { font-size: 1rem; color: var(--muted); max-width: 480px; line-height: 1.8; margin-bottom: 48px; animation: fadeUp 0.8s 0.3s ease both; }
+.hero-cta { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; animation: fadeUp 0.8s 0.45s ease both; }
+.btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--ink); padding: 14px 32px; font-family: var(--sans); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.3s, transform 0.2s; }
+.btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 10px; color: var(--cream); padding: 14px 0; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid rgba(245,240,232,0.2); transition: color 0.3s, border-color 0.3s; }
+.btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+/* SECTIONS */
+section { position: relative; z-index: 1; }
+.section-inner { max-width: 1100px; margin: 0 auto; padding: 120px 48px; }
+.section-label { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+.section-label::before { content: ''; width: 28px; height: 1px; background: var(--gold); opacity: 0.6; }
+.section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 24px; }
+.section-title em { font-style: italic; color: var(--gold2); }
+.divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent); }
+
+/* SOBRE */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 64px; }
+.about-text p { font-size: 1.05rem; color: var(--light); line-height: 1.85; margin-bottom: 20px; }
+.about-text p strong { color: var(--cream); font-weight: 500; }
+.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.stat { background: var(--ink2); padding: 32px 28px; border: 1px solid rgba(201,168,76,0.1); transition: border-color 0.3s; }
+.stat:hover { border-color: rgba(201,168,76,0.3); }
+.stat-number { font-family: var(--serif); font-size: 3rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+.stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* FRENTES */
+.frentes { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.1); border-bottom: 1px solid rgba(201,168,76,0.1); }
+.frentes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; }
+.frente-card { background: var(--ink); padding: 48px 36px; position: relative; overflow: hidden; transition: background 0.3s; text-decoration: none; color: inherit; display: block; }
+.frente-card::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+.frente-card:hover::before { transform: scaleX(1); }
+.frente-card:hover { background: var(--ink3); }
+.frente-number { font-family: var(--serif); font-size: 4rem; font-weight: 300; color: rgba(201,168,76,0.12); line-height: 1; margin-bottom: 28px; }
+.frente-subtitle { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.frente-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; margin-bottom: 16px; color: var(--cream); }
+.frente-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+.frente-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+
+/* EXPERTISE */
+.expertise-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; }
+.expertise-area h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--cream); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(201,168,76,0.2); }
+.expertise-area { margin-bottom: 40px; }
+.expertise-list { list-style: none; }
+.expertise-list li { font-size: 0.88rem; color: var(--muted); padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; gap: 12px; }
+.expertise-list li::before { content: ''; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+
+/* TIMELINE */
+.timeline-bg { background: linear-gradient(180deg, var(--ink) 0%, var(--ink2) 50%, var(--ink) 100%); }
+.timeline { margin-top: 64px; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3), transparent); }
+
+/* Two-column timeline for parallel roles */
+.timeline-item { display: grid; grid-template-columns: 180px 1fr; gap: 40px; padding: 36px 0 36px 40px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.timeline-item::before { content: ''; position: absolute; left: -4px; top: 42px; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px rgba(201,168,76,0.4); }
+.timeline-item.parallel { background: rgba(201,168,76,0.02); border-left: 1px solid rgba(201,168,76,0.12); margin-left: -1px; }
+.timeline-period { font-size: 0.76rem; letter-spacing: 0.08em; color: var(--gold); text-transform: uppercase; padding-top: 4px; line-height: 1.6; }
+.timeline-org { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+.timeline-badge { display: inline-block; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); color: var(--gold); padding: 2px 8px; margin-top: 6px; }
+.timeline-role { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; color: var(--cream); margin-bottom: 10px; }
+.timeline-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.8; }
+.timeline-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.tag { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.18); padding: 3px 9px; }
+
+/* DATI SECTION */
+.dati-section { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.1); }
+.dati-card { background: var(--ink); border: 1px solid rgba(201,168,76,0.12); padding: 56px 48px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; margin-top: 64px; transition: border-color 0.3s; }
+.dati-card:hover { border-color: rgba(201,168,76,0.3); }
+.dati-card-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.dati-card-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 300; color: var(--cream); line-height: 1.2; margin-bottom: 16px; }
+.dati-card-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.85; max-width: 540px; }
+.dati-products-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.pill { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 6px 14px; }
+.dati-card-cta { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; flex-shrink: 0; }
+
+/* CONTACT */
+.contact-bg { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.1); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 64px; }
+.contact-items { display: flex; flex-direction: column; gap: 32px; }
+.contact-item-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.contact-item-value { font-family: var(--serif); font-size: 1.15rem; color: var(--cream); }
+.contact-item-value a { color: var(--cream); text-decoration: none; transition: color 0.3s; }
+.contact-item-value a:hover { color: var(--gold); }
+.contact-cta-area p { font-size: 0.95rem; color: var(--muted); line-height: 1.85; margin-bottom: 28px; }
+.wa-btn { display: inline-flex; align-items: center; gap: 12px; background: #25D366; color: #fff; padding: 16px 32px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; transition: background 0.3s, transform 0.2s; }
+.wa-btn:hover { background: #1fb357; transform: translateY(-2px); }
+
+/* FOOTER */
+footer { background: var(--ink); border-top: 1px solid rgba(201,168,76,0.08); padding: 36px 48px; display: flex; justify-content: space-between; align-items: center; }
+.footer-left { font-family: var(--serif); font-size: 0.95rem; color: var(--muted); }
+.footer-left strong { color: var(--gold); font-weight: 400; }
+.footer-right { font-size: 0.72rem; color: rgba(138,141,150,0.5); letter-spacing: 0.06em; }
+
+/* WA FLOAT */
+.wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: transform 0.2s, box-shadow 0.2s; }
+.wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 18px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 0 24px 64px; }
+  .section-inner { padding: 80px 24px; }
+  .about-grid, .frentes-grid, .expertise-cols, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .frentes-grid { gap: 2px; }
+  .timeline-item { grid-template-columns: 1fr; gap: 8px; padding-left: 28px; }
+  .dati-card { grid-template-columns: 1fr; }
+  .dati-card-cta { align-items: flex-start; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 24px; }
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>IGL Consulting</h1>
-    <p>Soluções inteligentes para o seu negócio</p>
-  </header>
 
-  <section class="servicos">
-    <div class="card">
-      <h2>Serviço 1</h2>
-      <p>Descrição breve do primeiro serviço oferecido.</p>
-    </div>
-    <div class="card">
-      <h2>Serviço 2</h2>
-      <p>Descrição breve do segundo serviço oferecido.</p>
-    </div>
-    <div class="card">
-      <h2>Serviço 3</h2>
-      <p>Descrição breve do terceiro serviço oferecido.</p>
-    </div>
-  </section>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-wordmark">IGL <span>Consulting</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#frentes">Atuação</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#trajetoria">Trajetória</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
 
-  <footer>
-    <p>© 2026 IGL Consulting · iglconsulting.com.br</p>
-  </footer>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Igor Lachowski · IGL Consulting</p>
+    <h1>Estratégia,<br><em>tecnologia</em><br>e resultado.</h1>
+    <p class="hero-sub">Consultor independente com mais de duas décadas na interseção entre tecnologia empresarial, comércio exterior e transformação digital.</p>
+    <div class="hero-cta">
+      <a href="#contato" class="btn-primary">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Iniciar conversa
+      </a>
+      <a href="#frentes" class="btn-ghost">Ver atuação <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</div>
 
-  <!-- Botão WhatsApp -->
-  <a href="https://wa.me/5511SEUNUMERO?text=Olá!%20Vim%20pelo%20site"
-     target="_blank"
-     style="position:fixed;bottom:24px;right:24px;background:#25D366;color:white;border-radius:50px;padding:14px 20px;font-size:15px;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.2);z-index:999">
-    💬 WhatsApp
-  </a>
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="section-inner">
+    <p class="section-label">Perfil</p>
+    <h2 class="section-title">Uma trajetória construída<br>na <em>complexidade</em></h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Com passagens por <strong>Renault e Electrolux</strong>, fundação de uma trading company internacional, aceleração de uma startup SaaS e atuação como arquiteto de soluções em tecnologia de comércio exterior, construí uma visão rara sobre como empresas operam na prática.</p>
+        <p>Meu diferencial é transitar com naturalidade entre <strong>executivos de negócio, equipes técnicas e fornecedores de tecnologia</strong> — traduzindo demandas complexas em soluções claras e viáveis em ambientes de alta complexidade organizacional.</p>
+        <p>Hoje atuo em três frentes complementares: <strong>consultoria independente</strong> para projetos de transformação digital e empreendedorismo, <strong>desenvolvimento de negócios</strong> para plataformas de tecnologia de Comex, e como <strong>founder</strong> do Contango Token — protocolo blockchain para tokenização de ativos do agronegócio.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat"><div class="stat-number">20+</div><div class="stat-label">Anos de experiência</div></div>
+        <div class="stat"><div class="stat-number">3</div><div class="stat-label">Empresas fundadas</div></div>
+        <div class="stat"><div class="stat-number">40+</div><div class="stat-label">Executivos apoiados</div></div>
+        <div class="stat"><div class="stat-number">3</div><div class="stat-label">Continentes de atuação</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FRENTES -->
+<section id="frentes" class="frentes">
+  <div class="section-inner">
+    <p class="section-label">Frentes de Atuação</p>
+    <h2 class="section-title">Como posso<br><em>contribuir</em></h2>
+    <div class="frentes-grid">
+      <div class="frente-card">
+        <div class="frente-number">01</div>
+        <p class="frente-subtitle">Consultoria Independente</p>
+        <h3 class="frente-title">Estratégia &amp; Negócios</h3>
+        <p class="frente-desc">Projetos de transformação digital, estruturação de novos mercados, desenvolvimento de parcerias e expansão comercial. Para empresas que navegam cenários de alta complexidade.</p>
+        <a href="#contato" class="frente-link">Iniciar conversa <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="frente-card">
+        <div class="frente-number">02</div>
+        <p class="frente-subtitle">Business Development · Dati Plataforma</p>
+        <h3 class="frente-title">Tecnologia de Comex</h3>
+        <p class="frente-desc">Atuação como Business Development Executive para a Dati Plataforma. Soluções especializadas em automação e gestão de operações de comércio exterior.</p>
+        <a href="dati.html" class="frente-link">Conheça as soluções <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="frente-card">
+        <div class="frente-number">03</div>
+        <p class="frente-subtitle">Founder · Blockchain &amp; Agro</p>
+        <h3 class="frente-title">Contango Token</h3>
+        <p class="frente-desc">Protocolo de infraestrutura blockchain construído sobre Stellar/Soroban para tokenização de ativos reais do agronegócio brasileiro. Uma nova camada de liquidez para o campo.</p>
+        <a href="https://contangotoken.com" target="_blank" class="frente-link">contangotoken.com <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="section-inner">
+    <p class="section-label">Especialização</p>
+    <h2 class="section-title">Áreas de <em>expertise</em></h2>
+    <div class="expertise-cols">
+      <div>
+        <div class="expertise-area">
+          <h3>Comércio Exterior &amp; Operações Globais</h3>
+          <ul class="expertise-list">
+            <li>Importação, exportação e regimes aduaneiros especiais</li>
+            <li>Digitalização de operações (NPI / DUIMP / Siscomex)</li>
+            <li>Consolidação logística global (Ásia, Europa, EUA)</li>
+            <li>Cadeias de suprimentos internacionais</li>
+            <li>Conformidade e compliance em Comex</li>
+          </ul>
+        </div>
+        <div class="expertise-area">
+          <h3>Tecnologia Empresarial</h3>
+          <ul class="expertise-list">
+            <li>ERP: SAP, TOTVS, Microsoft Dynamics, Senior Sistemas</li>
+            <li>Plataformas SaaS e integração de sistemas</li>
+            <li>Automação de processos (BPM)</li>
+            <li>Arquitetura de soluções corporativas</li>
+            <li>Product Management (Jira, metodologias ágeis)</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="expertise-area">
+          <h3>Estratégia &amp; Desenvolvimento de Negócios</h3>
+          <ul class="expertise-list">
+            <li>Estruturação de novos mercados</li>
+            <li>Negociação estratégica e comercial</li>
+            <li>Desenvolvimento de parcerias (canais, VARs)</li>
+            <li>Expansão e aceleração comercial</li>
+            <li>Captação de investimentos e due diligence</li>
+          </ul>
+        </div>
+        <div class="expertise-area">
+          <h3>Blockchain &amp; Ativos Reais</h3>
+          <ul class="expertise-list">
+            <li>Tokenização de ativos do agronegócio</li>
+            <li>Stellar / Soroban (smart contracts)</li>
+            <li>Estruturação jurídica (SAFE, tokens)</li>
+            <li>Modelos financeiros para projetos Web3</li>
+            <li>Educação blockchain para audiências não técnicas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TRAJETÓRIA -->
+<section id="trajetoria" class="timeline-bg">
+  <div class="section-inner">
+    <p class="section-label">Linha do Tempo</p>
+    <h2 class="section-title">Uma trajetória de<br><em>construção real</em></h2>
+
+    <div class="timeline">
+
+      <!-- 1. Dati + Contango paralelo -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Jan 2025 – Atual</div>
+          <div class="timeline-org">Dati Plataforma</div>
+          <div class="timeline-badge">Tempo integral · Remoto</div>
+        </div>
+        <div>
+          <div class="timeline-role">Business Development Executive | Tech Sales</div>
+          <p class="timeline-desc">Desenvolvimento de negócios na Dati com abordagem consultiva de vendas, combinando expertise profunda em tecnologia de comércio exterior com expansão estratégica de canais. Guarapuava, Paraná.</p>
+          <div class="timeline-tags"><span class="tag">Comex</span><span class="tag">SaaS</span><span class="tag">B2B Sales</span></div>
+        </div>
+      </div>
+
+      <!-- Contango paralelo (desde 2020) -->
+      <div class="timeline-item parallel">
+        <div>
+          <div class="timeline-period">2020 – Atual</div>
+          <div class="timeline-org">Contango Token</div>
+          <div class="timeline-badge">Em paralelo</div>
+        </div>
+        <div>
+          <div class="timeline-role">Founder &amp; CEO</div>
+          <p class="timeline-desc">Fundação e liderança de protocolo blockchain para tokenização de ativos reais do agronegócio brasileiro. Construção sobre Stellar/Soroban, estruturação de modelo financeiro, captação junto a investidores âncora e desenvolvimento do ecossistema.</p>
+          <div class="timeline-tags"><span class="tag">Blockchain</span><span class="tag">Agro</span><span class="tag">Stellar</span><span class="tag">Web3</span></div>
+        </div>
+      </div>
+
+      <!-- 2. Narwal Sistemas -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Ago 2024 – Atual</div>
+          <div class="timeline-org">Narwal Sistemas</div>
+          <div class="timeline-badge">Tempo integral · Híbrido</div>
+        </div>
+        <div>
+          <div class="timeline-role">Arquiteto de Soluções</div>
+          <p class="timeline-desc">Apresentação técnica da plataforma SaaS em cloud para gestão do comércio exterior, destacando funcionalidades e benefícios. Identificação de clientes ideais e proposição de soluções customizadas. Curitiba, Paraná.</p>
+          <div class="timeline-tags"><span class="tag">Comex</span><span class="tag">SaaS</span><span class="tag">Presales</span></div>
+        </div>
+      </div>
+
+      <!-- 3. Consultor implantação (empresa não identificada) -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Ago 2023 – Ago 2024</div>
+          <div class="timeline-org">Consultoria · Remoto</div>
+          <div class="timeline-badge">Tempo integral</div>
+        </div>
+        <div>
+          <div class="timeline-role">Consultor de Implantação</div>
+          <p class="timeline-desc">Participação ativa na implantação funcional do sistema de Comércio Exterior mais completo do mercado em mais de 15 clientes. Implantação da ferramenta 100% cloud com os principais ERPs. Colaboração com equipes multidisciplinares. Criciúma, SC.</p>
+          <div class="timeline-tags"><span class="tag">ERP</span><span class="tag">Comex</span><span class="tag">Cloud</span><span class="tag">SAP</span></div>
+        </div>
+      </div>
+
+      <!-- 4. Senior Sistemas -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Jul 2021 – Ago 2024</div>
+          <div class="timeline-org">Senior Sistemas · Autônomo</div>
+        </div>
+        <div>
+          <div class="timeline-role">Consultor de Implantação</div>
+          <p class="timeline-desc">Implantação do sistema Senior Sistemas em produção. Análise de aderência, especificação de projetos, customizações, parametrizações e treinamentos. Clientes: Suzano, KPMG, CVC, Itaú, AirLiquide, Norma do Brasil, Yanmar, Dental Cremer, entre outros. Blumenau, SC.</p>
+          <div class="timeline-tags"><span class="tag">Senior</span><span class="tag">BPM</span><span class="tag">React</span><span class="tag">Node.js</span></div>
+        </div>
+      </div>
+
+      <!-- 5. GEAR UP -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Jan 2021 – Dez 2021</div>
+          <div class="timeline-org">GEAR UP</div>
+        </div>
+        <div>
+          <div class="timeline-role">Head of Customer Success</div>
+          <p class="timeline-desc">Responsável pela garantia de entrega do produto contratado acompanhando KPIs de implantação, treinamento e performance de equipe, através da manutenção de SLA. Clientes: Ultragaz, AirLiquide, Yanmar, XP Investimentos, Camargo Embalagens, Fuchs Lubrificantes, entre outros. Curitiba, PR.</p>
+          <div class="timeline-tags"><span class="tag">CRM</span><span class="tag">SaaS</span><span class="tag">Customer Success</span></div>
+        </div>
+      </div>
+
+      <!-- 6. Product Owner (startup SaaS) -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Jun 2016 – Jan 2021</div>
+          <div class="timeline-org">Startup SaaS · Cofundador</div>
+        </div>
+        <div>
+          <div class="timeline-role">Product Owner</div>
+          <p class="timeline-desc">Além de sócio fundador, responsável pelo desenvolvimento (built from scratch) de plataforma SaaS voltada para grandes empresas. Trabalhando como PO com diferentes squads de infraestrutura, cloud services, front/back-end, UX/UI. Acelerado pela Bossa Nova Invest com captação de investimento após due diligence. Curitiba, PR.</p>
+          <div class="timeline-tags"><span class="tag">SaaS</span><span class="tag">Product</span><span class="tag">Bossa Nova</span><span class="tag">Agile</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Chefe de operações - Rei da Farsa -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Jan 2013 – Jun 2016</div>
+          <div class="timeline-org">Rei da Farsa · Tempo integral</div>
+        </div>
+        <div>
+          <div class="timeline-role">Chefe de Operações</div>
+          <p class="timeline-desc">Sócio investidor e responsável pela operação de todo o grupo que contemplava uma rede de barbearias de 7 unidades próprias no RS, PR e SP, franqueadora, empresa de cosméticos masculinos e empresa de construção civil outdoor. Curitiba, SP, MG e RS.</p>
+          <div class="timeline-tags"><span class="tag">Franquias</span><span class="tag">Empreendedorismo</span><span class="tag">Expansão</span></div>
+        </div>
+      </div>
+
+      <!-- 8. Brazil Trade Force -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Jan 2011 – Jan 2016</div>
+          <div class="timeline-org">Brazil Trade Force</div>
+        </div>
+        <div>
+          <div class="timeline-role">Chefe de Operações de Importação e Exportação</div>
+          <p class="timeline-desc">Sócio fundador responsável pelo desenvolvimento de produto (procurement) em três diferentes continentes, processos de importação e exportação de produtos premium próprios e terceiros nos segmentos de Alimentação, Eletrônicos e Mercado Pet. Curitiba, PR.</p>
+          <div class="timeline-tags"><span class="tag">Importação</span><span class="tag">Exportação</span><span class="tag">Trading</span></div>
+        </div>
+      </div>
+
+      <!-- 9. Electrolux -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Jun 2008 – Mar 2011</div>
+          <div class="timeline-org">Electrolux do Brasil</div>
+        </div>
+        <div>
+          <div class="timeline-role">Analista de Planejamento e Comprador Internacional</div>
+          <p class="timeline-desc">A Electrolux me deu a oportunidade de participar do processo de internacionalização do Departamento de Peças de Reposição nos EUA, Europa e principalmente China. Rápida promoção a Comprador Internacional por mais de 40.000 SKUs de peças de reposição com amazon dedicado e divisão da carreira em três diferentes programadores e estagiários chineses. Curitiba, PR.</p>
+          <div class="timeline-tags"><span class="tag">Multinacional</span><span class="tag">Supply Chain</span><span class="tag">China</span><span class="tag">Procurement</span></div>
+        </div>
+      </div>
+
+      <!-- 10. Renault -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Jan 2003 – Dez 2004</div>
+          <div class="timeline-org">Renault do Brasil</div>
+        </div>
+        <div>
+          <div class="timeline-role">Trainee de Importação e Exportação</div>
+          <p class="timeline-desc">Estágio concorrente ao curso de graduação em Comércio Exterior, responsável pela maior curva de aprendizado corporativo em esfera global. Participação na implantação do Regime Especial Recof e atuação nos programas de peças em suas tarefas de follow-up das importações marítimas e aéreas de peças CKD dos EUA, México, França, Bélgica e Japão. São José dos Pinhais, PR.</p>
+          <div class="timeline-tags"><span class="tag">RECOF</span><span class="tag">Automotivo</span><span class="tag">Renault</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DATI SECTION -->
+<section id="dati" class="dati-section">
+  <div class="section-inner">
+    <p class="section-label">Parceria Comercial</p>
+    <h2 class="section-title">Tecnologia para<br><em>Comércio Exterior</em></h2>
+    <div class="dati-card">
+      <div>
+        <div class="dati-card-label">Dati Plataforma · Business Development Executive</div>
+        <h3 class="dati-card-title">Soluções inteligentes para importadores e exportadores</h3>
+        <p class="dati-card-desc">Como Arquiteto de Soluções e Business Development Executive da Dati Plataforma, apresento e estruturo soluções tecnológicas especializadas para empresas que operam no ecossistema de comércio exterior brasileiro — da digitalização de documentos à conformidade fiscal e gestão de processos.</p>
+        <div class="dati-products-pills">
+          <span class="pill">SmartRead</span>
+          <span class="pill">DatiFlow</span>
+          <span class="pill">DatiFiscal</span>
+          <span class="pill">Catálogo de Produtos</span>
+        </div>
+      </div>
+      <div class="dati-card-cta">
+        <a href="dati.html" class="btn-primary">
+          Ver soluções
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contato" class="btn-ghost" style="font-size:0.76rem;">Falar com Igor</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTATO -->
+<section id="contato" class="contact-bg">
+  <div class="section-inner">
+    <p class="section-label">Contato</p>
+    <h2 class="section-title">Vamos construir<br><em>algo juntos</em></h2>
+    <div class="contact-grid">
+      <div class="contact-items">
+        <div>
+          <div class="contact-item-label">E-mail</div>
+          <div class="contact-item-value"><a href="mailto:igor@iglconsulting.com.br">igor@iglconsulting.com.br</a></div>
+        </div>
+        <div>
+          <div class="contact-item-label">LinkedIn</div>
+          <div class="contact-item-value"><a href="https://www.linkedin.com/in/igor-lachowski/" target="_blank">linkedin.com/in/igor-lachowski</a></div>
+        </div>
+        <div>
+          <div class="contact-item-label">Contango Token</div>
+          <div class="contact-item-value"><a href="https://contangotoken.com" target="_blank">contangotoken.com</a></div>
+        </div>
+        <div>
+          <div class="contact-item-label">Localização</div>
+          <div class="contact-item-value">Guarapuava &amp; Curitiba, PR</div>
+        </div>
+      </div>
+      <div class="contact-cta-area">
+        <p>Seja para um projeto de consultoria independente, uma conversa sobre as soluções Dati para sua operação de Comex, ou para conhecer mais sobre o Contango Token — estou disponível para uma conversa direta e sem rodeios.</p>
+        <a href="https://wa.me/5511SEUNUMERO?text=Olá%20Igor!%20Vim%20pelo%20site%20IGL%20Consulting%20e%20gostaria%20de%20conversar." target="_blank" class="wa-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left"><strong>IGL Consulting</strong> · Igor Lachowski</div>
+  <div class="footer-right">© 2026 · iglconsulting.com.br</div>
+</footer>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/5511SEUNUMERO?text=Olá%20Igor!%20Vim%20pelo%20site%20IGL%20Consulting." target="_blank" class="wa-float" title="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
 </body>
 </html>
