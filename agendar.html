@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendar Reunião — SmartRead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #007CF0;
+    --navy: #1D3557;
+    --bg: #F8F9FC;
+    --white: #ffffff;
+    --text: #0f1923;
+    --muted: #6b7a8d;
+    --border: #e2e8f0;
+    --success: #10b981;
+    --error: #ef4444;
+    --slot-hover: #EBF5FF;
+    --slot-selected: #007CF0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-mark {
+    width: 36px; height: 36px;
+    background: var(--blue);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .logo-mark svg { width: 20px; height: 20px; fill: white; }
+
+  .logo-text {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+  }
+
+  .logo-text span { color: var(--blue); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    width: 100%;
+    flex: 1;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  /* ── MEETING INFO ── */
+  .meeting-header {
+    padding: 32px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #f0f7ff 0%, var(--white) 100%);
+  }
+
+  .meeting-with {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .avatar {
+    width: 52px; height: 52px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .meeting-info h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+  }
+
+  .meeting-info p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .meeting-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .meta-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  .meta-pill svg { width: 14px; height: 14px; color: var(--blue); }
+
+  /* ── STEPS ── */
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 640px) {
+    .steps { grid-template-columns: 1fr; }
+  }
+
+  .step {
+    padding: 28px;
+    border-right: 1px solid var(--border);
+    transition: opacity 0.3s;
+  }
+
+  .step:last-child { border-right: none; }
+
+  .step.disabled { opacity: 0.4; pointer-events: none; }
+
+  .step-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── MONTH NAV ── */
+  .month-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .month-nav h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .nav-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+
+  .nav-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* ── CALENDAR GRID ── */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .cal-weekday {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 4px 0 8px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .cal-day.empty { cursor: default; }
+
+  .cal-day.past { color: #ccc; cursor: default; }
+
+  .cal-day.available {
+    color: var(--navy);
+    background: #EBF5FF;
+  }
+
+  .cal-day.available:hover {
+    background: var(--blue);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .cal-day.selected {
+    background: var(--blue);
+    color: white;
+    font-weight: 600;
+  }
+
+  .cal-day.today {
+    font-weight: 700;
+  }
+
+  .cal-day.has-slots::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+
+  .cal-day.available.has-slots::after,
+  .cal-day.selected::after { background: white; }
+
+  /* ── SLOTS ── */
+  .slots-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 380px;
+    overflow-y: auto;
+  }
+
+  .slot-btn {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .slot-btn:hover {
+    border-color: var(--blue);
+    background: var(--slot-hover);
+  }
+
+  .slot-btn.selected {
+    border-color: var(--blue);
+    background: var(--blue);
+    color: white;
+  }
+
+  .slot-time {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .slot-duration {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .slot-btn.selected .slot-duration { color: rgba(255,255,255,0.75); }
+
+  .no-slots {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 32px 16px;
+  }
+
+  .loading-slots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── FORM ── */
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+
+  .form-group input:focus { border-color: var(--blue); }
+  .form-group input:disabled { background: var(--bg); color: var(--muted); }
+
+  .form-group input.readonly-field {
+    background: #f8fafc;
+    color: var(--navy);
+    border-color: var(--border);
+    font-weight: 500;
+  }
+
+  /* ── GUESTS ── */
+  .guests-section { margin-top: 20px; }
+
+  .guests-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    padding: 4px 0;
+  }
+
+  .guests-toggle svg { width: 16px; height: 16px; }
+
+  .guests-container { margin-top: 12px; display: none; }
+  .guests-container.open { display: block; }
+
+  .guest-input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .guest-input-row input {
+    flex: 1;
+    padding: 9px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .guest-input-row input:focus { border-color: var(--blue); }
+
+  .add-guest-btn {
+    background: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+
+  .add-guest-btn:hover { opacity: 0.85; }
+
+  .guest-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #EBF5FF;
+    border: 1px solid #bfdbfe;
+    border-radius: 20px;
+    padding: 4px 10px 4px 12px;
+    font-size: 12px;
+    color: var(--navy);
+    margin: 4px 4px 4px 0;
+  }
+
+  .guest-tag button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    line-height: 1;
+    padding: 0;
+    font-size: 14px;
+    transition: color 0.15s;
+  }
+
+  .guest-tag button:hover { color: var(--error); }
+
+  /* ── CONFIRM BTN ── */
+  .confirm-btn {
+    width: 100%;
+    background: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .confirm-btn:hover { background: #0066cc; transform: translateY(-1px); }
+  .confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* ── SUMMARY BOX ── */
+  .summary-box {
+    background: #f0f7ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+
+  .summary-box .summary-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--blue);
+    margin-bottom: 6px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .summary-slot {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .summary-date {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── SUCCESS ── */
+  .success-screen {
+    display: none;
+    padding: 60px 32px;
+    text-align: center;
+  }
+
+  .success-screen.visible { display: block; }
+
+  .success-icon {
+    width: 72px; height: 72px;
+    background: #d1fae5;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+  }
+
+  .success-icon svg { width: 36px; height: 36px; color: var(--success); }
+
+  .success-screen h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .success-screen p {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 320px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .success-detail {
+    background: #f0f7ff;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 24px auto 0;
+    max-width: 360px;
+    text-align: left;
+  }
+
+  .success-detail .row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+
+  .success-detail .row:last-child { margin-bottom: 0; }
+
+  .success-detail .row .icon { color: var(--blue); flex-shrink: 0; }
+
+  .success-detail .row .val { color: var(--navy); font-weight: 500; }
+
+  /* ── ERROR SCREEN ── */
+  .error-screen {
+    display: none;
+    padding: 60px 32px;
+    text-align: center;
+  }
+
+  .error-screen.visible { display: block; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  footer span { color: var(--blue); font-weight: 500; }
+
+  /* ── SCROLLBAR ── */
+  .slots-list::-webkit-scrollbar { width: 4px; }
+  .slots-list::-webkit-scrollbar-track { background: transparent; }
+  .slots-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">
+    <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+  </div>
+  <div class="logo-text">Smart<span>Read</span></div>
+</header>
+
+<div class="container">
+  <div class="card">
+
+    <!-- Meeting Header -->
+    <div class="meeting-header">
+      <div class="meeting-with">
+        <div class="avatar">IL</div>
+        <div class="meeting-info">
+          <h1>Demo ao vivo com Igor Lachowski</h1>
+          <p>Responsável pelo Comercial &amp; Arquiteto de Soluções · Dati</p>
+        </div>
+      </div>
+      <div class="meeting-meta">
+        <div class="meta-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          30 minutos
+        </div>
+        <div class="meta-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Escolha data e horário
+        </div>
+        <div class="meta-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
+          Online · Link por e-mail
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Screen -->
+    <div id="mainScreen">
+      <div class="steps">
+
+        <!-- STEP 1: Calendar -->
+        <div class="step" id="step1">
+          <div class="step-label">01 — Data</div>
+          <div class="month-nav">
+            <button class="nav-btn" id="prevMonth" onclick="changeMonth(-1)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <h3 id="monthLabel"></h3>
+            <button class="nav-btn" id="nextMonth" onclick="changeMonth(1)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+
+        <!-- STEP 2: Slots -->
+        <div class="step disabled" id="step2">
+          <div class="step-label">02 — Horário</div>
+          <div id="slotsArea">
+            <div class="no-slots">← Selecione uma data</div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Confirm -->
+        <div class="step disabled" id="step3">
+          <div class="step-label">03 — Confirmar</div>
+
+          <div id="summaryBox" class="summary-box" style="display:none">
+            <div class="summary-label">Reunião agendada para</div>
+            <div class="summary-slot" id="summaryTime"></div>
+            <div class="summary-date" id="summaryDate"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" id="inputNome" placeholder="Seu nome" class="readonly-field">
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" id="inputEmail" placeholder="seu@email.com" class="readonly-field">
+          </div>
+          <div class="form-group">
+            <label>Empresa</label>
+            <input type="text" id="inputEmpresa" placeholder="Sua empresa" class="readonly-field">
+          </div>
+
+          <!-- Guests -->
+          <div class="guests-section">
+            <button class="guests-toggle" onclick="toggleGuests()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+              </svg>
+              Adicionar convidados
+            </button>
+            <div class="guests-container" id="guestsContainer">
+              <div class="guest-input-row">
+                <input type="email" id="guestInput" placeholder="email@convidado.com" onkeydown="if(event.key==='Enter'){addGuest();}">
+                <button class="add-guest-btn" onclick="addGuest()">Adicionar</button>
+              </div>
+              <div id="guestTags"></div>
+            </div>
+          </div>
+
+          <button class="confirm-btn" id="confirmBtn" onclick="confirmarAgenda()" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            Confirmar reunião
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Success Screen -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h2>Reunião confirmada! 🎉</h2>
+      <p>Você vai receber um convite com todos os detalhes no e-mail cadastrado.</p>
+      <div class="success-detail" id="successDetail"></div>
+    </div>
+
+    <!-- Error Screen -->
+    <div class="error-screen" id="errorScreen">
+      <h2>Algo deu errado</h2>
+      <p id="errorMsg">Não foi possível confirmar a reunião. Tente novamente.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Agendamento seguro via <span>SmartRead</span> · IGL Consulting
+</footer>
+
+<script>
+  // ─── CONFIG ───────────────────────────────────────────────
+  const WEBHOOK_BASE = 'https://n8n.iglconsulting.com.br/webhook/agenda-smartread-v2';
+  const SUPABASE_URL = 'https://qlaarsckqhdtrkcrdgqt.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_uiJw_jzXGkQuwVgyXuFDSg_7aqM_YyW';
+  const JANELA = 60;
+
+  // ─── STATE ────────────────────────────────────────────────
+  let allSlots = [];
+  let slotsByDate = {};
+  let selectedDate = null;
+  let selectedSlot = null;
+  let guests = [];
+  let leadData = { nome: '', email: '', empresa: '', cid: '' };
+  let currentMonth = new Date();
+
+  // ─── INIT ─────────────────────────────────────────────────
+  async function init() {
+    const params = new URLSearchParams(window.location.search);
+    const cid = params.get('cid');
+
+    if (cid) {
+      leadData.cid = cid;
+      await fetchLeadData(cid);
+    }
+
+    await fetchSlots();
+    renderCalendar();
+  }
+
+  async function fetchLeadData(cid) {
+    try {
+      // Busca conversation para pegar lead_id
+      const convRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/conversations?id=eq.${cid}&select=lead_id`,
+        { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+      );
+      const convData = await convRes.json();
+      if (!convData.length || !convData[0].lead_id) return;
+
+      const leadId = convData[0].lead_id;
+
+      // Busca lead
+      const leadRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/leads?id=eq.${leadId}&select=nome,email,empresa`,
+        { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+      );
+      const lead = await leadRes.json();
+      if (!lead.length) return;
+
+      leadData.nome = lead[0].nome || '';
+      leadData.email = lead[0].email || '';
+      leadData.empresa = lead[0].empresa || '';
+
+      document.getElementById('inputNome').value = leadData.nome;
+      document.getElementById('inputEmail').value = leadData.email;
+      document.getElementById('inputEmpresa').value = leadData.empresa;
+    } catch(e) {
+      console.warn('Erro ao buscar dados do lead:', e);
+    }
+  }
+
+  async function fetchSlots() {
+    try {
+      const res = await fetch(WEBHOOK_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tipo: 'consultar', janela: JANELA })
+      });
+      const data = await res.json();
+      allSlots = data.sugestoes || [];
+
+      // Agrupar por data
+      slotsByDate = {};
+      allSlots.forEach(iso => {
+        const d = new Date(iso);
+        const dateKey = toBRTDateKey(d);
+        if (!slotsByDate[dateKey]) slotsByDate[dateKey] = [];
+        slotsByDate[dateKey].push(iso);
+      });
+    } catch(e) {
+      console.warn('Erro ao buscar slots:', e);
+    }
+  }
+
+  // ─── CALENDAR ─────────────────────────────────────────────
+  function toBRTDateKey(date) {
+    // Converte UTC para BRT e retorna YYYY-MM-DD
+    const brt = new Date(date.getTime() - 3 * 60 * 60 * 1000);
+    return brt.toISOString().slice(0, 10);
+  }
+
+  function renderCalendar() {
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+
+    const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+                        'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    document.getElementById('monthLabel').textContent = `${monthNames[month]} ${year}`;
+
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+
+    // Weekday headers
+    ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'cal-weekday';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+    const todayKey = toBRTDateKey(today);
+
+    // Empty cells
+    for (let i = 0; i < firstDay; i++) {
+      const el = document.createElement('div');
+      el.className = 'cal-day empty';
+      grid.appendChild(el);
+    }
+
+    // Days
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(year, month, d);
+      const dateKey = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const hasSlots = !!slotsByDate[dateKey];
+      const isToday = dateKey === todayKey;
+      const isSelected = dateKey === selectedDate;
+
+      const el = document.createElement('div');
+      el.className = 'cal-day';
+      if (isPast) el.classList.add('past');
+      else if (hasSlots) {
+        el.classList.add('available', 'has-slots');
+        el.onclick = () => selectDate(dateKey);
+      }
+      if (isToday) el.classList.add('today');
+      if (isSelected) el.classList.add('selected');
+
+      el.textContent = d;
+      grid.appendChild(el);
+    }
+
+    // Nav buttons
+    const now = new Date();
+    document.getElementById('prevMonth').disabled =
+      currentMonth.getFullYear() === now.getFullYear() &&
+      currentMonth.getMonth() <= now.getMonth();
+  }
+
+  function changeMonth(dir) {
+    currentMonth.setMonth(currentMonth.getMonth() + dir);
+    renderCalendar();
+  }
+
+  function selectDate(dateKey) {
+    selectedDate = dateKey;
+    selectedSlot = null;
+    renderCalendar();
+
+    const slots = slotsByDate[dateKey] || [];
+    renderSlots(slots);
+
+    document.getElementById('step2').classList.remove('disabled');
+    document.getElementById('step3').classList.add('disabled');
+    document.getElementById('confirmBtn').disabled = true;
+    document.getElementById('summaryBox').style.display = 'none';
+  }
+
+  // ─── SLOTS ────────────────────────────────────────────────
+  function renderSlots(slots) {
+    const area = document.getElementById('slotsArea');
+
+    if (!slots.length) {
+      area.innerHTML = '<div class="no-slots">Sem horários disponíveis neste dia.</div>';
+      return;
+    }
+
+    const list = document.createElement('div');
+    list.className = 'slots-list';
+
+    slots.forEach(iso => {
+      const d = new Date(iso);
+      const timeStr = d.toLocaleTimeString('pt-BR', {
+        hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo'
+      });
+
+      const btn = document.createElement('button');
+      btn.className = 'slot-btn' + (iso === selectedSlot ? ' selected' : '');
+      btn.innerHTML = `
+        <div class="slot-time">${timeStr}</div>
+        <div class="slot-duration">30 minutos</div>
+      `;
+      btn.onclick = () => selectSlot(iso, timeStr, d);
+      list.appendChild(btn);
+    });
+
+    area.innerHTML = '';
+    area.appendChild(list);
+  }
+
+  function selectSlot(iso, timeStr, date) {
+    selectedSlot = iso;
+
+    // Update slot buttons
+    document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+
+    // Enable step 3
+    document.getElementById('step3').classList.remove('disabled');
+
+    // Update summary
+    const dateStr = date.toLocaleDateString('pt-BR', {
+      weekday: 'long', day: 'numeric', month: 'long',
+      timeZone: 'America/Sao_Paulo'
+    });
+    document.getElementById('summaryTime').textContent = timeStr;
+    document.getElementById('summaryDate').textContent =
+      dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    document.getElementById('summaryBox').style.display = 'block';
+
+    document.getElementById('confirmBtn').disabled = false;
+  }
+
+  // ─── GUESTS ───────────────────────────────────────────────
+  function toggleGuests() {
+    const c = document.getElementById('guestsContainer');
+    c.classList.toggle('open');
+  }
+
+  function addGuest() {
+    const input = document.getElementById('guestInput');
+    const email = input.value.trim();
+    if (!email || !email.includes('@')) return;
+    if (guests.includes(email)) { input.value = ''; return; }
+
+    guests.push(email);
+    input.value = '';
+    renderGuestTags();
+  }
+
+  function removeGuest(email) {
+    guests = guests.filter(g => g !== email);
+    renderGuestTags();
+  }
+
+  function renderGuestTags() {
+    const container = document.getElementById('guestTags');
+    container.innerHTML = guests.map(email => `
+      <span class="guest-tag">
+        ${email}
+        <button onclick="removeGuest('${email}')" title="Remover">×</button>
+      </span>
+    `).join('');
+  }
+
+  // ─── CONFIRM ──────────────────────────────────────────────
+  async function confirmarAgenda() {
+    const nome = document.getElementById('inputNome').value.trim();
+    const email = document.getElementById('inputEmail').value.trim();
+    const empresa = document.getElementById('inputEmpresa').value.trim();
+
+    if (!nome || !email || !selectedSlot) return;
+
+    const btn = document.getElementById('confirmBtn');
+    btn.disabled = true;
+    btn.innerHTML = `<div class="spinner"></div> Confirmando...`;
+
+    const attendees = [{ email, nome }];
+    guests.forEach(g => attendees.push({ email: g, nome: g }));
+
+    try {
+      const res = await fetch(WEBHOOK_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tipo: 'confirmar',
+          slot: selectedSlot,
+          nome,
+          email,
+          empresa,
+          titulo: `Reunião SmartRead — ${nome} (${empresa})`,
+          attendees
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.status === 'ok' || data.evento_criado) {
+        showSuccess(nome, email, empresa);
+      } else {
+        showError('Não foi possível criar o evento. Tente novamente.');
+      }
+    } catch(e) {
+      showError('Erro de conexão. Verifique sua internet e tente novamente.');
+    }
+  }
+
+  function showSuccess(nome, email, empresa) {
+    document.getElementById('mainScreen').style.display = 'none';
+
+    const slotDate = new Date(selectedSlot);
+    const timeStr = slotDate.toLocaleTimeString('pt-BR', {
+      hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo'
+    });
+    const dateStr = slotDate.toLocaleDateString('pt-BR', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+      timeZone: 'America/Sao_Paulo'
+    });
+
+    document.getElementById('successDetail').innerHTML = `
+      <div class="row"><span class="icon">📅</span><span class="val">${dateStr.charAt(0).toUpperCase() + dateStr.slice(1)} às ${timeStr}</span></div>
+      <div class="row"><span class="icon">👤</span><span class="val">${nome}</span></div>
+      <div class="row"><span class="icon">📧</span><span class="val">${email}</span></div>
+      ${empresa ? `<div class="row"><span class="icon">🏢</span><span class="val">${empresa}</span></div>` : ''}
+      ${guests.length ? `<div class="row"><span class="icon">👥</span><span class="val">${guests.join(', ')}</span></div>` : ''}
+    `;
+
+    document.getElementById('successScreen').classList.add('visible');
+  }
+
+  function showError(msg) {
+    document.getElementById('mainScreen').style.display = 'none';
+    document.getElementById('errorMsg').textContent = msg;
+    document.getElementById('errorScreen').classList.add('visible');
+  }
+
+  // ─── START ────────────────────────────────────────────────
+  init();
+</script>
+</body>
+</html>
