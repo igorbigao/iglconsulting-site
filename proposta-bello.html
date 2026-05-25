@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Comercial — Bello Alimentos | IGL Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0E1B2E;
+    --navy-mid: #152338;
+    --navy-light: #1E3352;
+    --gold: #C9A84C;
+    --gold-light: #E2C77A;
+    --gold-pale: #F5EDD4;
+    --cream: #FAF8F4;
+    --white: #FFFFFF;
+    --text: #1A2332;
+    --text-muted: #5A6677;
+    --text-light: #8A96A6;
+    --border: #DDD8CC;
+    --border-light: #EEEBE4;
+    --accent-bg: #F0EBE0;
+    --success: #1D6B4A;
+    --success-bg: #EBF5EF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.75; color: var(--text); background: var(--cream); }
+
+  @media print {
+    @page { margin: 14mm 12mm; size: A4; }
+    body { background: white; margin: 0; padding: 0; }
+    .no-print { display: none !important; }
+    .page { page-break-after: auto; break-after: auto; min-height: unset !important; }
+    .cover {
+      background: var(--navy) !important;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      min-height: 100vh; page-break-after: always; break-after: page;
+      margin: -14mm -12mm; padding: 52px 56px 48px;
+    }
+    .section-dark { background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .section-accent { background: var(--accent-bg) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pricing-header { background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pricing-total { background: var(--gold-pale) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .resp-table th { background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .payment-step { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .kanban-col, .kanban-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    /* prevent cuts inside all key blocks */
+    .module-card, .feature-card, .team-card, .timeline-item, .workflow-step,
+    .stat-item, .diff-card, .payment-step, .pricing-row, .resp-table tr,
+    .feature-grid, .module-grid, .team-grid, .stats-row, .payment-steps,
+    .workflow-steps, .pricing-box, .callout, .letter-box, .team-card,
+    .signature-block, .diff-grid { break-inside: avoid; page-break-inside: avoid; }
+    /* section headings stay with first paragraph */
+    h2, h3 { break-after: avoid; page-break-after: avoid; }
+    /* don't orphan section tags */
+    .section-tag { break-after: avoid; page-break-after: avoid; }
+    /* give breathing room between sections without forcing breaks */
+    .section { padding-top: 40px; padding-bottom: 40px; }
+    .section-dark, .section-accent { padding-top: 40px; padding-bottom: 40px; }
+    .sep { display: none; }
+  }
+
+  .page { width: 100%; max-width: 900px; margin: 0 auto; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 56px; }
+
+  /* COVER */
+  .cover {
+    background: var(--navy);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 70%);
+  }
+  .cover-top { padding: 52px 56px 0; }
+  .cover-middle { padding: 80px 56px 40px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .cover-bottom { padding: 32px 56px 48px; border-top: 1px solid rgba(201,168,76,0.2); }
+
+  .igl-logo { display: flex; align-items: center; gap: 10px; }
+  .igl-logo-mark {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+  }
+  .igl-logo-text {
+    font-size: 13px; font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .cover-label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 24px; display: block;
+  }
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px; font-weight: 700; line-height: 1.12;
+    color: #FFFFFF; margin-bottom: 16px; max-width: 580px;
+  }
+  .cover-title em { font-style: italic; color: var(--gold-light); }
+  .cover-subtitle {
+    font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.55);
+    max-width: 480px; margin-bottom: 48px; line-height: 1.6;
+  }
+  .cover-divider { width: 48px; height: 1.5px; background: var(--gold); margin-bottom: 32px; }
+  .cover-meta { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .cover-meta-item label {
+    display: block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); margin-bottom: 4px;
+  }
+  .cover-meta-item span { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.85); }
+  .cover-bottom-row { display: flex; justify-content: space-between; align-items: center; }
+  .cover-footer-label { font-size: 12px; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+  .cover-footer-version { font-size: 12px; color: rgba(201,168,76,0.6); }
+
+  /* SECTIONS */
+  .section { padding: 72px 56px; max-width: 900px; margin: 0 auto; }
+  .section + .section { padding-top: 0; }
+  .section-dark { background: var(--navy); padding: 64px 56px; max-width: 900px; margin: 0 auto; }
+  .section-accent { background: var(--accent-bg); padding: 64px 56px; max-width: 900px; margin: 0 auto; }
+
+  /* TYPOGRAPHY */
+  .section-tag {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 12px; display: block;
+  }
+  .section-tag.light { color: rgba(201,168,76,0.7); }
+
+  h2.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; font-weight: 700; line-height: 1.2;
+    color: var(--text); margin-bottom: 24px;
+  }
+  h2.section-title em { font-style: italic; color: var(--gold); }
+  h2.section-title.light { color: #FFFFFF; }
+  h2.section-title.light em { color: var(--gold-light); }
+
+  p { margin-bottom: 16px; color: var(--text-muted); line-height: 1.8; }
+  p.lead { font-size: 16px; color: var(--text); font-weight: 400; margin-bottom: 28px; }
+  p.light { color: rgba(255,255,255,0.65); }
+  p:last-child { margin-bottom: 0; }
+
+  /* LETTER BOX */
+  .letter-box {
+    background: white; border: 1px solid var(--border);
+    border-left: 4px solid var(--gold); padding: 40px 44px; margin-bottom: 8px;
+  }
+  .letter-salutation { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text); margin-bottom: 20px; }
+
+  /* STATS */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 40px 0;
+  }
+  .stat-item { background: white; padding: 28px 24px; text-align: center; }
+  .stat-number {
+    font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;
+    color: var(--navy); line-height: 1; margin-bottom: 6px;
+  }
+  .stat-number span { color: var(--gold); }
+  .stat-label { font-size: 12px; color: var(--text-light); letter-spacing: 0.5px; }
+
+  /* FEATURE GRID */
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  .feature-card {
+    background: white; border: 1px solid var(--border-light); padding: 28px; position: relative;
+  }
+  .feature-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%; background: var(--gold);
+  }
+  .feature-icon { width: 40px; height: 40px; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 18px; }
+  .feature-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .feature-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
+
+  /* MODULE CARDS */
+  .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .module-card { background: white; border: 1px solid var(--border); padding: 32px 28px; }
+  .module-number { font-size: 11px; letter-spacing: 2px; color: var(--gold); font-weight: 600; margin-bottom: 12px; display: block; }
+  .module-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--navy); margin-bottom: 14px; }
+  .module-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.65; }
+  .module-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 11px; padding: 3px 10px; background: var(--accent-bg); color: var(--text-muted); border: 1px solid var(--border); letter-spacing: 0.3px; }
+
+  /* WORKFLOW */
+  .workflow-steps { display: flex; flex-direction: column; gap: 0; margin-top: 32px; border: 1px solid var(--border); background: white; }
+  .workflow-step { display: grid; grid-template-columns: 64px 1fr; border-bottom: 1px solid var(--border-light); }
+  .workflow-step:last-child { border-bottom: none; }
+  .step-number {
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
+    color: var(--gold); border-right: 1px solid var(--border-light); background: var(--cream);
+  }
+  .step-content { padding: 20px 24px; }
+  .step-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .step-desc { font-size: 13.5px; color: var(--text-muted); }
+
+  /* KANBAN */
+  .kanban-preview { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 28px; }
+  .kanban-col { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); padding: 16px 14px; }
+  .kanban-col-header { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); font-weight: 600; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(201,168,76,0.2); }
+  .kanban-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.07); padding: 10px; margin-bottom: 8px; }
+  .kanban-card-label { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.75); margin-bottom: 4px; }
+  .kanban-card-sub { font-size: 10px; color: rgba(255,255,255,0.35); }
+  .kanban-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+
+  /* TEAM */
+  .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+  .team-card { background: white; border: 1px solid var(--border); padding: 28px; display: flex; gap: 20px; }
+  .team-avatar {
+    width: 56px; height: 56px; background: var(--navy); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--gold); letter-spacing: 1px;
+  }
+  .team-name { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+  .team-role { font-size: 12px; color: var(--gold); letter-spacing: 0.5px; margin-bottom: 10px; font-weight: 500; }
+  .team-bio { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* TIMELINE */
+  .timeline { margin-top: 32px; border-left: 2px solid var(--gold-pale); padding-left: 32px; position: relative; }
+  .timeline-item { position: relative; margin-bottom: 36px; }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-dot { position: absolute; left: -41px; top: 4px; width: 14px; height: 14px; background: var(--gold); border: 2px solid white; border-radius: 50%; box-shadow: 0 0 0 2px var(--gold-pale); }
+  .timeline-phase { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  .timeline-title { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+  .timeline-desc { font-size: 13.5px; color: var(--text-muted); }
+  .timeline-items { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .timeline-tag { font-size: 11.5px; padding: 3px 10px; background: var(--accent-bg); color: var(--text-muted); border: 1px solid var(--border); }
+
+  /* PRICING */
+  .pricing-box { background: white; border: 1px solid var(--border); overflow: hidden; margin-top: 32px; }
+  .pricing-header { background: var(--navy); padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; }
+  .pricing-header-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .pricing-header-title { font-family: 'Playfair Display', serif; font-size: 20px; color: white; font-weight: 600; margin-top: 4px; }
+  .pricing-badge { background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 700; padding: 6px 14px; letter-spacing: 1px; text-transform: uppercase; }
+  .pricing-body { padding: 28px 32px; }
+  .pricing-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border-light); }
+  .pricing-row:last-child { border-bottom: none; }
+  .pricing-item-name { font-size: 14px; color: var(--text); font-weight: 400; }
+  .pricing-item-sub { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+  .pricing-item-value { font-size: 16px; font-weight: 600; color: var(--navy); text-align: right; }
+  .pricing-item-value small { font-size: 12px; font-weight: 400; color: var(--text-light); display: block; }
+  .pricing-total { display: flex; justify-content: space-between; align-items: center; background: var(--gold-pale); border: 1px solid rgba(201,168,76,0.3); padding: 20px 32px; margin-top: 8px; }
+  .pricing-total-label { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--navy); }
+  .pricing-total-value { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--navy); }
+
+  /* LISTS */
+  .check-list { list-style: none; margin-top: 16px; }
+  .check-list li { padding: 8px 0 8px 28px; font-size: 14px; color: var(--text-muted); position: relative; border-bottom: 1px solid var(--border-light); }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list li::before { content: '\2713'; position: absolute; left: 0; color: var(--gold); font-weight: 700; font-size: 13px; }
+
+  /* CALLOUT */
+  .callout { background: var(--gold-pale); border: 1px solid rgba(201,168,76,0.35); border-left: 4px solid var(--gold); padding: 24px 28px; margin: 28px 0; }
+  .callout-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  .callout p { font-size: 13.5px; color: var(--text-muted); margin: 0; }
+  .callout.dark { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.2); border-left-color: var(--gold); }
+  .callout.dark .callout-title { color: var(--gold-light); }
+  .callout.dark p { color: rgba(255,255,255,0.6); }
+
+  /* TABLE */
+  .resp-table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 13.5px; }
+  .resp-table th { background: var(--navy); color: rgba(255,255,255,0.85); padding: 12px 18px; text-align: left; font-weight: 500; font-size: 12px; letter-spacing: 0.5px; }
+  .resp-table td { padding: 12px 18px; border-bottom: 1px solid var(--border-light); color: var(--text-muted); vertical-align: top; background: white; }
+  .resp-table tr:last-child td { border-bottom: none; }
+  .resp-table td:first-child { font-weight: 500; color: var(--text); }
+  .badge-yes { display: inline-block; padding: 2px 10px; background: var(--success-bg); color: var(--success); font-size: 11px; font-weight: 600; border-radius: 2px; }
+
+  /* PAYMENT */
+  .payment-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 28px; }
+  .payment-step { background: white; padding: 24px 20px; text-align: center; }
+  .payment-pct { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .payment-pct span { color: var(--gold); }
+  .payment-label { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .payment-moment { font-size: 11px; color: var(--text-light); margin-top: 4px; font-style: italic; }
+
+  /* DIFFERENTIALS */
+  .diff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+  .diff-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); padding: 24px; text-align: center; }
+  .diff-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+  .diff-title { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 8px; }
+  .diff-desc { font-size: 12.5px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+  /* NPS */
+  .nps-display { text-align: center; padding: 48px 0 32px; }
+  .nps-number { font-family: 'Playfair Display', serif; font-size: 88px; font-weight: 700; color: var(--gold-light); line-height: 1; margin-bottom: 8px; }
+  .nps-number span { font-size: 40px; }
+  .nps-label { font-size: 14px; color: rgba(255,255,255,0.45); letter-spacing: 1px; }
+
+  /* SIGNATURE */
+  .signature-block { border-top: 1px solid var(--border); padding-top: 28px; margin-top: 36px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .sig-label { font-size: 12px; color: var(--text-light); margin-bottom: 4px; }
+  .sig-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--navy); }
+  .sig-title { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .sig-contact { font-size: 13px; color: var(--gold); text-decoration: none; margin-top: 4px; display: block; }
+
+  /* CTA */
+  .cta-bar { background: var(--gold-pale); border: 1px solid rgba(201,168,76,0.25); padding: 32px 40px; display: flex; justify-content: space-between; align-items: center; }
+  .cta-text { font-size: 17px; font-family: 'Playfair Display', serif; color: var(--navy); }
+  .cta-contact { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+  .cta-btn { background: var(--navy); color: white; padding: 14px 32px; font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; white-space: nowrap; flex-shrink: 0; margin-left: 32px; display: inline-block; }
+
+  /* SEPARATOR */
+  .sep { height: 1px; background: var(--border); max-width: 900px; margin: 0 auto; }
+
+  /* PRINT BTN */
+  .print-btn { position: fixed; bottom: 28px; right: 28px; background: var(--navy); color: white; border: none; padding: 14px 24px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; letter-spacing: 0.5px; z-index: 99; box-shadow: 0 4px 20px rgba(14,27,46,0.3); }
+
+  @media (max-width: 680px) {
+    .feature-grid, .module-grid, .team-grid, .diff-grid { grid-template-columns: 1fr; }
+    .stats-row, .payment-steps { grid-template-columns: 1fr 1fr; }
+    .kanban-preview { grid-template-columns: 1fr 1fr; }
+    .cover-title { font-size: 36px; }
+    .cover-meta { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body><script>
+(function(){
+  if(sessionStorage.getItem('igl_auth')==='ok') return;
+  document.documentElement.style.overflow='hidden';
+  var overlay = document.createElement('div');
+  overlay.id='igl-gate';
+  overlay.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:#0E1B2E;z-index:99999;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;';
+  overlay.innerHTML=`
+    <div style="text-align:center;max-width:380px;padding:0 24px;">
+      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:48px;">
+        <div style="border:1.5px solid #C9A84C;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:13px;font-weight:700;color:#C9A84C;">IGL</div>
+        <span style="font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;font-family:sans-serif;">Consulting</span>
+      </div>
+      <p style="font-family:Georgia,serif;font-size:22px;color:#fff;margin:0 0 6px;font-weight:600;">Proposta Confidencial</p>
+      <p style="font-family:sans-serif;font-size:13px;color:rgba(255,255,255,0.4);margin:0 0 36px;line-height:1.6;">Bello Alimentos &middot; Maio 2026</p>
+      <div style="position:relative;margin-bottom:12px;">
+        <input id="igl-pw" type="password" placeholder="Senha de acesso" autocomplete="off"
+          style="width:100%;box-sizing:border-box;padding:14px 18px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.3);color:#fff;font-size:15px;font-family:sans-serif;outline:none;letter-spacing:1px;text-align:center;" />
+      </div>
+      <div id="igl-err" style="font-size:12px;color:#E07A5F;margin-bottom:16px;height:16px;font-family:sans-serif;"></div>
+      <button id="igl-btn"
+        style="width:100%;padding:14px;background:#C9A84C;border:none;color:#0E1B2E;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-family:sans-serif;">
+        Acessar Proposta
+      </button>
+      <p style="font-family:sans-serif;font-size:11px;color:rgba(255,255,255,0.2);margin:24px 0 0;">iglconsulting.com.br</p>
+    </div>`;
+  document.body.appendChild(overlay);
+  function attempt(){
+    var pw=document.getElementById('igl-pw').value;
+    if(pw==='Bello2026'){
+      sessionStorage.setItem('igl_auth','ok');
+      document.documentElement.style.overflow='';
+      overlay.style.transition='opacity 0.5s';
+      overlay.style.opacity='0';
+      setTimeout(function(){overlay.remove();},500);
+    } else {
+      var err=document.getElementById('igl-err');
+      err.textContent='Senha incorreta. Tente novamente.';
+      document.getElementById('igl-pw').value='';
+      document.getElementById('igl-pw').focus();
+      setTimeout(function(){err.textContent='';},3000);
+    }
+  }
+  document.getElementById('igl-btn').addEventListener('click',attempt);
+  document.getElementById('igl-pw').addEventListener('keydown',function(e){if(e.key==='Enter')attempt();});
+  setTimeout(function(){document.getElementById('igl-pw').focus();},100);
+})();
+</script>
+
+<!-- CAPA -->
+<div class="cover page">
+  <div class="cover-top">
+    <div class="igl-logo">
+      <div class="igl-logo-mark">IGL</div>
+      <span class="igl-logo-text">Consulting</span>
+    </div>
+  </div>
+  <div class="cover-middle">
+    <div class="cover-label">Proposta Comercial Confidencial</div>
+    <h1 class="cover-title">Workplace Global<br>para <em>Operações<br>Offshore</em></h1>
+    <p class="cover-subtitle">Plataforma operacional end-to-end para gestão de trading internacional, embarques, liberação aduaneira e entregas — desenvolvida sob medida para a operação da Bello Alimentos.</p>
+    <div class="cover-divider"></div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <label>Aos Cuidados de</label>
+        <span>Ives Caetano</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Cliente</label>
+        <span>Bello Alimentos</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Data</label>
+        <span>Maio de 2026</span>
+      </div>
+    </div>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-bottom-row">
+      <span class="cover-footer-label">igor@iglconsulting.com.br &middot; iglconsulting.com.br</span>
+      <span class="cover-footer-version">v1.0 &middot; Confidencial</span>
+    </div>
+  </div>
+</div>
+
+<!-- CARTA DE APRESENTACAO -->
+<div class="section page" style="padding-top: 72px;">
+  <span class="section-tag">Apresentação</span>
+  <h2 class="section-title">Uma proposta construída<br>na <em>medida certa</em></h2>
+
+  <div class="letter-box">
+    <p class="letter-salutation">Prezado Ives,</p>
+    <p>É com satisfação que apresento esta proposta à Bello Alimentos. Ao longo da nossa conversa, ficou evidente que a operação de vocês possui características muito específicas — 100% offshore — que exigem uma solução igualmente específica, e não uma plataforma genérica de comércio exterior adaptada às pressas.</p>
+    <p>Analisamos soluções existentes no mercado, incluindo plataformas sólidas e bem construídas para o contexto brasileiro. A conclusão foi clara: nenhuma delas foi projetada para atender de ponta a ponta uma operação global como a de vocês, com fornecedores distribuídos em múltiplos países, negociações em diferentes moedas, múltiplos incoterms e um fluxo documental que não se encaixa no padrão de sistemas aduaneiros locais.</p>
+    <p>A proposta que apresento aqui é outra: construir uma plataforma operacional feita do zero para vocês. Um workplace digital que centraliza pedidos, invoices, embarques, liberação aduaneira e entregas — com automação, rastreabilidade e inteligência — e que cresce junto com a operação.</p>
+    <p style="margin-bottom: 0; font-weight: 500; color: var(--text);">A IGL Consulting tem o histórico, a arquitetura e o time para entregar isso com precisão cirúrgica.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-number">20<span>+</span></div>
+      <div class="stat-label">Anos em Comex &amp; Tecnologia</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">15<span>+</span></div>
+      <div class="stat-label">Implantações entregues</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Continentes de atuação</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">60<span>d</span></div>
+      <div class="stat-label">Prazo estimado de entrega</div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- SOBRE A IGL -->
+<div class="section page">
+  <span class="section-tag">01 — Quem Somos</span>
+  <h2 class="section-title">IGL Consulting:<br><em>estratégia, tecnologia</em> e resultado</h2>
+  <p class="lead">A IGL Consulting é uma consultoria especializada na interseção entre comércio exterior, operações globais e transformação digital. Atuamos no desenvolvimento de soluções sob medida para empresas que navegam em ambientes de alta complexidade operacional.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">&#127760;</div>
+      <div class="feature-title">Comércio Exterior &amp; Operações Globais</div>
+      <div class="feature-desc">Importação, exportação, regimes especiais, consolidação logística global (Ásia, Europa, EUA) e cadeias de suprimentos internacionais.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#9881;</div>
+      <div class="feature-title">Tecnologia Empresarial</div>
+      <div class="feature-desc">ERPs (SAP, TOTVS, Microsoft Dynamics), plataformas SaaS, automação de processos (BPM) e arquitetura de soluções corporativas.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128290;</div>
+      <div class="feature-title">Workflow Automation &amp; No-Code</div>
+      <div class="feature-desc">Construção de workplaces operacionais escaláveis em plataformas enterprise, sem dependência de desenvolvimento pesado.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#127919;</div>
+      <div class="feature-title">Estratégia &amp; Business Development</div>
+      <div class="feature-desc">Estruturação de novos mercados, negociação estratégica, desenvolvimento de parcerias e expansão comercial internacional.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 32px;">
+    <div class="callout-title">Por que a IGL para este projeto?</div>
+    <p>Igor Lachowski é Business Development Executive da Dati Plataforma e conhece profundamente as capacidades — e os limites — das soluções disponíveis no mercado. Ao recomendar uma solução customizada para Bello Alimentos, o faz com plena consciência do que existe e com responsabilidade total sobre o que será entregue.</p>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- EQUIPE -->
+<div class="section page">
+  <span class="section-tag">02 — Equipe do Projeto</span>
+  <h2 class="section-title">As pessoas por trás<br>da <em>entrega</em></h2>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">IL</div>
+      <div>
+        <div class="team-name">Igor Gomes Lachowski</div>
+        <div class="team-role">Arquiteto da Solução &middot; Gestão de Projeto</div>
+        <div class="team-bio">Mais de 20 anos em comércio exterior e transformação digital. Passagens por Renault, Electrolux, cofundador de startup SaaS acelerada pela Bossa Nova Invest. Especialista em implantações complexas de sistemas de Comex ponta a ponta em mais de 15 clientes.</div>
+        <a href="https://www.linkedin.com/in/igor-lachowski/" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:12px;color:var(--gold);text-decoration:none;font-weight:500;">&#128279; linkedin.com/in/igor-lachowski</a>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">DS</div>
+      <div>
+        <div class="team-name">David Santos</div>
+        <div class="team-role">Desenvolvedor Senior Fullstack &middot; DSInove Tecnologia</div>
+        <div class="team-bio">Especialista em desenvolvimento de plataformas e workflows corporativos. Participou diretamente da criação de interfaces e funcionalidades centrais da plataforma Jestor. À frente da DSInove Tecnologia, referência em arquitetura de soluções no-code/low-code enterprise.</div>
+        <a href="https://www.linkedin.com/in/david-ds/" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:12px;color:var(--gold);text-decoration:none;font-weight:500;">&#128279; linkedin.com/in/david-ds</a>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top: 20px; font-size: 13.5px; color: var(--text-muted);">
+    O projeto contará ainda com <strong style="color: var(--text);">3 desenvolvedores freelancers supervisionados</strong>, com dedicação integral durante o período de implementação e acompanhamento contínuo da equipe principal até o Go Live.
+  </p>
+</div>
+
+<div class="sep"></div>
+
+<!-- DIAGNÓSTICO -->
+<div class="section-dark page">
+  <span class="section-tag light">03 — Diagnóstico</span>
+  <h2 class="section-title light">Por que uma plataforma<br>padrão <em>não funciona</em><br>para vocês</h2>
+  <p class="light lead" style="font-size: 15px;">Soluções de gestão de importação são excelentes para o contexto brasileiro — Siscomex, DUIMP, despachantes, DI, ICMS. Mas a Bello Alimentos não opera nesse paradigma. A operação offshore exige uma camada diferente de controle, flexibilidade multi-jurisdição e uma plataforma construída para o mundo, não apenas para o Brasil.</p>
+
+  <div class="kanban-preview">
+    <div class="kanban-col">
+      <div class="kanban-col-header">Pedidos</div>
+      <div class="kanban-card">
+        <div class="kanban-card-label"><span class="kanban-dot" style="background:#C9A84C;"></span>BL-2026-041</div>
+        <div class="kanban-card-sub">Shanghai &middot; FOB</div>
+      </div>
+      <div class="kanban-card">
+        <div class="kanban-card-label"><span class="kanban-dot" style="background:#E2C77A;"></span>BL-2026-039</div>
+        <div class="kanban-card-sub">Rotterdam &middot; CIF</div>
+      </div>
+    </div>
+    <div class="kanban-col">
+      <div class="kanban-col-header">Invoices</div>
+      <div class="kanban-card">
+        <div class="kanban-card-label"><span class="kanban-dot" style="background:#C9A84C;"></span>INV-2026-112</div>
+        <div class="kanban-card-sub">USD 48.200</div>
+      </div>
+    </div>
+    <div class="kanban-col">
+      <div class="kanban-col-header">Embarques</div>
+      <div class="kanban-card">
+        <div class="kanban-card-label"><span class="kanban-dot" style="background:#4A9D70;"></span>Ever Given II</div>
+        <div class="kanban-card-sub">ETA 12 Jun</div>
+      </div>
+      <div class="kanban-card">
+        <div class="kanban-card-label"><span class="kanban-dot" style="background:#E2C77A;"></span>Air France 772</div>
+        <div class="kanban-card-sub">ETA 03 Jun</div>
+      </div>
+    </div>
+    <div class="kanban-col">
+      <div class="kanban-col-header">Liberação</div>
+      <div class="kanban-card">
+        <div class="kanban-card-label"><span class="kanban-dot" style="background:#E07A5F;"></span>Aguardando docs</div>
+        <div class="kanban-card-sub">Destino: Miami</div>
+      </div>
+    </div>
+    <div class="kanban-col">
+      <div class="kanban-col-header">Entregas</div>
+      <div class="kanban-card">
+        <div class="kanban-card-label"><span class="kanban-dot" style="background:#4A9D70;"></span>Confirmada</div>
+        <div class="kanban-card-sub">CD Central &middot; EUA</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout dark" style="margin-top: 28px;">
+    <div class="callout-title">O que uma operação 100% offshore realmente precisa</div>
+    <p>Gestão de múltiplas moedas e incoterms &middot; Controle de saldo por pedido com múltiplos fornecedores &middot; Liberação aduaneira adaptável a diferentes jurisdições &middot; Follow-up automatizado com parceiros globais &middot; Timeline consolidada de ponta a ponta sem dependência de sistemas fiscais locais.</p>
+  </div>
+</div>
+
+<!-- A PLATAFORMA JESTOR -->
+<div class="section page">
+  <span class="section-tag">04 — Infraestrutura</span>
+  <h2 class="section-title">A plataforma que<br><em>sustenta</em> a solução</h2>
+  <p class="lead">A solução será construída sobre a <strong>plataforma Jestor</strong> — referência mundial em construção de aplicações corporativas no-code/low-code. Robusta, segura e com arquitetura enterprise, permite construir uma solução altamente customizável sem desenvolvimento tradicional pesado.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">&#128451;</div>
+      <div class="feature-title">Banco de Dados Relacional</div>
+      <div class="feature-desc">Estrutura de dados sólida com relacionamentos, queries e integração com APIs externas e ERPs corporativos.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#129302;</div>
+      <div class="feature-title">IA + OCR Nativo</div>
+      <div class="feature-desc">Extração automática de dados de invoices, packing lists, BLs e AWBs — eliminando centenas de horas de digitação manual.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128260;</div>
+      <div class="feature-title">Workflow Automation</div>
+      <div class="feature-desc">Automações, notificações, aprovações condicionais, alertas de SLA e integração com WhatsApp, e-mail e ERPs.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128274;</div>
+      <div class="feature-title">Segurança Enterprise</div>
+      <div class="feature-desc">Permissões granulares por usuário e perfil, auditoria completa de ações, alta disponibilidade e conformidade LGPD/GDPR.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128202;</div>
+      <div class="feature-title">Dashboards &amp; BI</div>
+      <div class="feature-desc">Relatórios personalizados, KPIs operacionais e financeiros, exportações e visões analíticas por equipe e perfil.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#127758;</div>
+      <div class="feature-title">Multilíngue &amp; Escalável</div>
+      <div class="feature-desc">Estrutura bilíngue nativa (PT/EN), escalável para novos módulos, mercados e operações sem reconstrução arquitetural.</div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- MÓDULOS -->
+<div class="section page">
+  <span class="section-tag">05 — Arquitetura da Solução</span>
+  <h2 class="section-title">Módulos do <em>Workplace Global</em><br>Bello Alimentos</h2>
+  <p>A plataforma será estruturada em módulos funcionais interconectados, cobrindo todo o ciclo operacional — do pedido ao cliente até a confirmação de entrega no destino final, em qualquer país.</p>
+
+  <div class="module-grid">
+    <div class="module-card">
+      <span class="module-number">MÓDULO 01</span>
+      <div class="module-name">Cadastros Mestres</div>
+      <div class="module-desc">Base estrutural: gestão de clientes, fornecedores internacionais, produtos, agentes de carga, transportadoras e demais prestadores de serviço globais.</div>
+      <div class="module-tags">
+        <span class="tag">Clientes &amp; Consignees</span>
+        <span class="tag">Fornecedores</span>
+        <span class="tag">Produtos &amp; HS Code</span>
+        <span class="tag">Agentes de Carga</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">MÓDULO 02</span>
+      <div class="module-name">Gestão de Pedidos</div>
+      <div class="module-desc">Controle completo do ciclo de pedidos com múltiplos itens, múltiplos fornecedores, entregas parciais, controle de saldo por item e emissão automática de Proforma Invoice em PDF.</div>
+      <div class="module-tags">
+        <span class="tag">Kanban &amp; Lista</span>
+        <span class="tag">Saldo por item</span>
+        <span class="tag">Proforma automática</span>
+        <span class="tag">Timeline</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">MÓDULO 03</span>
+      <div class="module-name">Gestão de Invoices</div>
+      <div class="module-desc">Invoices sempre vinculadas a pedidos aprovados. OCR e IA para extração automática de dados. Validação de saldo, compliance documental e rastreabilidade total.</div>
+      <div class="module-tags">
+        <span class="tag">OCR &amp; IA</span>
+        <span class="tag">Controle de saldo</span>
+        <span class="tag">Packing List</span>
+        <span class="tag">Compliance</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">MÓDULO 04</span>
+      <div class="module-name">Gestão de Embarques</div>
+      <div class="module-desc">Consolidação de múltiplas invoices e fornecedores. Suporte multimodal (marítimo, aéreo, rodoviário). Gestão por incoterm, custos previstos vs. realizados e follow-up automatizado com agentes.</div>
+      <div class="module-tags">
+        <span class="tag">Multimodal</span>
+        <span class="tag">BL &amp; AWB</span>
+        <span class="tag">Custos</span>
+        <span class="tag">Incoterms</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">MÓDULO 05</span>
+      <div class="module-name">Liberação Aduaneira Global</div>
+      <div class="module-desc">Módulo flexível para gestão de eventos de liberação em qualquer jurisdição. Checklist operacional, controle documental, pendências, aprovações e adaptável a diferentes países e legislações.</div>
+      <div class="module-tags">
+        <span class="tag">Multi-jurisdição</span>
+        <span class="tag">Checklist</span>
+        <span class="tag">Documentação</span>
+        <span class="tag">Aprovações</span>
+      </div>
+    </div>
+    <div class="module-card">
+      <span class="module-number">MÓDULO 06</span>
+      <div class="module-name">Gestão de Entregas</div>
+      <div class="module-desc">Controle de última milha: agendamento, transportadoras, status em tempo real, comprovantes de entrega, ocorrências, SLA e confirmação formal de recebimento.</div>
+      <div class="module-tags">
+        <span class="tag">Agendamento</span>
+        <span class="tag">SLA</span>
+        <span class="tag">Comprovantes</span>
+        <span class="tag">Ocorrências</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- WORKFLOW LINE GLOBAL -->
+<div class="section-accent page">
+  <span class="section-tag">06 — Diferencial Estratégico</span>
+  <h2 class="section-title">Workflow Line Global:<br>rastreabilidade <em>total</em></h2>
+  <p class="lead">Cada processo terá uma timeline operacional completa — do pedido à entrega — com histórico imutável, eventos automáticos, previsões inteligentes e rastreabilidade auditável para toda a cadeia.</p>
+
+  <div class="workflow-steps">
+    <div class="workflow-step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-title">Pedido criado &amp; Proforma enviada</div>
+        <div class="step-desc">Registro do pedido, geração automática da Proforma em PDF, envio ao cliente e aprovação digital rastreada na plataforma.</div>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">Invoice &amp; Packing List recebidos</div>
+        <div class="step-desc">OCR lê e estrutura automaticamente os documentos. IA sugere relacionamentos e valida consistência com o pedido original.</div>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-title">Booking &amp; Embarque confirmado</div>
+        <div class="step-desc">Solicitação de booking ao agente. Atualização automática de ETD, ETA, nome do navio e número de BL/AWB na timeline.</div>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">Chegada no destino &amp; Liberação</div>
+        <div class="step-desc">Confirmação de chegada, geração de checklist de liberação aduaneira, controle de pendências documentais e aprovações por jurisdição.</div>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">Entrega confirmada &amp; Processo finalizado</div>
+        <div class="step-desc">Agendamento, rastreamento da última milha, comprovante de recebimento e fechamento auditável do processo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BI -->
+<div class="section page">
+  <span class="section-tag">07 — Business Intelligence</span>
+  <h2 class="section-title">Visão estratégica da<br><em>operação em tempo real</em></h2>
+  <p>A plataforma terá forte foco em extração de informações e geração de insights. Cada usuário terá acesso a dashboards personalizados, filtros avançados e exportações — tudo consolidado em um único ambiente. Na Jestor, <strong style="color:var(--text);">cada usuário monta seus próprios dashboards</strong> arrastando e soltando blocos — sem depender de TI ou de relatórios engessados.</p>
+
+  <!-- DASHBOARD VISUAL MOCKUP -->
+  <div style="background: #0E1B2E; border: 1px solid #1E3352; padding: 24px; margin: 28px 0; border-radius: 2px; break-inside: avoid; page-break-inside: avoid;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.7);font-weight:600;">Dashboard Operacional &middot; Jestor Blocks</span>
+      <span style="font-size:11px;color:rgba(255,255,255,0.3);">Bello Alimentos Workplace</span>
+    </div>
+    <!-- KPI Row -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);padding:14px 16px;border-top:2px solid #C9A84C;">
+        <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px;">Em Trânsito</div>
+        <div style="font-size:28px;font-weight:700;color:#E2C77A;font-family:'Playfair Display',serif;line-height:1;">14</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:4px;">embarques ativos</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);padding:14px 16px;border-top:2px solid #4A9D70;">
+        <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px;">Entregues (mês)</div>
+        <div style="font-size:28px;font-weight:700;color:#7DD4A8;font-family:'Playfair Display',serif;line-height:1;">31</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:4px;">100% no prazo</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);padding:14px 16px;border-top:2px solid #E07A5F;">
+        <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px;">Atenção</div>
+        <div style="font-size:28px;font-weight:700;color:#E07A5F;font-family:'Playfair Display',serif;line-height:1;">3</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:4px;">SLA em risco</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);padding:14px 16px;border-top:2px solid #5B8FD4;">
+        <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:6px;">Custo médio</div>
+        <div style="font-size:28px;font-weight:700;color:#A8C4E8;font-family:'Playfair Display',serif;line-height:1;">$42k</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:4px;">por embarque</div>
+      </div>
+    </div>
+    <!-- Chart + Table Row -->
+    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:10px;">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);padding:16px;">
+        <div style="font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.4);margin-bottom:12px;text-transform:uppercase;">Volume por destino &middot; Gráfico de Barras</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;color:rgba(255,255,255,0.5);min-width:48px;">EUA</span>
+            <div style="flex:1;background:rgba(255,255,255,0.06);height:16px;position:relative;"><div style="width:78%;height:100%;background:#C9A84C;opacity:0.8;"></div></div>
+            <span style="font-size:10px;color:rgba(255,255,255,0.4);">78%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;color:rgba(255,255,255,0.5);min-width:48px;">Europa</span>
+            <div style="flex:1;background:rgba(255,255,255,0.06);height:16px;"><div style="width:54%;height:100%;background:#5B8FD4;opacity:0.7;"></div></div>
+            <span style="font-size:10px;color:rgba(255,255,255,0.4);">54%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;color:rgba(255,255,255,0.5);min-width:48px;">Ásia</span>
+            <div style="flex:1;background:rgba(255,255,255,0.06);height:16px;"><div style="width:32%;height:100%;background:#4A9D70;opacity:0.7;"></div></div>
+            <span style="font-size:10px;color:rgba(255,255,255,0.4);">32%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;color:rgba(255,255,255,0.5);min-width:48px;">LATAM</span>
+            <div style="flex:1;background:rgba(255,255,255,0.06);height:16px;"><div style="width:18%;height:100%;background:#9B7DD4;opacity:0.7;"></div></div>
+            <span style="font-size:10px;color:rgba(255,255,255,0.4);">18%</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);padding:16px;">
+        <div style="font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.4);margin-bottom:12px;text-transform:uppercase;">Top Fornecedores</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="font-size:11px;color:rgba(255,255,255,0.6);">Agri Source GmbH</span>
+            <span style="font-size:11px;color:#E2C77A;font-weight:600;">12 emb.</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="font-size:11px;color:rgba(255,255,255,0.6);">Pacific Foods Ltd</span>
+            <span style="font-size:11px;color:#E2C77A;font-weight:600;">9 emb.</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="font-size:11px;color:rgba(255,255,255,0.6);">BioTrade SAS</span>
+            <span style="font-size:11px;color:#E2C77A;font-weight:600;">6 emb.</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:5px 0;">
+            <span style="font-size:11px;color:rgba(255,255,255,0.6);">Harvest Global Co.</span>
+            <span style="font-size:11px;color:#E2C77A;font-weight:600;">4 emb.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:10px;font-size:10px;color:rgba(255,255,255,0.2);text-align:right;letter-spacing:0.5px;">Cada bloco é configurado pelo próprio usuário &middot; Jestor No-Code Builder</div>
+  </div>
+
+  <div class="feature-grid" style="margin-top: 28px;">
+    <div class="feature-card">
+      <div class="feature-icon">&#128200;</div>
+      <div class="feature-title">Indicadores Operacionais</div>
+      <div class="feature-desc">Embarques em atraso, SLA por etapa, tempo médio de liberação, backlog operacional e performance por agente e transportadora.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128176;</div>
+      <div class="feature-title">Indicadores Financeiros</div>
+      <div class="feature-desc">Custo por embarque, margem operacional, custos logísticos consolidados, exposição cambial e despesas por fornecedor e destino.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#129309;</div>
+      <div class="feature-title">Indicadores Comerciais</div>
+      <div class="feature-desc">Volume por cliente e fornecedor, lead time médio, forecast operacional, pedidos em aberto e análise de entregas parciais.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#128203;</div>
+      <div class="feature-title">Relatórios Personalizados</div>
+      <div class="feature-desc">Criação de relatórios sob demanda, seleção e ordenação de colunas, filtros específicos por período, destino, fornecedor e status. Conecta diretamente com Power BI e Looker.</div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- WHATSAPP + INTEGRAÇÕES NATIVAS -->
+<div class="section-accent page">
+  <span class="section-tag">08 — Integrações Nativas</span>
+  <h2 class="section-title">WhatsApp &amp; ecossistema<br>de <em>plugins nativos</em></h2>
+  <p class="lead">A plataforma Jestor possui integrações nativas com as principais ferramentas de comunicação e produtividade — sem necessidade de desenvolvimento adicional. O destaque é a integração completa com WhatsApp, que transforma o fluxo de comunicação da operação.</p>
+
+  <!-- WhatsApp highlight box -->
+  <div style="background: white; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 28px 0; overflow: hidden; break-inside: avoid; page-break-inside: avoid;">
+    <div style="padding: 32px 28px; border-right: 1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <div style="width:44px;height:44px;background:#25D366;display:flex;align-items:center;justify-content:center;border-radius:50%;">
+          <span style="font-size:22px;">&#128242;</span>
+        </div>
+        <div>
+          <div style="font-size:15px;font-weight:600;color:var(--navy);">WhatsApp Agent Nativo</div>
+          <div style="font-size:12px;color:var(--text-light);">Jestor &middot; Plugin integrado</div>
+        </div>
+      </div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+        <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-muted);">
+          <span style="color:#25D366;font-weight:700;flex-shrink:0;">&#10003;</span>
+          <span>Envio automático de notificações de status de embarque via WhatsApp</span>
+        </li>
+        <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-muted);">
+          <span style="color:#25D366;font-weight:700;flex-shrink:0;">&#10003;</span>
+          <span>Alertas de SLA e eventos críticos direto no celular da equipe operacional</span>
+        </li>
+        <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-muted);">
+          <span style="color:#25D366;font-weight:700;flex-shrink:0;">&#10003;</span>
+          <span>Botão WhatsApp integrado em cada registro — contato direto com exportadores e agentes</span>
+        </li>
+        <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-muted);">
+          <span style="color:#25D366;font-weight:700;flex-shrink:0;">&#10003;</span>
+          <span>Agente conversacional por IA que responde consultas operacionais via WhatsApp</span>
+        </li>
+        <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-muted);">
+          <span style="color:#25D366;font-weight:700;flex-shrink:0;">&#10003;</span>
+          <span>Mensagens automáticas via Twilio/WhatsApp Business integradas a automações</span>
+        </li>
+      </ul>
+    </div>
+    <div style="padding: 32px 28px; background: var(--cream);">
+      <div style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px;">Outros plugins nativos</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:white;border:1px solid var(--border-light);">
+          <span style="font-size:13px;color:var(--text);">Gmail &amp; Outlook</span>
+          <span style="font-size:11px;color:var(--text-light);background:var(--accent-bg);padding:2px 8px;border:1px solid var(--border);">E-mail automático</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:white;border:1px solid var(--border-light);">
+          <span style="font-size:13px;color:var(--text);">Google Sheets / Drive</span>
+          <span style="font-size:11px;color:var(--text-light);background:var(--accent-bg);padding:2px 8px;border:1px solid var(--border);">Exportação &amp; sync</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:white;border:1px solid var(--border-light);">
+          <span style="font-size:13px;color:var(--text);">Slack &amp; Teams</span>
+          <span style="font-size:11px;color:var(--text-light);background:var(--accent-bg);padding:2px 8px;border:1px solid var(--border);">Notificações internas</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:white;border:1px solid var(--border-light);">
+          <span style="font-size:13px;color:var(--text);">Google Calendar / Outlook</span>
+          <span style="font-size:11px;color:var(--text-light);background:var(--accent-bg);padding:2px 8px;border:1px solid var(--border);">Eventos &amp; prazos</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:white;border:1px solid var(--border-light);">
+          <span style="font-size:13px;color:var(--text);">Power BI / Looker</span>
+          <span style="font-size:11px;color:var(--text-light);background:var(--accent-bg);padding:2px 8px;border:1px solid var(--border);">Conector nativo</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:white;border:1px solid var(--border-light);">
+          <span style="font-size:13px;color:var(--text);">Make &amp; Zapier</span>
+          <span style="font-size:11px;color:var(--text-light);background:var(--accent-bg);padding:2px 8px;border:1px solid var(--border);">Integrações externas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PERMISSIONING -->
+<div class="section page" style="padding-top:64px;">
+  <span class="section-tag">09 — Controle de Acesso</span>
+  <h2 class="section-title">Permissões granulares<br><em>por usuário e perfil</em></h2>
+  <p class="lead">Na Jestor, o controle de acesso é um dos pontos mais robustos da plataforma. Cada usuário enxerga exatamente o que precisa enxergar — nem mais, nem menos. O administrador define com precisão o que cada perfil pode ver, editar, criar ou excluir.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;break-inside:avoid;page-break-inside:avoid;">
+    <div style="background:white;border:1px solid var(--border);padding:28px;">
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+        <span style="background:var(--navy);color:var(--gold);padding:3px 10px;font-size:11px;letter-spacing:1px;">ADMIN</span>
+        Gestão da Operação
+      </div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Visualiza todos os módulos e registros</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Cria, edita e exclui qualquer registro</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Acessa dados financeiros completos</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Configura automações e workflows</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Gerencia usuários e perfis de acesso</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Exporta relatórios e dados</li>
+      </ul>
+    </div>
+    <div style="background:white;border:1px solid var(--border);padding:28px;">
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+        <span style="background:var(--accent-bg);color:var(--text-muted);padding:3px 10px;font-size:11px;letter-spacing:1px;border:1px solid var(--border);">OPERACIONAL</span>
+        Equipe de Embarques
+      </div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Visualiza e edita embarques do seu escopo</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Atualiza status e faz upload de documentos</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Acessa follow-up e timeline do processo</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:#E07A5F;">&#10005;</span> <span style="color:var(--text-light);">Não vê dados financeiros ou custos</span></li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:#E07A5F;">&#10005;</span> <span style="color:var(--text-light);">Não acessa configurações ou automações</span></li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:#E07A5F;">&#10005;</span> <span style="color:var(--text-light);">Não visualiza registros de outros CNPJs</span></li>
+      </ul>
+    </div>
+    <div style="background:white;border:1px solid var(--border);padding:28px;">
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+        <span style="background:var(--accent-bg);color:var(--text-muted);padding:3px 10px;font-size:11px;letter-spacing:1px;border:1px solid var(--border);">FINANCEIRO</span>
+        Gestão de Custos
+      </div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Acessa todos os dados financeiros</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Visualiza custos, câmbio e rateios</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Gera relatórios e exportações financeiras</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:#E07A5F;">&#10005;</span> <span style="color:var(--text-light);">Não edita dados operacionais de embarque</span></li>
+      </ul>
+    </div>
+    <div style="background:white;border:1px solid var(--border);padding:28px;">
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+        <span style="background:var(--accent-bg);color:var(--text-muted);padding:3px 10px;font-size:11px;letter-spacing:1px;border:1px solid var(--border);">PARCEIRO</span>
+        Agente / Despachante
+      </div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Visualiza apenas seus próprios processos</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Faz upload de documentos solicitados</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:var(--gold);">&#10003;</span> Atualiza status conforme permissões</li>
+        <li style="font-size:13px;color:var(--text-muted);display:flex;gap:8px;"><span style="color:#E07A5F;">&#10005;</span> <span style="color:var(--text-light);">Sem acesso a dados de outros parceiros</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <div class="callout-title">Permissões por campo, não só por módulo</div>
+    <p>Na Jestor, o controle de acesso vai além de liberar ou bloquear telas inteiras. É possível definir quais campos específicos cada perfil pode visualizar ou editar dentro de um mesmo registro — garantindo que informações sensíveis (como valores, margens e câmbio) fiquem visíveis apenas para quem realmente precisa delas.</p>
+  </div>
+</div>
+
+<div class="sep"></div>
+<div class="section page">
+  <span class="section-tag">11 — Metodologia</span>
+  <h2 class="section-title">Como vamos <em>construir</em><br>isso juntos</h2>
+  <p class="lead">O projeto segue uma metodologia estruturada em 5 fases, com marcos claros, validação conjunta e acompanhamento contínuo. A participação da equipe da Bello Alimentos em momentos-chave é essencial para garantir aderência total à operação.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">Fase 1 &middot; Semanas 1-2</div>
+      <div class="timeline-title">Discovery e Planejamento</div>
+      <div class="timeline-desc">Levantamento profundo da operação, mapeamento de processos, identificação de particularidades offshore, definição funcional e arquitetura do workflow.</div>
+      <div class="timeline-items">
+        <span class="timeline-tag">Workshops operacionais</span>
+        <span class="timeline-tag">Mapeamento de processos</span>
+        <span class="timeline-tag">Definição de escopo</span>
+        <span class="timeline-tag">Validação funcional</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">Fase 2 &middot; Semanas 3-4</div>
+      <div class="timeline-title">Modelagem e Arquitetura</div>
+      <div class="timeline-desc">Modelagem do banco de dados, definição dos relacionamentos entre entidades, estrutura dos apps, dashboards, permissões e perfis de usuário.</div>
+      <div class="timeline-items">
+        <span class="timeline-tag">Banco de dados</span>
+        <span class="timeline-tag">Relacionamentos</span>
+        <span class="timeline-tag">Perfis &amp; permissões</span>
+        <span class="timeline-tag">Protótipo funcional</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">Fase 3 &middot; Semanas 5-7</div>
+      <div class="timeline-title">Desenvolvimento</div>
+      <div class="timeline-desc">Construção da plataforma — módulos, automações, integrações, dashboards e workflows operacionais completos.</div>
+      <div class="timeline-items">
+        <span class="timeline-tag">Módulos operacionais</span>
+        <span class="timeline-tag">Automações</span>
+        <span class="timeline-tag">Integrações</span>
+        <span class="timeline-tag">OCR &amp; IA</span>
+        <span class="timeline-tag">Dashboards</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">Fase 4 &middot; Semana 8</div>
+      <div class="timeline-title">Validação e Homologação</div>
+      <div class="timeline-desc">Testes com a equipe da Bello Alimentos, ajustes operacionais, refinamentos e homologação conjunta antes do Go Live.</div>
+      <div class="timeline-items">
+        <span class="timeline-tag">Testes funcionais</span>
+        <span class="timeline-tag">Ajustes</span>
+        <span class="timeline-tag">Homologação conjunta</span>
+        <span class="timeline-tag">Treinamento</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-phase">Fase 5 &middot; Semanas 9-12</div>
+      <div class="timeline-title">Hypercare &amp; Go Live</div>
+      <div class="timeline-desc">Acompanhamento intensivo pós-lançamento, suporte assistido, estabilização operacional e entrega da documentação completa.</div>
+      <div class="timeline-items">
+        <span class="timeline-tag">Suporte assistido</span>
+        <span class="timeline-tag">Documentação técnica</span>
+        <span class="timeline-tag">Documentação funcional</span>
+        <span class="timeline-tag">Estabilização</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- INVESTIMENTO -->
+<div class="section page">
+  <span class="section-tag">12 — Investimento</span>
+  <h2 class="section-title">Transparência total<br>no <em>investimento</em></h2>
+  <p>O projeto é precificado por hora de trabalho, com estimativa total baseada no escopo definido. O modelo garante segurança financeira para ambas as partes, com pagamentos vinculados ao progresso real do projeto.</p>
+
+  <div class="callout" style="margin-bottom: 28px; background: #FFF8EC; border-color: rgba(201,168,76,0.4); border-left-color: var(--gold);">
+    <div class="callout-title">&#9888;&nbsp; Importante: sobre a estimativa de horas</div>
+    <p>A estimativa de <strong>640 horas</strong> foi elaborada com base nas funcionalidades do <strong>DATI Import</strong> que Igor identifica como essenciais para o funcionamento do workflow de uma operação offshore como a da Bello Alimentos. Trata-se de uma referência inicial fundamentada, não de um número fixo. <strong>O escopo definitivo será estabelecido durante a Fase 1 (Discovery)</strong>, podendo haver redução de escopo — caso algumas funcionalidades não sejam necessárias — ou ampliação, caso novas necessidades sejam mapeadas. Qualquer alteração será previamente acordada e documentada com a Bello Alimentos.</p>
+  </div>
+
+  <div class="pricing-box">
+    <div class="pricing-header">
+      <div>
+        <div class="pricing-header-label">Proposta de Investimento</div>
+        <div class="pricing-header-title">Workplace Global &middot; Bello Alimentos</div>
+      </div>
+      <div class="pricing-badge">Maio 2026</div>
+    </div>
+    <div class="pricing-body">
+      <div class="pricing-row">
+        <div>
+          <div class="pricing-item-name">Discovery, planejamento e arquitetura</div>
+          <div class="pricing-item-sub">Fases 1 e 2 &middot; aprox. 80h</div>
+        </div>
+        <div class="pricing-item-value">R$ 20.000<small>80h &times; R$ 250</small></div>
+      </div>
+      <div class="pricing-row">
+        <div>
+          <div class="pricing-item-name">Desenvolvimento, automações e integrações</div>
+          <div class="pricing-item-sub">Fase 3 &middot; aprox. 420h</div>
+        </div>
+        <div class="pricing-item-value">R$ 105.000<small>420h &times; R$ 250</small></div>
+      </div>
+      <div class="pricing-row">
+        <div>
+          <div class="pricing-item-name">Validação, homologação e treinamento</div>
+          <div class="pricing-item-sub">Fase 4 &middot; aprox. 80h</div>
+        </div>
+        <div class="pricing-item-value">R$ 20.000<small>80h &times; R$ 250</small></div>
+      </div>
+      <div class="pricing-row">
+        <div>
+          <div class="pricing-item-name">Gestão de projeto, documentação e Hypercare</div>
+          <div class="pricing-item-sub">Fase 5 + transversal &middot; aprox. 60h</div>
+        </div>
+        <div class="pricing-item-value">R$ 15.000<small>60h &times; R$ 250</small></div>
+      </div>
+      <div class="pricing-row" style="border-top: 1px solid var(--border); margin-top: 4px;">
+        <div><div class="pricing-item-name" style="font-weight: 500;">Valor hora de referência</div></div>
+        <div class="pricing-item-value">R$ 250,00 <small>por hora</small></div>
+      </div>
+      <div class="pricing-row">
+        <div><div class="pricing-item-name" style="font-weight: 500;">Total estimado de esforço</div></div>
+        <div class="pricing-item-value">640 horas</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricing-total">
+    <div class="pricing-total-label">Investimento Total Estimado</div>
+    <div class="pricing-total-value">R$ 160.000,00</div>
+  </div>
+
+  <div class="callout" style="margin-top: 24px;">
+    <div class="callout-title">Licença da Plataforma Jestor</div>
+    <p>A contratação da plataforma Jestor (SaaS) é realizada diretamente pelo cliente, separadamente desta proposta. O valor da licença depende do número de usuários, volume operacional e funcionalidades. Será detalhado durante o Discovery em conjunto com a equipe Jestor.</p>
+  </div>
+
+  <div class="payment-steps" style="grid-template-columns: 1fr 1fr;">
+    <div class="payment-step">
+      <div class="payment-pct">20<span>%</span></div>
+      <div class="payment-label">Entrada</div>
+      <div class="payment-moment">Na assinatura do contrato</div>
+    </div>
+    <div class="payment-step">
+      <div class="payment-pct">80<span>%</span></div>
+      <div class="payment-label">Saldo final</div>
+      <div class="payment-moment">Na entrega (Go Live) &middot; à vista ou em até 3x</div>
+    </div>
+  </div>
+  <p style="font-size: 12.5px; color: var(--text-light); margin-top: 12px; text-align: center;">O saldo de 80% pode ser quitado à vista no Go Live ou parcelado em até 3 vezes — a critério do cliente.</p>
+</div>
+
+<div class="sep"></div>
+
+<!-- RESPONSABILIDADES -->
+<div class="section page">
+  <span class="section-tag">13 — Responsabilidades</span>
+  <h2 class="section-title">O que cada parte<br><em>entrega</em></h2>
+
+  <table class="resp-table">
+    <thead>
+      <tr>
+        <th style="width: 35%;">Entregável</th>
+        <th style="width: 30%;">IGL Consulting</th>
+        <th style="width: 35%;">Bello Alimentos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Levantamento de processos</td>
+        <td><span class="badge-yes">Lidera</span></td>
+        <td>Participa com líderes operacionais</td>
+      </tr>
+      <tr>
+        <td>Arquitetura funcional</td>
+        <td><span class="badge-yes">Responsável</span></td>
+        <td>Valida e aprova</td>
+      </tr>
+      <tr>
+        <td>Desenvolvimento da plataforma</td>
+        <td><span class="badge-yes">Responsável</span></td>
+        <td>Acompanha marcos</td>
+      </tr>
+      <tr>
+        <td>Automações e integrações</td>
+        <td><span class="badge-yes">Responsável</span></td>
+        <td>Define regras de negócio</td>
+      </tr>
+      <tr>
+        <td>Homologação e testes</td>
+        <td><span class="badge-yes">Lidera</span></td>
+        <td>Equipe-chave participa obrigatoriamente</td>
+      </tr>
+      <tr>
+        <td>Documentação técnica e funcional</td>
+        <td><span class="badge-yes">Entrega</span></td>
+        <td>Recebe e arquiva</td>
+      </tr>
+      <tr>
+        <td>Licença da plataforma Jestor</td>
+        <td>Orienta e viabiliza</td>
+        <td><span class="badge-yes">Contrata diretamente</span></td>
+      </tr>
+      <tr>
+        <td>Dados mestres (fornecedores, produtos)</td>
+        <td>Orienta migração</td>
+        <td><span class="badge-yes">Responsável</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sep"></div>
+
+<!-- DIFERENCIAIS -->
+<div class="section-dark page">
+  <span class="section-tag light">14 — Por que essa solução</span>
+  <h2 class="section-title light">Diferenciais que<br>fazem <em>toda a diferença</em></h2>
+
+  <div class="diff-grid">
+    <div class="diff-card">
+      <span class="diff-icon">&#127919;</span>
+      <div class="diff-title">Construído para você</div>
+      <div class="diff-desc">Não é uma plataforma genérica adaptada. É uma solução arquitetada do zero para a operação offshore da Bello Alimentos.</div>
+    </div>
+    <div class="diff-card">
+      <span class="diff-icon">&#127760;</span>
+      <div class="diff-title">Global por design</div>
+      <div class="diff-desc">Multi-jurisdição e multi-moeda desde a concepção, sem compromissos com o modelo tributário brasileiro.</div>
+    </div>
+    <div class="diff-card">
+      <span class="diff-icon">&#9889;</span>
+      <div class="diff-title">Automação real</div>
+      <div class="diff-desc">IA, OCR, follow-ups automáticos, alertas de SLA e workflows condicionais que eliminam trabalho manual repetitivo.</div>
+    </div>
+    <div class="diff-card">
+      <span class="diff-icon">&#128290;</span>
+      <div class="diff-title">Escalável sem custo exponencial</div>
+      <div class="diff-desc">Arquitetura no-code/low-code: novos módulos, mercados e integrações com baixíssimo custo evolutivo.</div>
+    </div>
+    <div class="diff-card">
+      <span class="diff-icon">&#128270;</span>
+      <div class="diff-title">Rastreabilidade total</div>
+      <div class="diff-desc">Timeline auditável do pedido à entrega. Quem fez, o que fez e quando fez — em cada etapa do processo.</div>
+    </div>
+    <div class="diff-card">
+      <span class="diff-icon">&#129309;</span>
+      <div class="diff-title">Time especializado</div>
+      <div class="diff-desc">Projeto liderado por especialistas em comércio exterior, workflows corporativos e a plataforma Jestor.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRÓXIMOS PASSOS -->
+<div class="section page" style="padding-bottom: 0;">
+  <span class="section-tag">15 — Próximos Passos</span>
+  <h2 class="section-title">Prontos para<br><em>começar</em></h2>
+  <p class="lead">Esta proposta é o início de uma construção conjunta. Para avançar, são necessários apenas três passos:</p>
+
+  <ul class="check-list">
+    <li>Revisão e aprovação desta proposta pela Bello Alimentos</li>
+    <li>Assinatura do contrato de prestação de serviços pela IGL Consulting</li>
+    <li>Início do Discovery na semana seguinte — com agendamento das sessões operacionais</li>
+  </ul>
+
+  <div class="signature-block">
+    <div>
+      <div class="sig-label">Proposta apresentada por</div>
+      <div class="sig-name">Igor Gomes Lachowski</div>
+      <div class="sig-title">Arquiteto de Soluções &middot; IGL Consulting</div>
+      <div style="font-size:12px;color:var(--text-light);margin-top:6px;">CNPJ: 27.368.353/0001-03</div>
+      <a href="tel:+5542991341983" class="sig-contact">&#128222; (42) 99134-1983</a>
+      <a href="mailto:igor@iglconsulting.com.br" class="sig-contact">igor@iglconsulting.com.br</a>
+      <a href="https://www.iglconsulting.com.br" class="sig-contact">iglconsulting.com.br</a>
+      <a href="https://www.linkedin.com/in/igor-lachowski/" target="_blank" class="sig-contact">linkedin.com/in/igor-lachowski</a>
+    </div>
+    <div style="text-align: right;">
+      <div class="sig-label">Proposta para</div>
+      <div class="sig-name" style="font-size: 16px;">Ives Caetano</div>
+      <div class="sig-title">Bello Alimentos</div>
+      <div style="margin-top: 20px; color: var(--text-light); font-size: 12px;">Guarapuava, maio de 2026</div>
+    </div>
+  </div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">&#8595; Exportar PDF</button>
+
+</body>
+</html>
