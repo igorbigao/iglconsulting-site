@@ -141,6 +141,122 @@ footer { background: var(--ink); border-top: 1px solid rgba(201,168,76,0.08); pa
 /* ANIMATIONS */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
+/* ============ 01 · BARRA DE PROGRESSO ============ */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 200; pointer-events: none; }
+.progress-fill { height: 100%; width: 0; background: linear-gradient(to right, var(--gold), var(--gold2)); transition: width 0.1s linear; }
+
+/* ============ 02 · NAV QUE CONDENSA ============ */
+nav { transition: padding 0.4s cubic-bezier(0.22,1,0.36,1), background 0.4s ease, border-color 0.4s ease; border-bottom: 1px solid transparent; }
+nav[data-condensed="true"] { padding-top: 14px; padding-bottom: 14px; background: rgba(13,15,20,0.94); backdrop-filter: blur(10px); border-bottom-color: rgba(201,168,76,0.14); }
+.nav-wordmark { transition: font-size 0.4s cubic-bezier(0.22,1,0.36,1); }
+nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
+
+/* ============ 03 · SCROLLSPY ============ */
+.nav-links a { position: relative; display: block; padding: 5px 0; }
+.nav-links a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+.nav-links a:hover::after, .nav-links a[aria-current="true"]::after { transform: scaleX(1); transform-origin: left; }
+.nav-links a[aria-current="true"] { color: var(--gold); }
+.nav-links a:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
+
+/* ============ 05 · REVEAL AO ROLAR ============ */
+/* Elementos sem hover próprio sobem ao aparecer. */
+.js-on .section-title, .js-on .section-label, .js-on .about-text p,
+.js-on .expertise-area, .js-on .timeline-item, .js-on .dati-card, .js-on .contact-items {
+  transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1);
+}
+.js-on .section-title[data-rv], .js-on .section-label[data-rv], .js-on .about-text p[data-rv],
+.js-on .expertise-area[data-rv], .js-on .timeline-item[data-rv], .js-on .dati-card[data-rv],
+.js-on .contact-items[data-rv] { opacity: 0; transform: translateY(26px); }
+
+/* Onde o hover já usa transform (stat e frente-card), o reveal vai só na opacidade
+   para os dois efeitos não brigarem pela mesma propriedade. */
+.js-on .stat[data-rv], .js-on .frente-card[data-rv] { opacity: 0; }
+
+/* ============ 06 · CONTADORES ============ */
+.stat-number { font-variant-numeric: tabular-nums; }
+.stat { transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.85s ease; }
+.stat:hover { background: var(--ink3); transform: translateY(-3px); }
+
+/* ============ 07 · CARDS DAS FRENTES ============ */
+.frente-card { isolation: isolate; display: flex; flex-direction: column; justify-content: flex-end; min-height: 440px; padding: 40px 34px 36px; border: 1px solid rgba(255,255,255,0.05); transition: background 0.5s ease, border-color 0.5s ease, transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.85s ease; }
+.frente-card:hover { border-color: rgba(201,168,76,0.26); transform: translateY(-4px); }
+.frente-card > *:not(.stage) { position: relative; z-index: 1; }
+.frente-number { font-size: 0.72rem; letter-spacing: 0.18em; color: var(--gold); font-family: var(--sans); margin-bottom: 14px; font-variant-numeric: tabular-nums; }
+.frente-link svg { transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+.frente-card:hover .frente-link svg { transform: translateX(5px); }
+
+/* palco da animação de fundo */
+.stage { position: absolute; inset: 0 0 38% 0; z-index: -1; opacity: 0.42; transition: opacity 0.6s ease; -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 100%); mask-image: linear-gradient(to bottom, #000 68%, transparent 100%); }
+.frente-card:hover .stage { opacity: 0.92; }
+.stage svg { width: 100%; height: 100%; display: block; }
+
+/* 07a · blueprint + BPMN */
+.blueprint-grid { position: absolute; inset: 0; background-image:
+  repeating-linear-gradient(to right,  rgba(124,155,181,0.16) 0 1px, transparent 1px 46px),
+  repeating-linear-gradient(to bottom, rgba(124,155,181,0.16) 0 1px, transparent 1px 46px),
+  repeating-linear-gradient(to right,  rgba(124,155,181,0.07) 0 1px, transparent 1px 11.5px),
+  repeating-linear-gradient(to bottom, rgba(124,155,181,0.07) 0 1px, transparent 1px 11.5px); }
+.bpmn { position: absolute; inset: 0; }
+/* Estado escondido só quando o JS pode revelar depois. Sem js-on, o desenho
+   aparece pronto e estático em vez de sumir. */
+.js-on .bpmn [data-node] { opacity: 0; }
+.js-on .bpmn [data-flow] { stroke-dasharray: 60; stroke-dashoffset: 60; }
+.is-live .bpmn [data-node] { animation: nodeIn 0.7s ease forwards; }
+.is-live .bpmn [data-flow] { animation: flowDraw 0.55s cubic-bezier(0.4,0,0.2,1) forwards; }
+/* O token só aparece onde offset-path existe; sem isso ele ficaria parado no canto. */
+.bpmn [data-token] { opacity: 0; }
+@supports (offset-path: path('M0 0h1')) {
+  .is-live .bpmn [data-token] { animation: tokenRun 7s cubic-bezier(0.5,0,0.5,1) infinite; }
+}
+.bpmn [data-node="1"] { animation-delay: 0.1s; } .bpmn [data-flow="1"] { animation-delay: 0.6s; }
+.bpmn [data-node="2"] { animation-delay: 1.0s; } .bpmn [data-flow="2"] { animation-delay: 1.5s; }
+.bpmn [data-node="3"] { animation-delay: 1.9s; } .bpmn [data-flow="3"] { animation-delay: 2.4s; }
+.bpmn [data-node="4"] { animation-delay: 2.8s; } .bpmn [data-flow="4"] { animation-delay: 3.2s; }
+.bpmn [data-node="5"] { animation-delay: 3.6s; }
+@keyframes nodeIn { to { opacity: 1; } }
+@keyframes flowDraw { to { stroke-dashoffset: 0; } }
+@keyframes tokenRun { 0% { offset-distance: 0%; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+
+/* 07b · Gravity */
+.is-live .g-orbit  { animation: spin 16s linear infinite; transform-origin: 130px 74px; }
+.is-live .g-orbit2 { animation: spin 24s linear infinite reverse; transform-origin: 130px 74px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.g-mod { opacity: 0.18; }
+.is-live .g-mod { animation: modOn 5.5s ease-in-out infinite; }
+.g-mod:nth-of-type(1) { animation-delay: 0s; }    .g-mod:nth-of-type(2) { animation-delay: 0.45s; }
+.g-mod:nth-of-type(3) { animation-delay: 0.9s; }  .g-mod:nth-of-type(4) { animation-delay: 1.35s; }
+.g-mod:nth-of-type(5) { animation-delay: 1.8s; }
+@keyframes modOn { 0%,70%,100% { opacity: 0.18; } 22%,48% { opacity: 1; } }
+
+/* 07c · Contango */
+/* Só opacidade: qualquer transform aqui anularia o posicionamento do SVG. */
+.c-mark { transition: opacity 1s ease 0.2s; }
+.js-on .c-mark { opacity: 0; }
+.js-on .is-live .c-mark { opacity: 1; }
+.c-block { opacity: 0.25; }
+.is-live .c-block { animation: blockIn 6s ease-in-out infinite; }
+.c-block:nth-of-type(1) { animation-delay: 0s; }   .c-block:nth-of-type(2) { animation-delay: 0.5s; }
+.c-block:nth-of-type(3) { animation-delay: 1.0s; } .c-block:nth-of-type(4) { animation-delay: 1.5s; }
+@keyframes blockIn { 0%,72%,100% { opacity: 0.25; } 20%,52% { opacity: 1; } }
+.is-live .c-link { stroke-dasharray: 8 6; animation: dash 2.4s linear infinite; }
+@keyframes dash { to { stroke-dashoffset: -28; } }
+.is-live .c-pulse { animation: pulse 3.4s ease-out infinite; }
+@keyframes pulse { 0% { r: 3; opacity: 0.9; } 100% { r: 26; opacity: 0; } }
+
+/* ============ 08 · TRAÇO DA TIMELINE ============ */
+.timeline-draw { position: absolute; left: 0; top: 0; width: 1px; height: 0; background: linear-gradient(to bottom, var(--gold), var(--gold2)); transition: height 0.15s linear; z-index: 1; }
+
+/* ============ MOVIMENTO REDUZIDO ============ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .bpmn [data-node] { opacity: 1; }
+  .bpmn [data-flow] { stroke-dashoffset: 0; }
+  .g-mod, .c-block { opacity: 0.75; }
+  .stage { opacity: 0.7; }
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   nav { padding: 18px 24px; }
@@ -155,11 +271,25 @@ footer { background: var(--ink); border-top: 1px solid rgba(201,168,76,0.08); pa
   footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 24px; }
 }
 </style>
+<script>
+/* Marca a raiz antes da primeira pintura: sem isso o conteúdo apareceria
+   visível por um instante e só depois seria escondido para o reveal.
+   Só esconde se o navegador tiver como revelar depois — sem IntersectionObserver
+   o conteúdo nunca reapareceria. */
+(function () {
+  var ok = 'IntersectionObserver' in window &&
+           !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (ok) { document.documentElement.className += ' js-on'; }
+}());
+</script>
 </head>
 <body>
 
+<!-- PROGRESSO DE LEITURA -->
+<div class="progress" aria-hidden="true"><div class="progress-fill" id="progressBar"></div></div>
+
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <a href="#" class="nav-wordmark">IGL <span>Consulting</span></a>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre</a></li>
@@ -200,10 +330,10 @@ footer { background: var(--ink); border-top: 1px solid rgba(201,168,76,0.08); pa
         <p>Hoje atuo em três frentes complementares: <strong>consultoria independente</strong> para projetos de transformação digital e empreendedorismo, <strong>desenvolvimento de negócios</strong> para plataformas de tecnologia de Comex, e como <strong>founder</strong> do Contango Token — protocolo blockchain para tokenização de ativos do agronegócio.</p>
       </div>
       <div class="about-stats">
-        <div class="stat"><div class="stat-number">20+</div><div class="stat-label">Anos de experiência</div></div>
-        <div class="stat"><div class="stat-number">3</div><div class="stat-label">Empresas fundadas</div></div>
-        <div class="stat"><div class="stat-number">40+</div><div class="stat-label">Executivos apoiados</div></div>
-        <div class="stat"><div class="stat-number">3</div><div class="stat-label">Continentes de atuação</div></div>
+        <div class="stat"><div class="stat-number" data-count="20" data-suffix="+">20+</div><div class="stat-label">Anos de experiência</div></div>
+        <div class="stat"><div class="stat-number" data-count="3">3</div><div class="stat-label">Empresas fundadas</div></div>
+        <div class="stat"><div class="stat-number" data-count="40" data-suffix="+">40+</div><div class="stat-label">Executivos apoiados</div></div>
+        <div class="stat"><div class="stat-number" data-count="3">3</div><div class="stat-label">Continentes de atuação</div></div>
       </div>
     </div>
   </div>
@@ -217,26 +347,131 @@ footer { background: var(--ink); border-top: 1px solid rgba(201,168,76,0.08); pa
     <p class="section-label">Frentes de Atuação</p>
     <h2 class="section-title">Como posso<br><em>contribuir</em></h2>
     <div class="frentes-grid">
+      <!-- 01 · blueprint + fluxo BPMN -->
       <div class="frente-card">
+        <div class="stage" aria-hidden="true">
+          <div class="blueprint-grid"></div>
+          <svg class="bpmn" viewBox="0 0 340 200" fill="none" preserveAspectRatio="xMidYMid slice">
+            <g stroke="#7c9bb5" stroke-width="0.6" opacity="0.5">
+              <path d="M16 14h10M21 14v172M16 186h10"/>
+              <path d="M300 176v-8M300 172h24M320 168v8"/>
+            </g>
+            <text x="26" y="26" fill="#7c9bb5" font-size="7" letter-spacing="1.6" opacity="0.75" font-family="monospace">PROC-01 · REV.C</text>
+            <circle data-node="1" cx="46" cy="96" r="11" stroke="var(--gold2)" stroke-width="1.6"/>
+            <path data-flow="1" d="M57 96h34" stroke="var(--gold2)" stroke-width="1.4"/>
+            <rect data-node="2" x="91" y="79" width="62" height="34" rx="3" stroke="var(--gold2)" stroke-width="1.5"/>
+            <g data-node="2"><path d="M99 88h20M99 94h30M99 100h14" stroke="#7c9bb5" stroke-width="1.2" opacity="0.85"/></g>
+            <path data-flow="2" d="M153 96h30" stroke="var(--gold2)" stroke-width="1.4"/>
+            <g data-node="3">
+              <path d="M199 79l16 17-16 17-16-17z" stroke="var(--gold2)" stroke-width="1.5"/>
+              <path d="M193 90l12 12M205 90l-12 12" stroke="var(--gold2)" stroke-width="1.2"/>
+            </g>
+            <path data-flow="3" d="M215 96h28" stroke="var(--gold2)" stroke-width="1.4"/>
+            <path data-flow="3" d="M199 79V52h44" stroke="var(--gold2)" stroke-width="1.2" opacity="0.55"/>
+            <rect data-node="4" x="243" y="79" width="54" height="34" rx="3" stroke="var(--gold2)" stroke-width="1.5"/>
+            <rect data-node="4" x="243" y="35" width="54" height="34" rx="3" stroke="var(--gold2)" stroke-width="1.1" opacity="0.5"/>
+            <path data-flow="4" d="M297 96h14" stroke="var(--gold2)" stroke-width="1.4"/>
+            <circle data-node="5" cx="322" cy="96" r="11" stroke="var(--gold2)" stroke-width="2.4"/>
+            <circle data-token r="3" fill="var(--gold2)" style="offset-path: path('M57 96h34M153 96h30M215 96h28M297 96h14');"/>
+          </svg>
+        </div>
         <div class="frente-number">01</div>
         <p class="frente-subtitle">Consultoria Independente</p>
         <h3 class="frente-title">Estratégia &amp; Negócios</h3>
-        <p class="frente-desc">Projetos de transformação digital, estruturação de novos mercados, desenvolvimento de parcerias e expansão comercial. Para empresas que navegam cenários de alta complexidade.</p>
+        <p class="frente-desc">Transformação digital, desenho de processos, arquitetura de solução e criação de produto. Para empresas que navegam cenários de alta complexidade.</p>
         <a href="#contato" class="frente-link">Iniciar conversa <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
+
+      <!-- 02 · marca orbital do Gravity + módulos entrando no ar -->
       <div class="frente-card">
+        <div class="stage" aria-hidden="true">
+          <svg viewBox="0 0 260 200" fill="none" preserveAspectRatio="xMidYMid slice">
+            <circle cx="130" cy="68" r="40" stroke="#818cf8" stroke-width="2"/>
+            <ellipse class="g-orbit"  cx="130" cy="68" rx="17" ry="40" stroke="#818cf8" stroke-width="1.5"/>
+            <ellipse class="g-orbit2" cx="130" cy="68" rx="31" ry="40" stroke="#818cf8" stroke-width="0.9" opacity="0.5"/>
+            <line x1="90" y1="68" x2="170" y2="68" stroke="#818cf8" stroke-width="1.2"/>
+            <g transform="translate(0,120)">
+              <rect class="g-mod" x="60"  y="0" width="22" height="22" rx="2" fill="#818cf8"/>
+              <rect class="g-mod" x="88"  y="0" width="22" height="22" rx="2" fill="#818cf8"/>
+              <rect class="g-mod" x="116" y="0" width="22" height="22" rx="2" fill="#818cf8"/>
+              <rect class="g-mod" x="144" y="0" width="22" height="22" rx="2" fill="#818cf8"/>
+              <rect class="g-mod" x="172" y="0" width="22" height="22" rx="2" fill="#818cf8"/>
+            </g>
+            <g stroke="#818cf8" stroke-width="0.7" opacity="0.25">
+              <path d="M20 40h34M20 40v-14"/>
+              <path d="M240 152h-34M240 152v14"/>
+            </g>
+          </svg>
+        </div>
         <div class="frente-number">02</div>
         <p class="frente-subtitle">Business Development · Gravity (Dati S.A.)</p>
         <h3 class="frente-title">Tecnologia de Comex</h3>
-        <p class="frente-desc">Business Development Executive do Gravity, plataforma SaaS modular de comércio exterior da Dati S.A.</p>
+        <p class="frente-desc">Representação comercial da plataforma SaaS modular de comércio exterior da Dati S.A. Cinco módulos no ar, doze previstos até 2027.</p>
         <a href="#dati" class="frente-link">Conheça as soluções <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
+
+      <!-- 03 · marca do Contango no gradiente da casa + corrente de blocos -->
       <div class="frente-card">
+        <div class="stage" aria-hidden="true">
+          <svg viewBox="0 0 340 200" fill="none" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="ctgGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0"    stop-color="#A5CA66"/>
+                <stop offset="0.11" stop-color="#84B890"/>
+                <stop offset="0.19" stop-color="#54A7B8"/>
+                <stop offset="0.28" stop-color="#2599CA"/>
+                <stop offset="0.44" stop-color="#1D84BE"/>
+                <stop offset="0.53" stop-color="#1B7AB9"/>
+                <stop offset="0.78" stop-color="#115AA7"/>
+                <stop offset="1"    stop-color="#105AA6"/>
+              </linearGradient>
+            </defs>
+
+            <!-- O posicionamento fica no g externo e a animação no interno: transform
+                 de CSS sobrescreve o atributo transform do SVG e desloca a marca. -->
+            <g transform="translate(-31.56,-59.35) scale(0.21)">
+            <g class="c-mark" fill="url(#ctgGrad)">
+              <path transform="matrix(1,0,0,-1,491.25,515)" d="M0 0H75V25H0C-27.614 25-50 2.614-50-25-50-52.614-27.614-75 0-75H75V-50H0C-13.807-50-25-38.807-25-25-25-11.193-13.807 0 0 0"/>
+              <path transform="matrix(1,0,0,-1,653.75,565)" d="M0 0H-12.5-25-37.5C-51.307 0-62.5 11.193-62.5 25-62.5 38.807-51.307 50-37.5 50H-25-12.5 0C13.807 50 25 38.807 25 25 25 11.193 13.807 0 0 0M0 75H-12.5-25-37.5C-65.114 75-87.5 52.614-87.5 25-87.5-2.614-65.114-25-37.5-25H-25-12.5 0C27.614-25 50-2.614 50 25 50 52.614 27.614 75 0 75"/>
+              <path transform="matrix(1,0,0,-1,1153.75,490)" d="M0 0H-12.5-25-37.5C-52.439 0-65.838-6.56-75-16.946-84.162-6.56-97.561 0-112.5 0H-125-137.5-150C-158.281 0-166.084-2.025-172.962-5.589-166.41 2.868-162.5 13.474-162.5 25H-150L-175 50-200 25H-187.5C-187.5 11.193-198.693 0-212.5 0H-237.5-262.5-287.5C-302.439 0-315.838-6.56-325-16.946-334.162-6.56-347.561 0-362.5 0H-375-387.5-400C-427.614 0-450-22.386-450-50V-100H-425V-50C-425-36.193-413.807-25-400-25H-387.5-375-362.5C-348.693-25-337.5-36.193-337.5-50V-100H-312.5V-50C-312.5-36.193-301.307-25-287.5-25H-262.5V-100H-237.5V-25H-212.5C-204.219-25-196.416-22.975-189.538-19.411-196.09-27.868-200-38.474-200-50-200-77.614-177.614-100-150-100H-100V-75H-150C-163.807-75-175-63.807-175-50-175-36.193-163.807-25-150-25H-137.5-125-112.5C-98.693-25-87.5-36.193-87.5-50V-100H-62.5V-50C-62.5-36.193-51.307-25-37.5-25H-25-12.5 0C13.807-25 25-36.193 25-50V-100H50V-50C50-22.386 27.614 0 0 0"/>
+              <path transform="matrix(1,0,0,-1,1253.75,640)" d="M0 0H12.5 25 37.5C65.114 0 87.5 22.386 87.5 50H62.5C62.5 36.193 51.307 25 37.5 25H25 12.5 0C-13.807 25-25 36.193-25 50H-50C-50 22.386-27.614 0 0 0"/>
+              <path transform="matrix(1,0,0,-1,1291.25,565)" d="M0 0H-12.5-25-37.5C-51.307 0-62.5 11.193-62.5 25-62.5 38.807-51.307 50-37.5 50H-25-12.5 0C13.807 50 25 38.807 25 25 25 11.193 13.807 0 0 0M0 75H-12.5-25-37.5C-65.114 75-87.5 52.614-87.5 25-87.5-2.614-65.114-25-37.5-25H-25-12.5 0C27.614-25 50-2.614 50 25 50 52.614 27.614 75 0 75"/>
+              <path transform="matrix(1,0,0,-1,1428.75,565)" d="M0 0H-12.5-25-37.5C-51.307 0-62.5 11.193-62.5 25-62.5 38.807-51.307 50-37.5 50H-25-12.5 0C13.807 50 25 38.807 25 25 25 11.193 13.807 0 0 0M0 75H-12.5-25-37.5C-65.114 75-87.5 52.614-87.5 25-87.5-2.614-65.114-25-37.5-25H-25-12.5 0C27.614-25 50-2.614 50 25 50 52.614 27.614 75 0 75"/>
+              <path transform="matrix(1,0,0,-1,0,1080)" d="M953.75 615H966.25C966.25 601.193 955.057 590 941.25 590H916.25 891.25 866.25C851.311 590 837.912 583.44 828.75 573.054 819.588 583.44 806.189 590 791.25 590H782.481C784.391 581.44 786.862 573.092 789.863 565H791.25C805.057 565 816.25 553.807 816.25 540V516.525C823.395 506.96 831.41 498.085 840.165 490H841.25V540C841.25 553.807 852.443 565 866.25 565H891.25V490H916.25V565H941.25C949.531 565 957.335 567.025 964.212 570.589 957.66 562.133 953.75 551.525 953.75 540 953.75 512.385 976.135 490 1003.75 490H1053.75V515H1003.75C989.942 515 978.75 526.193 978.75 540 978.75 553.807 989.942 565 1003.75 565H1016.25 1028.75 1041.25C1055.057 565 1066.25 553.807 1066.25 540V490H1091.25V540C1091.25 553.807 1102.442 565 1116.25 565H1128.75 1141.25 1153.283C1156.229 572.943 1158.667 581.131 1160.563 589.526 1158.333 589.829 1156.062 590 1153.75 590H1141.25 1128.75 1116.25C1101.311 590 1087.912 583.44 1078.75 573.054 1069.588 583.44 1056.189 590 1041.25 590H1028.75 1016.25 1003.75C995.469 590 987.665 587.974 980.788 584.411 987.34 592.868 991.25 603.474 991.25 615H1003.75L978.75 640Z"/>
+            </g>
+            </g>
+
+            <g stroke="url(#ctgGrad)" stroke-width="1.4">
+              <path class="c-link" d="M96 114h30M158 114h30M220 114h20"/>
+            </g>
+            <g class="c-block" stroke="url(#ctgGrad)" stroke-width="1.5">
+              <path d="M74 100l14-8 14 8v18l-14 8-14-8z"/>
+              <path d="M74 100l14 8 14-8M88 108v18" stroke-width="0.9" opacity="0.6"/>
+            </g>
+            <g class="c-block" stroke="url(#ctgGrad)" stroke-width="1.5">
+              <path d="M136 100l14-8 14 8v18l-14 8-14-8z"/>
+              <path d="M136 100l14 8 14-8M150 108v18" stroke-width="0.9" opacity="0.6"/>
+            </g>
+            <g class="c-block" stroke="url(#ctgGrad)" stroke-width="1.5">
+              <path d="M198 100l14-8 14 8v18l-14 8-14-8z"/>
+              <path d="M198 100l14 8 14-8M212 108v18" stroke-width="0.9" opacity="0.6"/>
+            </g>
+            <g class="c-block" stroke="url(#ctgGrad)" stroke-width="1.5" opacity="0.35">
+              <path d="M246 100l14-8 14 8v18l-14 8-14-8z" stroke-dasharray="3 3"/>
+            </g>
+            <circle class="c-pulse" cx="88" cy="114" r="3" fill="none" stroke="#A5CA66" stroke-width="1.2"/>
+            <g fill="#A5CA66" opacity="0.32">
+              <ellipse cx="62" cy="140" rx="3.4" ry="5" transform="rotate(-18 62 140)"/>
+              <ellipse cx="74" cy="145" rx="3.4" ry="5" transform="rotate(12 74 145)"/>
+              <ellipse cx="86" cy="139" rx="3.4" ry="5" transform="rotate(-8 86 139)"/>
+            </g>
+          </svg>
+        </div>
         <div class="frente-number">03</div>
         <p class="frente-subtitle">Founder · Blockchain &amp; Agro</p>
         <h3 class="frente-title">Contango Token</h3>
-        <p class="frente-desc">Protocolo de infraestrutura blockchain construído sobre Stellar/Soroban para tokenização de ativos reais do agronegócio brasileiro. Uma nova camada de liquidez para o campo.</p>
-        <a href="https://contangotoken.com" target="_blank" class="frente-link">contangotoken.com <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+        <p class="frente-desc">Infraestrutura de tokenização, rastreabilidade e auditabilidade para o agronegócio, construída sobre Stellar/Soroban. A camada de confiança digital que faltava ao campo.</p>
+        <a href="https://contangotoken.com" target="_blank" rel="noopener" class="frente-link">contangotoken.com <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></a>
       </div>
     </div>
   </div>
@@ -306,7 +541,8 @@ footer { background: var(--ink); border-top: 1px solid rgba(201,168,76,0.08); pa
     <p class="section-label">Linha do Tempo</p>
     <h2 class="section-title">Uma trajetória de<br><em>construção real</em></h2>
 
-    <div class="timeline">
+    <div class="timeline" id="timeline">
+      <div class="timeline-draw" id="timelineDraw" aria-hidden="true"></div>
 
       <!-- 1. Dati + Contango paralelo -->
       <div class="timeline-item">
@@ -537,6 +773,117 @@ footer { background: var(--ink); border-top: 1px solid rgba(201,168,76,0.08); pa
 <a href="https://wa.me/554163475801?text=Olá%20Igor!%20Vim%20pelo%20site%20IGL%20Consulting." target="_blank" class="wa-float" title="WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
 </a>
+
+<script>
+(function () {
+  /* Rede de proteção: o reveal esconde conteúdo por CSS e só o JS o traz de volta.
+     Se qualquer coisa aqui falhar, tudo volta a ficar visível — página sem
+     animação é aceitável, página em branco não. */
+  function revealAll() {
+    document.documentElement.className =
+      document.documentElement.className.replace(/\bjs-on\b/g, '');
+  }
+  window.addEventListener('error', revealAll);
+
+  try {
+    run();
+  } catch (err) {
+    revealAll();
+  }
+
+  function run() {
+  if (!document.documentElement.className.match(/\bjs-on\b/)) return;
+
+  /* ---------- alvos do reveal ---------- */
+  var RV = '.section-title, .section-label, .about-text p, .expertise-area,' +
+           '.timeline-item, .dati-card, .contact-items, .stat, .frente-card';
+  document.querySelectorAll(RV).forEach(function (el) { el.setAttribute('data-rv', ''); });
+
+  /* ---------- 01 progresso · 02 nav · 08 traço da timeline ---------- */
+  var bar = document.getElementById('progressBar');
+  var nav = document.getElementById('mainNav');
+  var tl = document.getElementById('timeline');
+  var tlDraw = document.getElementById('timelineDraw');
+  var ticking = false;
+
+  function onScroll() {
+    var y = window.pageYOffset;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+    nav.setAttribute('data-condensed', y > 80 ? 'true' : 'false');
+
+    if (tl && tlDraw) {
+      var r = tl.getBoundingClientRect();
+      var pct = (window.innerHeight * 0.75 - r.top) / (r.height * 0.85);
+      tlDraw.style.height = Math.max(0, Math.min(1, pct)) * r.height + 'px';
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+
+  /* ---------- 06 contadores ---------- */
+  function runCount(el) {
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var suffix = el.getAttribute('data-suffix') || '';
+    var t0 = null, dur = 1300;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    el.textContent = '0' + suffix;
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- 05 reveal escalonado ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var sibs = Array.prototype.filter.call(e.target.parentNode.children, function (n) {
+        return n.hasAttribute && n.hasAttribute('data-rv');
+      });
+      var i = sibs.indexOf(e.target);
+      e.target.style.transitionDelay = (i > 0 ? Math.min(i, 5) * 90 : 0) + 'ms';
+      e.target.removeAttribute('data-rv');
+
+      var n = e.target.querySelector('[data-count]');
+      if (n) runCount(n);
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('[data-rv]').forEach(function (el) { io.observe(el); });
+
+  /* ---------- 07 animações dos cards só rodam em tela ---------- */
+  var live = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { e.target.classList.toggle('is-live', e.isIntersecting); });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.frente-card').forEach(function (el) { live.observe(el); });
+
+  /* ---------- 03 scrollspy ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var targets = links.map(function (a) {
+    var h = a.getAttribute('href');
+    return h && h.length > 1 ? document.querySelector(h) : null;
+  });
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var i = targets.indexOf(e.target);
+      links.forEach(function (a, j) {
+        if (j === i) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  targets.forEach(function (t) { if (t) spy.observe(t); });
+
+  onScroll();
+  }
+}());
+</script>
 
 </body>
 </html>
