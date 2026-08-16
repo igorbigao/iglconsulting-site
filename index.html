@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IGL Consulting · Igor Lachowski</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --ink: #0d0f14;
@@ -105,16 +105,96 @@ section { position: relative; z-index: 1; }
 .timeline-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .tag { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.18); padding: 3px 9px; }
 
+/* Empresas onde houve mais de um cargo: a coluna da esquerda passa a ser da
+   empresa (período total) e os cargos se empilham à direita, cada um com o
+   seu próprio período. */
+.timeline-company { font-family: var(--serif); font-size: 1.02rem; color: var(--cream); line-height: 1.3; margin-bottom: 4px; }
+.timeline-roles { display: flex; flex-direction: column; gap: 30px; }
+.timeline-subrole { position: relative; padding-left: 22px; }
+.timeline-subrole::before { content: ''; position: absolute; left: 0; top: 10px; width: 11px; height: 1px; background: var(--gold); opacity: 0.45; }
+.timeline-subrole::after { content: ''; position: absolute; left: 0; top: 10px; bottom: -30px; width: 1px; background: rgba(201,168,76,0.12); }
+.timeline-subrole:last-child::after { display: none; }
+.timeline-subperiod { font-size: 0.71rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gold); opacity: 0.85; margin-bottom: 5px; }
+.timeline-subrole .timeline-role { font-size: 1.1rem; margin-bottom: 9px; }
+
 /* DATI SECTION */
 .dati-section { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.1); }
-.dati-card { background: var(--ink); border: 1px solid rgba(201,168,76,0.12); padding: 56px 48px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; margin-top: 64px; transition: border-color 0.3s; }
-.dati-card:hover { border-color: rgba(201,168,76,0.3); }
-.dati-card-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-.dati-card-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 300; color: var(--cream); line-height: 1.2; margin-bottom: 16px; }
-.dati-card-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.85; max-width: 540px; }
-.dati-products-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-.pill { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 6px 14px; }
-.dati-card-cta { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; flex-shrink: 0; }
+
+/* ============ PAINEL GRAVITY ============ */
+/* Bloco deliberadamente fora do sistema dourado da IGL: aqui quem fala é a marca
+   Gravity, com a paleta indigo/slate e a tipografia da própria plataforma. Todos
+   os tokens são escopados no painel para não vazarem para o resto da página. */
+.gravity-panel {
+  --gv-indigo: #818cf8; --gv-indigo-mid: #6366f1; --gv-indigo-deep: #4f46e5;
+  --gv-ink: #0b1120; --gv-ink2: #0f172a; --gv-line: #1e293b;
+  --gv-slate: #94a3b8; --gv-slate2: #cbd5e1; --gv-white: #f1f5f9;
+  --gv-live: #34d399; --gv-soon: #fbbf24;
+  --gv-sans: 'Plus Jakarta Sans', 'DM Sans', sans-serif;
+  --gv-mono: 'DM Mono', ui-monospace, Consolas, monospace;
+  position: relative; margin-top: 64px; border-radius: 20px; overflow: hidden;
+  font-family: var(--gv-sans); isolation: isolate;
+  border: 1px solid var(--gv-line);
+  background:
+    radial-gradient(ellipse 70% 90% at 10% -10%, rgba(99,102,241,0.20) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 70% at 100% 110%, rgba(129,140,248,0.10) 0%, transparent 55%),
+    linear-gradient(158deg, var(--gv-ink2) 0%, var(--gv-ink) 100%);
+  transition: border-color 0.45s ease, box-shadow 0.45s ease;
+}
+.gravity-panel:hover { border-color: rgba(129,140,248,0.42); box-shadow: 0 0 60px -14px rgba(99,102,241,0.45); }
+/* fio de luz no topo — assinatura visual do Gravity */
+.gravity-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gv-indigo), transparent); opacity: 0.8; }
+.gv-grid { position: absolute; inset: 0; z-index: -1; opacity: 0.55; background-image:
+  repeating-linear-gradient(to right,  rgba(129,140,248,0.055) 0 1px, transparent 1px 58px),
+  repeating-linear-gradient(to bottom, rgba(129,140,248,0.055) 0 1px, transparent 1px 58px);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 20% 0%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 70% at 20% 0%, #000 0%, transparent 75%); }
+
+/* cabeçalho: marca + papel */
+.gv-head { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding: 30px 40px; border-bottom: 1px solid var(--gv-line); }
+.gv-brand { display: flex; align-items: center; gap: 15px; }
+.gv-mark { width: 46px; height: 46px; flex-shrink: 0; }
+.gv-wordmark { font-size: 1.42rem; font-weight: 700; letter-spacing: -0.022em; color: var(--gv-white); line-height: 1.1; }
+.gv-by { font-family: var(--gv-mono); font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gv-slate); margin-top: 3px; }
+.gv-role { font-family: var(--gv-mono); font-size: 0.7rem; letter-spacing: 0.07em; color: var(--gv-slate2); background: rgba(129,140,248,0.09); border: 1px solid rgba(129,140,248,0.26); border-radius: 999px; padding: 7px 16px; }
+
+/* corpo */
+.gv-body { display: grid; grid-template-columns: 1fr 0.92fr; gap: 48px; padding: 40px; }
+.gv-title { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.24; color: var(--gv-white); margin-bottom: 16px; }
+.gv-title em { font-style: normal; background: linear-gradient(100deg, var(--gv-indigo) 0%, #a78bfa 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gv-desc { font-size: 0.94rem; font-weight: 400; color: var(--gv-slate2); line-height: 1.8; }
+.gv-desc strong { color: var(--gv-white); font-weight: 600; }
+.gv-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.gv-stat { border: 1px solid var(--gv-line); border-radius: 10px; padding: 11px 16px; background: rgba(15,23,42,0.65); }
+.gv-stat b { display: block; font-family: var(--gv-mono); font-size: 1.12rem; font-weight: 500; color: var(--gv-indigo); line-height: 1.2; }
+.gv-stat span { font-size: 0.72rem; color: var(--gv-slate); letter-spacing: 0.01em; }
+
+/* lista de módulos */
+.gv-modules { list-style: none; align-self: start; display: flex; flex-direction: column; gap: 1px; background: var(--gv-line); border: 1px solid var(--gv-line); border-radius: 12px; overflow: hidden; }
+.gv-mod-row { display: flex; align-items: center; gap: 14px; padding: 13px 18px; background: rgba(11,17,32,0.9); transition: background 0.3s ease, padding-left 0.3s ease; }
+.gv-mod-row:hover { background: rgba(30,41,59,0.85); padding-left: 23px; }
+.gv-mod-n { font-family: var(--gv-mono); font-size: 0.74rem; font-weight: 500; color: var(--gv-indigo); opacity: 0.85; }
+.gv-mod-name { font-size: 0.89rem; font-weight: 500; color: var(--gv-white); flex: 1; }
+.gv-mod-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--gv-mono); font-size: 0.63rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gv-live); white-space: nowrap; }
+.gv-mod-status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gv-live); box-shadow: 0 0 7px var(--gv-live); }
+/* módulos ainda não liberados: mesmo formato, sem o brilho de "no ar" */
+.gv-mod-status.is-soon { color: var(--gv-soon); }
+.gv-mod-status.is-soon::before { background: transparent; border: 1px solid var(--gv-soon); box-shadow: none; }
+.gv-mod-row.is-pending .gv-mod-n, .gv-mod-row.is-pending .gv-mod-name { opacity: 0.72; }
+
+/* rodapé com as ações */
+.gv-foot { display: flex; align-items: center; justify-content: flex-start; gap: 28px; flex-wrap: wrap; padding: 24px 40px; border-top: 1px solid var(--gv-line); background: rgba(11,17,32,0.5); }
+.gv-btn { display: inline-flex; align-items: center; gap: 9px; background: linear-gradient(100deg, var(--gv-indigo-mid), var(--gv-indigo-deep)); color: #fff; font-family: var(--gv-sans); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.01em; text-decoration: none; padding: 13px 26px; border-radius: 10px; transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease; }
+.gv-btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 10px 26px -8px rgba(99,102,241,0.75); }
+.gv-btn svg { transition: transform 0.3s cubic-bezier(0.22,1,0.36,1); }
+.gv-btn:hover svg { transform: translateX(3px); }
+.gv-link { font-size: 0.82rem; font-weight: 500; color: var(--gv-slate2); text-decoration: none; border-bottom: 1px solid rgba(148,163,184,0.3); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s; }
+.gv-link:hover { color: var(--gv-indigo); border-color: var(--gv-indigo); }
+
+/* órbitas da marca — só giram com o painel em tela */
+.gravity-panel.is-live .gv-o1 { animation: gvSpin 14s linear infinite; }
+.gravity-panel.is-live .gv-o2 { animation: gvSpin 22s linear infinite reverse; }
+.gv-o1, .gv-o2 { transform-origin: 32px 32px; }
+@keyframes gvSpin { to { transform: rotate(360deg); } }
 
 /* CONTACT */
 .contact-bg { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.1); }
@@ -129,7 +209,9 @@ section { position: relative; z-index: 1; }
 .wa-btn:hover { background: #1fb357; transform: translateY(-2px); }
 
 /* FOOTER */
-footer { background: var(--ink); border-top: 1px solid rgba(201,168,76,0.08); padding: 36px 48px; display: flex; justify-content: space-between; align-items: center; }
+/* Escopado em body > footer: existe outro <footer> dentro do painel Gravity e
+   as regras genéricas vazavam para ele. */
+body > footer { background: var(--ink); border-top: 1px solid rgba(201,168,76,0.08); padding: 36px 48px; display: flex; justify-content: space-between; align-items: center; }
 .footer-left { font-family: var(--serif); font-size: 0.95rem; color: var(--muted); }
 .footer-left strong { color: var(--gold); font-weight: 400; }
 .footer-right { font-size: 0.72rem; color: rgba(138,141,150,0.5); letter-spacing: 0.06em; }
@@ -161,11 +243,11 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
 /* ============ 05 · REVEAL AO ROLAR ============ */
 /* Elementos sem hover próprio sobem ao aparecer. */
 .js-on .section-title, .js-on .section-label, .js-on .about-text p,
-.js-on .expertise-area, .js-on .timeline-item, .js-on .dati-card, .js-on .contact-items {
+.js-on .expertise-area, .js-on .timeline-item, .js-on .gravity-panel, .js-on .contact-items {
   transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1);
 }
 .js-on .section-title[data-rv], .js-on .section-label[data-rv], .js-on .about-text p[data-rv],
-.js-on .expertise-area[data-rv], .js-on .timeline-item[data-rv], .js-on .dati-card[data-rv],
+.js-on .expertise-area[data-rv], .js-on .timeline-item[data-rv], .js-on .gravity-panel[data-rv],
 .js-on .contact-items[data-rv] { opacity: 0; transform: translateY(26px); }
 
 /* Onde o hover já usa transform (stat e frente-card), o reveal vai só na opacidade
@@ -266,8 +348,11 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
   .about-grid, .frentes-grid, .expertise-cols, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .frentes-grid { gap: 2px; }
   .timeline-item { grid-template-columns: 1fr; gap: 8px; padding-left: 28px; }
-  .dati-card { grid-template-columns: 1fr; }
-  .dati-card-cta { align-items: flex-start; }
+  .gv-head { padding: 24px; }
+  .gv-body { grid-template-columns: 1fr; gap: 32px; padding: 28px 24px; }
+  .gv-foot { padding: 22px 24px; gap: 20px; }
+  .gv-title { font-size: 1.45rem; }
+  .gv-role { font-size: 0.66rem; }
   footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 24px; }
 }
 </style>
@@ -331,7 +416,7 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
       </div>
       <div class="about-stats">
         <div class="stat"><div class="stat-number" data-count="20" data-suffix="+">20+</div><div class="stat-label">Anos de experiência</div></div>
-        <div class="stat"><div class="stat-number" data-count="3">3</div><div class="stat-label">Empresas fundadas</div></div>
+        <div class="stat"><div class="stat-number" data-count="10">10</div><div class="stat-label">Empresas fundadas</div></div>
         <div class="stat"><div class="stat-number" data-count="40" data-suffix="+">40+</div><div class="stat-label">Executivos apoiados</div></div>
         <div class="stat"><div class="stat-number" data-count="3">3</div><div class="stat-label">Continentes de atuação</div></div>
       </div>
@@ -378,7 +463,7 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
         <div class="frente-number">01</div>
         <p class="frente-subtitle">Consultoria Independente</p>
         <h3 class="frente-title">Estratégia &amp; Negócios</h3>
-        <p class="frente-desc">Transformação digital, desenho de processos, arquitetura de solução e criação de produto. Para empresas que navegam cenários de alta complexidade.</p>
+        <p class="frente-desc">Transformação digital, desenho de processos, arquitetura de solução e criação de produto — e assessoria em processos de captação de recursos e M&amp;A. Para empresas que navegam cenários de alta complexidade.</p>
         <a href="#contato" class="frente-link">Iniciar conversa <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
 
@@ -406,7 +491,7 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
         <div class="frente-number">02</div>
         <p class="frente-subtitle">Business Development · Gravity (Dati S.A.)</p>
         <h3 class="frente-title">Tecnologia de Comex</h3>
-        <p class="frente-desc">Representação comercial da plataforma SaaS modular de comércio exterior da Dati S.A. Cinco módulos no ar, doze previstos até 2027.</p>
+        <p class="frente-desc">Representação comercial da plataforma SaaS modular de comércio exterior da Dati S.A. Três módulos já disponíveis com teste grátis e doze no roadmap.</p>
         <a href="#dati" class="frente-link">Conheça as soluções <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
 
@@ -470,7 +555,7 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
         <div class="frente-number">03</div>
         <p class="frente-subtitle">Founder · Blockchain &amp; Agro</p>
         <h3 class="frente-title">Contango Token</h3>
-        <p class="frente-desc">Infraestrutura de tokenização, rastreabilidade e auditabilidade para o agronegócio, construída sobre Stellar/Soroban. A camada de confiança digital que faltava ao campo.</p>
+        <p class="frente-desc">Infraestrutura de tokenização, rastreabilidade e auditabilidade para o agronegócio brasileiro. Transforma estoques de grãos em ativos digitais com procedência completa — a camada de confiança digital que faltava ao campo.</p>
         <a href="https://contangotoken.com" target="_blank" rel="noopener" class="frente-link">contangotoken.com <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg></a>
       </div>
     </div>
@@ -515,7 +600,16 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
             <li>Negociação estratégica e comercial</li>
             <li>Desenvolvimento de parcerias (canais, VARs)</li>
             <li>Expansão e aceleração comercial</li>
-            <li>Captação de investimentos e due diligence</li>
+          </ul>
+        </div>
+        <div class="expertise-area">
+          <h3>Captação de Recursos &amp; M&amp;A</h3>
+          <ul class="expertise-list">
+            <li>Assessoria em processos de captação de recursos</li>
+            <li>Estruturação de rodadas e relação com investidores</li>
+            <li>Fusões e aquisições (M&amp;A): originação e negociação</li>
+            <li>Preparação para due diligence e valuation</li>
+            <li>Modelagem financeira e materiais de investimento</li>
           </ul>
         </div>
         <div class="expertise-area">
@@ -544,16 +638,30 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
     <div class="timeline" id="timeline">
       <div class="timeline-draw" id="timelineDraw" aria-hidden="true"></div>
 
-      <!-- 1. Dati + Contango paralelo -->
+      <!-- 0. IGL Consulting — guarda-chuva de todas as frentes -->
       <div class="timeline-item">
+        <div>
+          <div class="timeline-period">2017 – Atual</div>
+          <div class="timeline-org">IGL Consulting</div>
+          <div class="timeline-badge">Fundador</div>
+        </div>
+        <div>
+          <div class="timeline-role">Fundador &amp; Consultor Principal</div>
+          <p class="timeline-desc">A <strong style="color:var(--cream)">empresa guarda-chuva por trás de todas as minhas atuações desde 2017</strong>. É pela IGL que conduzo os projetos de consultoria independente — transformação digital, desenho de processos, arquitetura de solução e criação de produto — e a <strong style="color:var(--cream)">assessoria em processos de captação de recursos e M&amp;A</strong>. As frentes abaixo, Gravity e Contango, operam sob esse mesmo guarda-chuva.</p>
+          <div class="timeline-tags"><span class="tag">Consultoria</span><span class="tag">Transformação Digital</span><span class="tag">Captação</span><span class="tag">M&amp;A</span><span class="tag">Estratégia</span></div>
+        </div>
+      </div>
+
+      <!-- 1. Dati + Contango paralelo -->
+      <div class="timeline-item parallel">
         <div>
           <div class="timeline-period">Out 2025 – Atual</div>
           <div class="timeline-org">Gravity (Dati S.A.)</div>
-          <div class="timeline-badge">Tempo integral · Remoto</div>
+          <div class="timeline-badge">Em paralelo · Remoto</div>
         </div>
         <div>
           <div class="timeline-role">Business Development Executive | Tech Sales</div>
-          <p class="timeline-desc">A Dati S.A. é uma empresa de tecnologia especializada em Comércio Exterior, investida pela <strong style="color:var(--cream)">Asia Shipping — o maior agente de cargas do Brasil</strong> — posicionando a solução na interseção entre operação logística real e tecnologia de ponta. Atuando com abordagem consultiva, combino expertise profunda em tecnologia de Comex com expansão estratégica de canais. O Gravity, plataforma SaaS modular da Dati, cobre o espectro completo da operação: <strong style="color:var(--cream)">gestão de pedidos, extração e conferência de documentos com IA (SmartDocs), cotação de frete e câmbio (BID) e simulação de custos</strong> — integradas aos principais ERPs do mercado. Guarapuava, PR.</p>
+          <p class="timeline-desc">A Dati S.A. é uma empresa de tecnologia especializada em Comércio Exterior, investida pela <strong style="color:var(--cream)">Asia Shipping — o maior agente de cargas do Brasil</strong> — posicionando a solução na interseção entre operação logística real e tecnologia de ponta. Atuando com abordagem consultiva, combino expertise profunda em tecnologia de Comex com expansão estratégica de canais. O Gravity, plataforma SaaS modular da Dati, já tem disponíveis os módulos de <strong style="color:var(--cream)">gestão de pedidos, inteligência documental com IA (Smart Docs) e licitação de frete internacional (BID Frete)</strong>, com simulação de custos, rastreamento de cargas e câmbio entrando na sequência — tudo integrado aos principais ERPs do mercado. Guarapuava, PR.</p>
           <div class="timeline-tags"><span class="tag">Comex</span><span class="tag">SaaS</span><span class="tag">Asia Shipping</span><span class="tag">ERP</span><span class="tag">B2B Sales</span></div>
         </div>
       </div>
@@ -566,128 +674,127 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
           <div class="timeline-badge">Em paralelo</div>
         </div>
         <div>
-          <div class="timeline-role">Founder &amp; CEO</div>
-          <p class="timeline-desc">Fundação e liderança de protocolo blockchain para tokenização de ativos reais do agronegócio brasileiro. Construção sobre Stellar/Soroban, estruturação de modelo financeiro, captação junto a investidores âncora e desenvolvimento do ecossistema.</p>
-          <div class="timeline-tags"><span class="tag">Blockchain</span><span class="tag">Agro</span><span class="tag">Stellar</span><span class="tag">Web3</span></div>
+          <div class="timeline-role">Founder</div>
+          <p class="timeline-desc">Infraestrutura de tokenização para o agronegócio brasileiro: a Contango transforma commodities físicas em <strong style="color:var(--cream)">ativos digitais auditáveis e rastreáveis</strong>, tokenizando estoques de grãos a partir dos CDAs já existentes. Conecta produtores, armazenadores, tradings e instituições financeiras sobre uma mesma infraestrutura — não é exchange, corretora, custodiante nem banco. O blockchain não é o produto: é a camada de confiança. Endereça as exigências de rastreabilidade que passam a valer para soja, café e carne com a <strong style="color:var(--cream)">EUDR (dez/2026) e o PNIB (2027)</strong>. Contango S.A., Curitiba, PR.</p>
+          <div class="timeline-tags"><span class="tag">Tokenização</span><span class="tag">Agro</span><span class="tag">CDA</span><span class="tag">Rastreabilidade</span><span class="tag">EUDR</span></div>
         </div>
       </div>
 
-      <!-- 2. Narwal Sistemas -->
+      <!-- 2. Narwal Sistemas — dois cargos -->
       <div class="timeline-item">
         <div>
-          <div class="timeline-period">Ago 2024 – Set 2025</div>
-          <div class="timeline-org">Narwal Sistemas · Grupo Becomex</div>
-          <div class="timeline-badge">Tempo integral · Híbrido</div>
+          <div class="timeline-period">Ago 2023 – Set 2025</div>
+          <div class="timeline-company">Narwal Sistemas</div>
+          <div class="timeline-org">Grupo Becomex · 2 anos 2 meses · 2 cargos</div>
+          <div class="timeline-badge">Tempo integral</div>
         </div>
-        <div>
-          <div class="timeline-role">Arquiteto de Soluções</div>
-          <p class="timeline-desc">A Narwal integra o <strong style="color:var(--cream)">Grupo Becomex, referência nacional em Regimes Aduaneiros Especiais</strong> — combinando décadas de expertise operacional em Comex com uma plataforma SaaS cloud reconhecida globalmente, com mais de 200 clientes. Como Arquiteto de Soluções, atuei na apresentação técnica e comercial cobrindo <strong style="color:var(--cream)">operacional, fiscal, financeiro, câmbio e integração com ERP</strong> (SAP, Sankhya, Senior). Identificação de dores ocultas e proposição de soluções para migração de controles manuais para uma plataforma gerenciável e hiperconectada. Curitiba, PR.</p>
-          <div class="timeline-tags"><span class="tag">Comex</span><span class="tag">Becomex</span><span class="tag">Regimes Especiais</span><span class="tag">SaaS</span><span class="tag">ERP</span><span class="tag">Presales</span></div>
+        <div class="timeline-roles">
+          <div class="timeline-subrole">
+            <div class="timeline-subperiod">Ago 2024 – Set 2025 · Curitiba, PR · Híbrido</div>
+            <div class="timeline-role">Arquiteto de Soluções</div>
+            <p class="timeline-desc">Apresentação técnica da plataforma SaaS in cloud para gestão de comércio exterior, destacando suas funcionalidades e benefícios. <strong style="color:var(--cream)">Identificação de dores ocultas dos clientes</strong> e proposição de soluções para contornar problemas atuais. Experiência em migrar clientes de controles manuais e módulos desatualizados para uma solução mais segura, moderna e hiperconectada. Plataforma reconhecida globalmente, com <strong style="color:var(--cream)">mais de 200 clientes</strong>, focada em ser gerenciável, fluida e fácil de usar.</p>
+            <div class="timeline-tags"><span class="tag">Comex</span><span class="tag">SaaS</span><span class="tag">Presales</span><span class="tag">Arquitetura</span></div>
+          </div>
+          <div class="timeline-subrole">
+            <div class="timeline-subperiod">Ago 2023 – Ago 2024 · Criciúma, SC · Remoto</div>
+            <div class="timeline-role">Consultor de Implantação</div>
+            <p class="timeline-desc">Participação ativa na implantação funcional do <strong style="color:var(--cream)">sistema de Comércio Exterior mais completo do mercado em mais de 15 clientes</strong>. Integração da ferramenta 100% cloud com os principais ERPs, incluindo SAP, Sankhya e Senior. Colaboração com equipes multidisciplinares para garantir a implementação bem-sucedida e a satisfação do cliente. Desenvolvimento de soluções personalizadas para atender às necessidades específicas de cada cliente, com treinamento e suporte contínuo aos usuários finais até o Go Live.</p>
+            <div class="timeline-tags"><span class="tag">Implantação</span><span class="tag">SAP</span><span class="tag">Sankhya</span><span class="tag">Senior</span><span class="tag">Go Live</span></div>
+          </div>
         </div>
       </div>
 
-      <!-- 3. Consultor implantação (empresa não identificada) -->
+      <!-- 3. Senior Sistemas · autônomo, em paralelo -->
+      <div class="timeline-item parallel">
+        <div>
+          <div class="timeline-period">Jul 2021 – Ago 2024</div>
+          <div class="timeline-org">Senior Sistemas</div>
+          <div class="timeline-badge">Autônomo · Em paralelo</div>
+        </div>
+        <div>
+          <div class="timeline-role">Consultor de Implantação</div>
+          <p class="timeline-desc">Análise de aderência, especificação de projeto, customizações, parametrizações, treinamentos e acompanhamento do uso do sistema em produção. Atuação principalmente nos produtos <strong style="color:var(--cream)">Senior X e BPM em formato nocode e lowcode</strong>, em tecnologias e frameworks como React, JavaScript, TypeScript, SQL e LSP (Linguagem Senior de Programação). Clientes atendidos: Suzano Papel e Celulose, KPMG, CVC Operadora de Turismo, Intelbras, Kalunga, Aeris, Dental Cremer e OLX. Blumenau, SC.</p>
+          <div class="timeline-tags"><span class="tag">Senior X</span><span class="tag">BPM</span><span class="tag">Low-code</span><span class="tag">React</span><span class="tag">TypeScript</span></div>
+        </div>
+      </div>
+
+      <!-- 4. GEAR UP — dois cargos -->
       <div class="timeline-item">
         <div>
-          <div class="timeline-period">Ago 2023 – Ago 2024</div>
-          <div class="timeline-org">Plataforma de Comex · Remoto</div>
+          <div class="timeline-period">Jun 2016 – Dez 2021</div>
+          <div class="timeline-company">GEAR UP</div>
+          <div class="timeline-org">5 anos 7 meses · 2 cargos</div>
+          <div class="timeline-badge">Tempo integral</div>
+        </div>
+        <div class="timeline-roles">
+          <div class="timeline-subrole">
+            <div class="timeline-subperiod">Jan 2021 – Dez 2021 · Curitiba, PR</div>
+            <div class="timeline-role">Head of Customer Success</div>
+            <p class="timeline-desc">Responsável pela garantia de entrega do produto contratado, acompanhando <strong style="color:var(--cream)">KPIs de implantação, treinamento e performance de equipe</strong>, através da manutenção de SLA e acompanhamento High Touch e C-suite. Principais clientes atendidos: Ultragaz, AirLiquide, Noma do Brasil, Yanmar, XP Investimentos, Rede Lojacorr, Camargo Embalagens, Fuchs Lubrificantes, Cromex, Embrart, Lide e Nitto Denko.</p>
+            <div class="timeline-tags"><span class="tag">CRM</span><span class="tag">Customer Success</span><span class="tag">SLA</span><span class="tag">C-Suite</span></div>
+          </div>
+          <div class="timeline-subrole">
+            <div class="timeline-subperiod">Jun 2016 – Jan 2021 · Curitiba, PR</div>
+            <div class="timeline-role">Product Owner</div>
+            <p class="timeline-desc">Além de <strong style="color:var(--cream)">sócio-fundador</strong>, responsável pelo desenvolvimento (built from scratch) de plataforma SaaS voltada para as áreas comerciais de grandes empresas, utilizando Big Data, Inteligência Artificial e CRM integrado com os principais ERPs do mercado. Como PO, viabilizei entregas de produto por diferentes squads de infraestrutura, cloud services, front-end, back-end, UX e UI, com <strong style="color:var(--cream)">até 20 membros em diferentes partes do mundo</strong>. Plataforma mobile e desktop. Stack: SQL, HTML, JavaScript, Laravel, NodeJS, Databricks (Redash.io) e Power BI. <strong style="color:var(--cream)">Acelerada pela Bossa Nova Investimentos</strong> — um dos maiores fundos de startups do país — com captação de investimento após processo de due diligence.</p>
+            <div class="timeline-tags"><span class="tag">SaaS</span><span class="tag">Product</span><span class="tag">Big Data</span><span class="tag">Bossa Nova</span><span class="tag">Due Diligence</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Rei da Barba -->
+      <div class="timeline-item">
+        <div>
+          <div class="timeline-period">Mar 2013 – Jun 2016</div>
+          <div class="timeline-org">Rei da Barba · 3 anos 4 meses</div>
           <div class="timeline-badge">Tempo integral</div>
         </div>
         <div>
-          <div class="timeline-role">Consultor de Implantação</div>
-          <p class="timeline-desc">Participação ativa na implantação funcional do <strong style="color:var(--cream)">sistema de Comércio Exterior mais completo do mercado</strong> em mais de 15 clientes. Integração ponta a ponta com os principais ERPs — SAP, Sankhya e Senior — cobrindo módulos <strong style="color:var(--cream)">operacional, fiscal, financeiro, câmbio e regimes especiais</strong>. Colaboração com equipes multidisciplinares para garantir implementações bem-sucedidas, com treinamento e suporte contínuo até o Go Live. Criciúma, SC.</p>
-          <div class="timeline-tags"><span class="tag">Implantação</span><span class="tag">Comex Ponta a Ponta</span><span class="tag">SAP</span><span class="tag">Fiscal</span><span class="tag">Câmbio</span><span class="tag">Go Live</span></div>
-        </div>
-      </div>
-
-      <!-- 4. Senior Sistemas -->
-      <div class="timeline-item">
-        <div>
-          <div class="timeline-period">Jul 2021 – Ago 2024</div>
-          <div class="timeline-org">Senior Sistemas · Autônomo</div>
-        </div>
-        <div>
-          <div class="timeline-role">Consultor de Implantação</div>
-          <p class="timeline-desc">Implantação do sistema Senior Sistemas em produção. Análise de aderência, especificação de projetos, customizações, parametrizações e treinamentos. Clientes: Suzano, KPMG, CVC, Itaú, AirLiquide, Norma do Brasil, Yanmar, Dental Cremer, entre outros. Blumenau, SC.</p>
-          <div class="timeline-tags"><span class="tag">Senior</span><span class="tag">BPM</span><span class="tag">React</span><span class="tag">Node.js</span></div>
-        </div>
-      </div>
-
-      <!-- 5. GEAR UP -->
-      <div class="timeline-item">
-        <div>
-          <div class="timeline-period">Jan 2021 – Dez 2021</div>
-          <div class="timeline-org">GEAR UP</div>
-        </div>
-        <div>
-          <div class="timeline-role">Head of Customer Success</div>
-          <p class="timeline-desc">Responsável pela garantia de entrega do produto contratado acompanhando KPIs de implantação, treinamento e performance de equipe, através da manutenção de SLA. Clientes: Ultragaz, AirLiquide, Yanmar, XP Investimentos, Camargo Embalagens, Fuchs Lubrificantes, entre outros. Curitiba, PR.</p>
-          <div class="timeline-tags"><span class="tag">CRM</span><span class="tag">SaaS</span><span class="tag">Customer Success</span></div>
-        </div>
-      </div>
-
-      <!-- 6. Product Owner (startup SaaS) -->
-      <div class="timeline-item">
-        <div>
-          <div class="timeline-period">Jun 2016 – Jan 2021</div>
-          <div class="timeline-org">Startup SaaS · Cofundador</div>
-        </div>
-        <div>
-          <div class="timeline-role">Product Owner</div>
-          <p class="timeline-desc">Além de sócio fundador, responsável pelo desenvolvimento (built from scratch) de plataforma SaaS voltada para grandes empresas. Trabalhando como PO com diferentes squads de infraestrutura, cloud services, front/back-end, UX/UI. Acelerado pela Bossa Nova Invest com captação de investimento após due diligence. Curitiba, PR.</p>
-          <div class="timeline-tags"><span class="tag">SaaS</span><span class="tag">Product</span><span class="tag">Bossa Nova</span><span class="tag">Agile</span></div>
-        </div>
-      </div>
-
-      <!-- 7. Chefe de operações - Rei da Farsa -->
-      <div class="timeline-item">
-        <div>
-          <div class="timeline-period">Jan 2013 – Jun 2016</div>
-          <div class="timeline-org">Rei da Farsa · Tempo integral</div>
-        </div>
-        <div>
           <div class="timeline-role">Chefe de Operações</div>
-          <p class="timeline-desc">Sócio investidor e responsável pela operação de todo o grupo que contemplava uma rede de barbearias de 7 unidades próprias no RS, PR e SP, franqueadora, empresa de cosméticos masculinos e empresa de construção civil outdoor. Curitiba, SP, MG e RS.</p>
-          <div class="timeline-tags"><span class="tag">Franquias</span><span class="tag">Empreendedorismo</span><span class="tag">Expansão</span></div>
+          <p class="timeline-desc">Sócio-investidor e responsável pela operação de todo o grupo, que contemplava uma <strong style="color:var(--cream)">rede de barbearias de 7 unidades próprias no RS, PR e SP</strong>, franqueadora, empresa de cosméticos masculinos e empresa de marketing digital outdoor. <strong style="color:var(--cream)">Exit realizado em junho de 2016.</strong> Curitiba, PR; São Paulo, SP; Belo Horizonte, MG e Canoas, RS.</p>
+          <div class="timeline-tags"><span class="tag">Franquias</span><span class="tag">Empreendedorismo</span><span class="tag">Expansão</span><span class="tag">Exit</span></div>
         </div>
       </div>
 
-      <!-- 8. Brazil Trade Force -->
+      <!-- 6. Brazil Trade Force -->
       <div class="timeline-item">
         <div>
-          <div class="timeline-period">Jan 2011 – Jan 2016</div>
-          <div class="timeline-org">Brazil Trade Force</div>
+          <div class="timeline-period">Jan 2011 – Jun 2016</div>
+          <div class="timeline-org">Brazil Trade Force · 5 anos 6 meses</div>
+          <div class="timeline-badge">Tempo integral</div>
         </div>
         <div>
           <div class="timeline-role">Chefe de Operações de Importação e Exportação</div>
-          <p class="timeline-desc">Sócio fundador responsável pelo desenvolvimento de produto (procurement) em três diferentes continentes, processos de importação e exportação de produtos premium próprios e terceiros nos segmentos de Alimentação, Eletrônicos e Mercado Pet. Curitiba, PR.</p>
-          <div class="timeline-tags"><span class="tag">Importação</span><span class="tag">Exportação</span><span class="tag">Trading</span></div>
+          <p class="timeline-desc"><strong style="color:var(--cream)">Sócio-fundador</strong> e responsável pelo processo de desenvolvimento de produto (procurement) em <strong style="color:var(--cream)">três diferentes continentes</strong>, além dos processos de importação e exportação de produtos premium próprios e de terceiros nos segmentos de Alimentação, Eletrônicos e Mercado Pet. Curitiba, PR.</p>
+          <div class="timeline-tags"><span class="tag">Importação</span><span class="tag">Exportação</span><span class="tag">Trading</span><span class="tag">Procurement</span></div>
         </div>
       </div>
 
-      <!-- 9. Electrolux -->
+      <!-- 7. Electrolux -->
       <div class="timeline-item">
         <div>
           <div class="timeline-period">Jun 2008 – Mar 2011</div>
-          <div class="timeline-org">Electrolux do Brasil</div>
+          <div class="timeline-org">Electrolux · 2 anos 10 meses</div>
+          <div class="timeline-badge">Tempo integral</div>
         </div>
         <div>
           <div class="timeline-role">Analista de Planejamento e Comprador Internacional</div>
-          <p class="timeline-desc">A Electrolux me deu a oportunidade de participar do processo de internacionalização do Departamento de Peças de Reposição nos EUA, Europa e principalmente China. Rápida promoção a Comprador Internacional por mais de 40.000 SKUs de peças de reposição com amazon dedicado e divisão da carreira em três diferentes programadores e estagiários chineses. Curitiba, PR.</p>
+          <p class="timeline-desc">Participação no início do <strong style="color:var(--cream)">processo de internacionalização do Departamento de Peças de Reposição</strong> dos EUA, Europa e principalmente China — uma experiência rápida, porém enriquecedora. Rápida promoção a Comprador Internacional, responsável por <strong style="color:var(--cream)">mais de 40.000 SKUs</strong> de peças de reposição, com armazém dedicado, divisão da carteira em 3 diferentes programadores de peças e estagiários chineses em processo de imersão pelo AIESEC. Curitiba e Região.</p>
           <div class="timeline-tags"><span class="tag">Multinacional</span><span class="tag">Supply Chain</span><span class="tag">China</span><span class="tag">Procurement</span></div>
         </div>
       </div>
 
-      <!-- 10. Renault -->
+      <!-- 8. Renault -->
       <div class="timeline-item">
         <div>
-          <div class="timeline-period">Jan 2003 – Dez 2004</div>
-          <div class="timeline-org">Renault do Brasil</div>
+          <div class="timeline-period">Abr 2003 – Dez 2005</div>
+          <div class="timeline-org">Renault · 2 anos 9 meses</div>
+          <div class="timeline-badge">Tempo integral</div>
         </div>
         <div>
           <div class="timeline-role">Trainee de Importação e Exportação</div>
-          <p class="timeline-desc">Estágio concorrente ao curso de graduação em Comércio Exterior, responsável pela maior curva de aprendizado corporativo em esfera global. Participação na implantação do Regime Especial Recof e atuação nos programas de peças em suas tarefas de follow-up das importações marítimas e aéreas de peças CKD dos EUA, México, França, Bélgica e Japão. São José dos Pinhais, PR.</p>
-          <div class="timeline-tags"><span class="tag">RECOF</span><span class="tag">Automotivo</span><span class="tag">Renault</span></div>
+          <p class="timeline-desc">Estágio concomitante ao curso de graduação em Comércio Exterior, responsável pela <strong style="color:var(--cream)">maior curva de aprendizado corporativo em esfera global</strong>. Atuação no Departamento Adimpex durante o processo de <strong style="color:var(--cream)">implantação do Regime Especial Recof</strong>, auxiliando os programadores de peças nas tarefas de follow-up das importações marítimas e aéreas de peças CKD dos EUA, México, França, Bélgica e Japão. São José dos Pinhais, PR.</p>
+          <div class="timeline-tags"><span class="tag">RECOF</span><span class="tag">Adimpex</span><span class="tag">Automotivo</span><span class="tag">CKD</span></div>
         </div>
       </div>
 
@@ -702,26 +809,54 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
   <div class="section-inner">
     <p class="section-label">Parceria Comercial</p>
     <h2 class="section-title">Tecnologia para<br><em>Comércio Exterior</em></h2>
-    <div class="dati-card">
-      <div>
-        <div class="dati-card-label">Gravity (Dati S.A.) · Business Development Executive</div>
-        <h3 class="dati-card-title">Plataforma modular para importadores e exportadores</h3>
-        <p class="dati-card-desc">Como Business Development Executive do Gravity, apresento e estruturo a plataforma SaaS modular de comércio exterior da Dati S.A. para empresas que operam no ecossistema de comércio exterior brasileiro — da gestão de pedidos à conferência de documentos com IA.</p>
-        <div class="dati-products-pills">
-          <span class="pill">Pedidos</span>
-          <span class="pill">SmartDocs</span>
-          <span class="pill">BID Frete Internacional</span>
-          <span class="pill">BID Câmbio</span>
-          <span class="pill">Simula Custo</span>
+    <div class="gravity-panel">
+      <div class="gv-grid" aria-hidden="true"></div>
+
+      <header class="gv-head">
+        <div class="gv-brand">
+          <svg class="gv-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle cx="32" cy="32" r="13" stroke="#818cf8" stroke-width="2.6"/>
+            <ellipse class="gv-o1" cx="32" cy="32" rx="6" ry="24" stroke="#818cf8" stroke-width="1.7" opacity="0.85"/>
+            <ellipse class="gv-o2" cx="32" cy="32" rx="22" ry="10" stroke="#a78bfa" stroke-width="1.2" opacity="0.5"/>
+            <circle cx="32" cy="32" r="4" fill="#818cf8"/>
+          </svg>
+          <div>
+            <div class="gv-wordmark">Gravity</div>
+            <div class="gv-by">por Dati S.A.</div>
+          </div>
         </div>
+        <div class="gv-role">Igor Lachowski · Business Development Executive</div>
+      </header>
+
+      <div class="gv-body">
+        <div class="gv-main">
+          <h3 class="gv-title">Sua operação de comércio exterior<br><em>no próximo nível</em></h3>
+          <p class="gv-desc">Da cotação de frete ao câmbio, da gestão de pedidos à conferência com IA — tudo integrado, modular e pronto para escalar. Como Business Development Executive do Gravity, <strong>analiso a operação da sua empresa e desenho a combinação de módulos</strong> que gera mais valor no seu contexto, com integração aos principais ERPs do mercado.</p>
+          <div class="gv-stats">
+            <div class="gv-stat"><b>3</b><span>com teste grátis</span></div>
+            <div class="gv-stat"><b>12</b><span>no roadmap</span></div>
+            <div class="gv-stat"><b>SaaS</b><span>multi-tenant</span></div>
+          </div>
+        </div>
+
+        <ul class="gv-modules">
+          <li class="gv-mod-row"><span class="gv-mod-n">01</span><span class="gv-mod-name">Pedidos</span><span class="gv-mod-status">Disponível</span></li>
+          <li class="gv-mod-row"><span class="gv-mod-n">02</span><span class="gv-mod-name">Smart Docs</span><span class="gv-mod-status">Disponível</span></li>
+          <li class="gv-mod-row"><span class="gv-mod-n">03</span><span class="gv-mod-name">BID Frete Internacional</span><span class="gv-mod-status">Disponível</span></li>
+          <li class="gv-mod-row is-pending"><span class="gv-mod-n">—</span><span class="gv-mod-name">Simula Custo</span><span class="gv-mod-status is-soon">25/08/2026</span></li>
+          <li class="gv-mod-row is-pending"><span class="gv-mod-n">—</span><span class="gv-mod-name">Smart Trânsito</span><span class="gv-mod-status is-soon">28/08/2026</span></li>
+          <li class="gv-mod-row is-pending"><span class="gv-mod-n">—</span><span class="gv-mod-name">BID Câmbio</span><span class="gv-mod-status is-soon">Set/2026</span></li>
+        </ul>
       </div>
-      <div class="dati-card-cta">
-        <a href="dati.html" class="btn-primary">
+
+      <footer class="gv-foot">
+        <a href="https://usegravity.com.br" target="_blank" rel="noopener" class="gv-btn">
           Ver soluções
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="#contato" class="btn-ghost" style="font-size:0.76rem;">Falar com Igor</a>
-      </div>
+        <a href="dati.html" class="gv-link">Ver módulos em detalhe</a>
+        <a href="#contato" class="gv-link">Falar com Igor</a>
+      </footer>
     </div>
   </div>
 </section>
@@ -753,8 +888,8 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
         </div>
       </div>
       <div class="contact-cta-area">
-        <p>Seja para um projeto de consultoria independente, uma conversa sobre as soluções Dati para sua operação de Comex, ou para conhecer mais sobre o Contango Token — estou disponível para uma conversa direta e sem rodeios.</p>
-        <a href="https://wa.me/554163475801?text=Olá%20Igor!%20Vim%20pelo%20site%20IGL%20Consulting%20e%20gostaria%20de%20conversar." target="_blank" class="wa-btn">
+        <p>Seja para um projeto de consultoria independente, um processo de captação ou M&amp;A, uma conversa sobre o Gravity para sua operação de Comex, ou para conhecer mais sobre o Contango — estou disponível para uma conversa direta e sem rodeios.</p>
+        <a href="https://wa.me/5542991341983?text=Olá%20Igor!%20Vim%20pelo%20site%20IGL%20Consulting%20e%20gostaria%20de%20conversar." target="_blank" class="wa-btn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
           Falar no WhatsApp
         </a>
@@ -770,7 +905,7 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
 </footer>
 
 <!-- WA FLOAT -->
-<a href="https://wa.me/554163475801?text=Olá%20Igor!%20Vim%20pelo%20site%20IGL%20Consulting." target="_blank" class="wa-float" title="WhatsApp">
+<a href="https://wa.me/5542991341983?text=Olá%20Igor!%20Vim%20pelo%20site%20IGL%20Consulting." target="_blank" class="wa-float" title="WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
 </a>
 
@@ -796,7 +931,7 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
 
   /* ---------- alvos do reveal ---------- */
   var RV = '.section-title, .section-label, .about-text p, .expertise-area,' +
-           '.timeline-item, .dati-card, .contact-items, .stat, .frente-card';
+           '.timeline-item, .gravity-panel, .contact-items, .stat, .frente-card';
   document.querySelectorAll(RV).forEach(function (el) { el.setAttribute('data-rv', ''); });
 
   /* ---------- 01 progresso · 02 nav · 08 traço da timeline ---------- */
@@ -860,7 +995,7 @@ nav[data-condensed="true"] .nav-wordmark { font-size: 0.92rem; }
   var live = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) { e.target.classList.toggle('is-live', e.isIntersecting); });
   }, { threshold: 0.25 });
-  document.querySelectorAll('.frente-card').forEach(function (el) { live.observe(el); });
+  document.querySelectorAll('.frente-card, .gravity-panel').forEach(function (el) { live.observe(el); });
 
   /* ---------- 03 scrollspy ---------- */
   var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
