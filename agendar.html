@@ -754,10 +754,26 @@
   let leadData = { nome: '', email: '', empresa: '', cid: '' };
   let currentMonth = new Date();
 
+  // ─── CONTEXTO ─────────────────────────────────────────────
+  // Lead do site da IGL (ctx=igl): a mesma agenda, apresentada como conversa com a IGL, e não como demo
+  // do Gravity. Sem ctx, tudo segue como sempre foi.
+  let tituloReuniao = (nome, empresa) => `Reunião Gravity — ${nome} (${empresa})`;
+
+  function aplicarContextoIgl() {
+    document.title = 'Agendar conversa — IGL Consulting';
+    document.querySelector('header .logo-text').textContent = 'IGL Consulting';
+    document.querySelector('.meeting-info h1').textContent = 'Conversa com Igor Lachowski';
+    document.querySelector('.meeting-info p').textContent = 'IGL Consulting · Consultoria, captação e M&A, Gravity e Contango';
+    document.querySelector('body > footer').innerHTML =
+      'Agendamento seguro via <a href="https://www.iglconsulting.com.br" target="_blank" rel="noopener">IGL Consulting</a>';
+    tituloReuniao = (nome, empresa) => `Conversa IGL — ${nome}${empresa ? ` (${empresa})` : ''}`;
+  }
+
   // ─── INIT ─────────────────────────────────────────────────
   async function init() {
     const params = new URLSearchParams(window.location.search);
     const cid = params.get('cid');
+    if (params.get('ctx') === 'igl') aplicarContextoIgl();
 
     if (cid) {
       leadData.cid = cid;
@@ -1022,7 +1038,7 @@
           nome,
           email,
           empresa,
-          titulo: `Reunião Gravity — ${nome} (${empresa})`,
+          titulo: tituloReuniao(nome, empresa),
           attendees
         })
       });
