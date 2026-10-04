@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gravity · Módulos de Comércio Exterior | IGL Consulting</title>
-<meta name="description" content="Os módulos do Gravity, plataforma SaaS modular de comércio exterior da Dati S.A.: Pedidos, Smart Docs e BID Frete Internacional já com teste grátis, e os próximos lançamentos do roadmap.">
+<meta name="description" content="Os módulos do Gravity, plataforma SaaS modular de comércio exterior da Dati S.A.: Pedidos, Smart Docs, BID Frete Internacional e Simula Custo — quatro módulos com teste grátis, IA integrada e trilha de treinamento.">
 <link rel="canonical" href="https://www.iglconsulting.com.br/dati">
 <meta name="theme-color" content="#0d0f14">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230d0f14'/%3E%3Cg fill='%23c9a84c'%3E%3Crect x='18' y='14' width='28' height='5'/%3E%3Crect x='29.5' y='14' width='5' height='36'/%3E%3Crect x='18' y='45' width='28' height='5'/%3E%3C/g%3E%3C/svg%3E">
@@ -67,11 +67,48 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; j
 .product-tagline { font-size: 0.82rem; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; margin-bottom: 20px; }
 .product-desc { font-size: 0.92rem; color: var(--light); line-height: 1.85; margin-bottom: 28px; }
 .product-bullets { list-style: none; margin-bottom: 32px; }
-.product-bullets li { font-size: 0.87rem; color: var(--muted); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 10px; }
-.product-bullets li::before { content: ''; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.product-bullets li { font-size: 0.87rem; color: var(--muted); padding: 8px 0 8px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); position: relative; line-height: 1.75; }
+.product-bullets li::before { content: ''; position: absolute; left: 0; top: 15px; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+.product-bullets li strong { color: var(--light); font-weight: 500; }
 .product-cta { display: inline-flex; align-items: center; gap: 8px; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
 
 .divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent); }
+
+.section-eyebrow { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+.section-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); opacity: 0.6; }
+
+/* Destaque da reforma tributária */
+.spotlight { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+.spotlight-inner { background: linear-gradient(158deg, var(--ink2) 0%, var(--ink) 100%); border: 1px solid rgba(201,168,76,0.22); border-left: 3px solid var(--gold); padding: 48px 44px; }
+.spotlight-eyebrow { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.spotlight h2 { font-family: var(--serif); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 300; line-height: 1.2; margin-bottom: 16px; }
+.spotlight h2 em { font-style: italic; color: var(--gold2); }
+.spotlight-desc { font-size: 0.95rem; color: var(--light); line-height: 1.9; max-width: 640px; margin-bottom: 32px; }
+.spotlight-desc strong { color: var(--cream); font-weight: 500; }
+.spotlight-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 24px; }
+.spotlight-item { background: rgba(255,255,255,0.025); border-top: 2px solid rgba(201,168,76,0.35); padding: 18px 16px; }
+.spotlight-item b { display: block; font-family: var(--serif); font-size: 1.3rem; font-weight: 400; color: var(--gold2); margin-bottom: 6px; }
+.spotlight-item span { font-size: 0.78rem; color: var(--muted); line-height: 1.6; display: block; }
+.spotlight-foot { font-size: 0.76rem; color: rgba(138,141,150,0.7); line-height: 1.7; font-style: italic; }
+
+/* Vídeo do Pedido */
+.video-section { max-width: 1100px; margin: 0 auto; padding: 80px 48px; display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: center; }
+.video-copy h2 { font-family: var(--serif); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 300; line-height: 1.2; margin-bottom: 16px; }
+.video-copy h2 em { font-style: italic; color: var(--gold2); }
+.video-copy p { font-size: 0.93rem; color: var(--muted); line-height: 1.9; }
+.video-frame { border: 1px solid rgba(201,168,76,0.18); background: var(--ink2); padding: 8px; }
+.video-frame video { display: block; width: 100%; height: auto; background: #000; }
+
+/* Apoio: IA, Academy, confiança */
+.support-section { max-width: 1100px; margin: 0 auto; padding: 80px 48px; }
+.support-section h2 { font-family: var(--serif); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 300; line-height: 1.2; margin-bottom: 40px; }
+.support-section h2 em { font-style: italic; color: var(--gold2); }
+.support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.support-card { background: var(--ink2); border: 1px solid rgba(255,255,255,0.04); padding: 36px 32px; transition: border-color 0.3s, background 0.3s; }
+.support-card:hover { background: var(--ink3); border-color: rgba(201,168,76,0.15); }
+.support-icon { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(201,168,76,0.25); color: var(--gold); margin-bottom: 20px; }
+.support-card h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; color: var(--cream); margin-bottom: 12px; }
+.support-card p { font-size: 0.89rem; color: var(--light); line-height: 1.85; }
 
 .cta-section { max-width: 1100px; margin: 0 auto; padding: 80px 48px; text-align: center; }
 .cta-section h2 { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; margin-bottom: 16px; }
@@ -93,9 +130,15 @@ footer { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.08); p
 
 @media (max-width: 860px) {
   nav { padding: 18px 24px; }
-  .hero, .note-banner, .products, .cta-section { padding-left: 24px; padding-right: 24px; }
+  .hero, .note-banner, .products, .cta-section,
+  .spotlight, .video-section, .support-section { padding-left: 24px; padding-right: 24px; }
   .note-banner { margin-left: 24px; margin-right: 24px; max-width: none; }
   .products { grid-template-columns: 1fr; }
+  .spotlight-inner { padding: 32px 24px; }
+  .spotlight-grid { grid-template-columns: 1fr 1fr; }
+  .video-section { grid-template-columns: 1fr; gap: 28px; padding-top: 56px; padding-bottom: 56px; }
+  .support-grid { grid-template-columns: 1fr; }
+  .support-section { padding-top: 56px; padding-bottom: 56px; }
   footer { flex-direction: column; gap: 10px; text-align: center; padding: 24px; }
 }
 </style>
@@ -117,7 +160,7 @@ footer { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.08); p
 </div>
 
 <div class="note-banner">
-  <strong>Nota:</strong> O roadmap do Gravity tem <strong>12 módulos</strong>: 3 já disponíveis com teste grátis, 7 em breve e 2 planejados. Abaixo estão os três no ar e os três próximos da fila, com a previsão de liberação geral anunciada pelo Gravity. Para uma apresentação personalizada, entre em contato diretamente com Igor.
+  <strong>Nota:</strong> O roadmap do Gravity tem <strong>12 módulos</strong>. Abaixo estão os <strong>quatro que já rodam em produção</strong>, todos com teste grátis e contratação independente — você usa um, dois ou todos. Os demais seguem em desenvolvimento. Para uma apresentação personalizada, entre em contato diretamente com Igor.
 </div>
 
 <div class="products">
@@ -126,7 +169,14 @@ footer { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.08); p
     <div class="product-head"><span class="product-tag">Módulo 01 · Operações</span><span class="product-status live">Teste grátis</span></div>
     <h2 class="product-name">Pedidos</h2>
     <p class="product-tagline">Gestão de processos de importação e exportação</p>
-    <p class="product-desc">Controle completo do ciclo de vida dos seus pedidos: saldo automático, consolidação de processos, etapas customizáveis, controle de quantidades e rastreabilidade de ponta a ponta.</p>
+    <p class="product-desc">Cada item do pedido sob controle, do fechamento com o fornecedor até o embarque — sem planilha paralela e sem redigitar.</p>
+    <ul class="product-bullets">
+      <li>Saldo que se atualiza sozinho a cada recebimento, transferência ou consolidação</li>
+      <li>Item transferido entre pedidos <strong>sem perder o histórico</strong> de origem</li>
+      <li>Edição em massa de centenas de pedidos, com pré-visualização antes de confirmar</li>
+      <li>Quatro visões sobre os mesmos dados: Insights, Lista, Dashboard e Kanban</li>
+      <li>Importação e exportação no mesmo produto, com várias empresas separadas</li>
+    </ul>
     <a href="#contato-dati" class="product-cta">Solicitar demonstração <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
 
@@ -134,7 +184,14 @@ footer { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.08); p
     <div class="product-head"><span class="product-tag">Módulo 02 · Inteligência</span><span class="product-status live">Teste grátis</span></div>
     <h2 class="product-name">Smart Docs</h2>
     <p class="product-tagline">Inteligência documental com IA para COMEX</p>
-    <p class="product-desc">Extração automática, conferência e análise de riscos com IA em documentos COMEX — invoices, packing lists e mais, em segundos.</p>
+    <p class="product-desc">A IA lê invoice, packing list e os demais documentos de COMEX, confere contra regras e aponta o risco aduaneiro antes que ele vire multa.</p>
+    <ul class="product-bullets">
+      <li>Extração automática de PDF, imagem, XML, CSV e Excel</li>
+      <li>Conferência cruzando o que foi lido com <strong>regras de negócio e APIs da Receita</strong></li>
+      <li>Análise de risco por severidade: crítico, atenção e informativo</li>
+      <li>Chat com IA no contexto daqueles documentos, para tirar dúvida sem sair da tela</li>
+      <li>E-mail ao fornecedor gerado a partir dos riscos encontrados</li>
+    </ul>
     <a href="#contato-dati" class="product-cta">Solicitar demonstração <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
 
@@ -142,38 +199,106 @@ footer { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.08); p
     <div class="product-head"><span class="product-tag">Módulo 03 · Cotações</span><span class="product-status live">Teste grátis</span></div>
     <h2 class="product-name">BID Frete Internacional</h2>
     <p class="product-tagline">Licitação inteligente de fretes internacionais</p>
-    <p class="product-desc">Gestão de cotações marítimas, aéreas e rodoviárias, impo e expo. Compare ofertas de múltiplos fornecedores com ranking automático, cálculo de savings e aprovação em 2 cliques. Histórico completo de cotações.</p>
+    <p class="product-desc">Uma solicitação sai para todos os fornecedores ao mesmo tempo e as propostas voltam lado a lado, no mesmo formato. Marítimo, aéreo e rodoviário, impo e expo.</p>
+    <ul class="product-bullets">
+      <li><strong>O fornecedor responde sem criar conta</strong> — clica no link do e-mail e preenche</li>
+      <li>Preço aberto em quatro linhas, então dá para comparar quem embute taxa e quem cobra à parte</li>
+      <li>Ranking por <strong>oito critérios com peso que você define</strong> — preço, transit time, avaliação, transbordos e mais</li>
+      <li>Termômetro histórico: a proposta comparada com a média que a sua empresa pagou nos últimos 6 meses</li>
+      <li>Comparativo critério a critério, exportável em Excel e PDF para a reunião de aprovação</li>
+    </ul>
     <a href="#contato-dati" class="product-cta">Solicitar demonstração <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
 
-  <div class="product-card pending">
-    <div class="product-head"><span class="product-tag">Custos</span><span class="product-status soon">Previsão Set/2026</span></div>
+  <div class="product-card">
+    <div class="product-head"><span class="product-tag">Módulo 04 · Custos</span><span class="product-status live">Teste grátis</span></div>
     <h2 class="product-name">Simula Custo</h2>
-    <p class="product-tagline">Simulação de impostos e custos da importação</p>
-    <p class="product-desc">Simulação de impostos e custos da importação antes de fechar o negócio — compare cenários e conheça o custo final do processo.</p>
-    <a href="#contato-dati" class="product-cta">Entrar na fila <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-  </div>
-
-  <div class="product-card pending">
-    <div class="product-head"><span class="product-tag">Câmbio</span><span class="product-status soon">Previsão Out/2026</span></div>
-    <h2 class="product-name">BID Câmbio</h2>
-    <p class="product-tagline">Cotações de câmbio em tempo real</p>
-    <p class="product-desc">Cotações de câmbio em tempo real e gestão inteligente — compare propostas, acompanhe fechamentos e controle o custo cambial da operação.</p>
-    <a href="#contato-dati" class="product-cta">Entrar na fila <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-  </div>
-
-  <div class="product-card pending">
-    <div class="product-head"><span class="product-tag">Cadastro</span><span class="product-status soon">Previsão Nov/2026</span></div>
-    <h2 class="product-name">Catálogo de Produtos</h2>
-    <p class="product-tagline">Cadastro central de produtos para o Siscomex</p>
-    <p class="product-desc">Cadastro central de NCM, atributos e catálogo de produtos do Siscomex — uma base única para a classificação fiscal da sua operação.</p>
-    <a href="#contato-dati" class="product-cta">Entrar na fila <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <p class="product-tagline">Custo nacionalizado antes de fechar o negócio</p>
+    <p class="product-desc">Do valor FOB ao custo nacionalizado em cinco passos: o NCM puxa as alíquotas, o ICMS segue a UF de desembaraço e o resultado vem com fluxo de caixa.</p>
+    <ul class="product-bullets">
+      <li>Cinco tributos aplicados — II, IPI, PIS, COFINS e ICMS</li>
+      <li>Quatro regimes de ICMS: integral, redução, isento e benefício conta e ordem</li>
+      <li><strong>Fator de importação</strong> com ponto ideal: quanto o tamanho do embarque dilui os custos fixos</li>
+      <li>Fluxo de caixa por parcela — quando o dinheiro sai, antes de sair</li>
+      <li>Multi-moeda e multi-NCM na mesma simulação, sem conversão escondida</li>
+    </ul>
+    <a href="#contato-dati" class="product-cta">Solicitar demonstração <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
 
 </div>
 
+<div class="spotlight">
+  <div class="spotlight-inner">
+    <p class="spotlight-eyebrow">Destaque · Reforma tributária</p>
+    <h2>A sua importação em <em>2026 e em 2033</em>, lado a lado</h2>
+    <p class="spotlight-desc">A reforma já começou, e a pergunta que todo importador faz é quanto ela custa na prática. O Simula Custo projeta a mesma operação ano a ano, com <strong>CBS, IBS e Imposto Seletivo</strong> entrando enquanto IPI, PIS/COFINS e ICMS saem.</p>
+    <div class="spotlight-grid">
+      <div class="spotlight-item"><b>2026 → 2033</b><span>trajetória ano a ano da carga tributária</span></div>
+      <div class="spotlight-item"><b>3 regimes</b><span>Simples Nacional, Lucro Presumido e Lucro Real</span></div>
+      <div class="spotlight-item"><b>Base legal</b><span>cada crédito com a lei citada ao lado</span></div>
+      <div class="spotlight-item"><b>Parecer</b><span>análise técnica escrita pela IA sobre a sua projeção</span></div>
+    </div>
+    <p class="spotlight-foot">O parecer é gerado sobre os números da própria simulação e não substitui orientação fiscal, contábil ou jurídica.</p>
+  </div>
+</div>
+
 <div class="note-banner" style="margin-top: 0;">
-  <strong>Roadmap:</strong> além dos módulos acima, outros seguem em desenvolvimento até completar os 12 previstos. A lista atualizada e o teste grátis ficam no <a href="https://usegravity.com.br/produtos" target="_blank" rel="noopener" style="color:var(--gold);">site oficial do Gravity</a>.
+  <strong>Roadmap:</strong> outros oito módulos seguem em desenvolvimento até completar os 12 previstos — entre eles câmbio, catálogo de produtos para o Siscomex e documentos aduaneiros. Prefiro não anunciar data: quando entram em produção, aparecem aqui. A lista sempre atualizada e o teste grátis ficam no <a href="https://usegravity.com.br" target="_blank" rel="noopener" style="color:var(--gold);">site oficial do Gravity</a>.
+</div>
+
+<div class="divider"></div>
+
+<div class="video-section">
+  <div class="video-copy">
+    <p class="section-eyebrow">Em menos de um minuto</p>
+    <h2>Veja o <em>Pedido</em> funcionando</h2>
+    <p>Cem mil itens, quatro visões e nenhuma redigitação. O vídeo mostra a tela real do módulo — o mesmo que a sua equipe usa no teste grátis.</p>
+  </div>
+  <div class="video-frame">
+    <video src="midia/gravity-pedido-teaser.mp4" controls preload="metadata" playsinline aria-label="Demonstração do módulo Pedido do Gravity"></video>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="support-section">
+  <p class="section-eyebrow">Não é só a ferramenta</p>
+  <h2>Sua equipe não vai explorar <em>sozinha</em></h2>
+  <div class="support-grid">
+
+    <div class="support-card">
+      <div class="support-icon">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 3l1.9 4.6 4.6 1.9-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg>
+      </div>
+      <h3>Gabi, a IA da plataforma</h3>
+      <p>A inteligência artificial fica dentro do próprio produto e responde às dúvidas na hora em que elas aparecem — sem abrir chamado e sem sair da tela. Ela lê a sua carteira, executa tarefas em lote e avisa sobre o prazo que está por vencer.</p>
+    </div>
+
+    <div class="support-card">
+      <div class="support-icon">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11.5V17c0 1.1 2.7 2.5 6 2.5s6-1.4 6-2.5v-5.5"/></svg>
+      </div>
+      <h3>Gravity Academy</h3>
+      <p>Trilha de aprendizado por módulo, com aulas curtas e conquistas ao longo do caminho. Fica dentro da plataforma, no ritmo de cada pessoa, sem agenda marcada e sem custo adicional — a resposta para "minha equipe vai conseguir usar?".</p>
+    </div>
+
+    <div class="support-card">
+      <div class="support-icon">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7.5 3v5.2c0 4.3-3 8.3-7.5 9.8-4.5-1.5-7.5-5.5-7.5-9.8V6L12 3z"/><path d="M9.2 12l2 2 3.6-3.8"/></svg>
+      </div>
+      <h3>Dados isolados por empresa</h3>
+      <p>Matriz, filiais e empresas do grupo convivem na mesma conta, cada uma com o seu espaço: nenhuma consulta roda sem o filtro da organização, e a permissão é definida por usuário. Trilha de auditoria completa de quem fez o quê e quando.</p>
+    </div>
+
+    <div class="support-card">
+      <div class="support-icon">
+        <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 1.8"/></svg>
+      </div>
+      <h3>Ativo em minutos</h3>
+      <p>É web, não se instala nada. O cadastro é self-service, cada pessoa da equipe cria o próprio acesso, e os módulos contratados aparecem no Hub. Você começa pelo que resolve a dor mais urgente e acrescenta o resto quando fizer sentido.</p>
+    </div>
+
+  </div>
 </div>
 
 <div class="divider"></div>
@@ -194,7 +319,7 @@ footer { background: var(--ink2); border-top: 1px solid rgba(201,168,76,0.08); p
 
 <footer>
   <div class="footer-left"><strong>IGL Consulting</strong> · Parceria Gravity · Dati S.A.</div>
-  <div class="footer-right">© 2026 · iglconsulting.com.br</div>
+  <div class="footer-right">© 2026 · iglconsulting.com.br · <a href="privacidade.html" style="color:rgba(138,141,150,0.75);text-decoration:none;">Política de Privacidade</a></div>
 </footer>
 
 <a href="https://wa.me/5511920854887?text=Olá!%20Vi%20o%20Gravity%20no%20site%20da%20IGL%20Consulting%20e%20gostaria%20de%20uma%20apresentação." target="_blank" class="wa-float" data-contato="whatsapp" data-produto="gravity">

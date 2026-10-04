@@ -155,7 +155,7 @@
         '<p class="ct-erro" data-erro="empresa"></p>' +
         '<label class="ct-campo" data-so="br"><span>CNPJ (opcional)</span><input name="cnpj" inputmode="numeric" placeholder="00.000.000/0000-00"></label>' +
         '<p class="ct-erro" data-erro="cnpj"></p>' +
-        '<label class="ct-aceite"><input type="checkbox" name="consentimento"><span>Concordo que a IGL Consulting use estes dados para entrar em contato comigo.</span></label>' +
+        '<label class="ct-aceite"><input type="checkbox" name="consentimento"><span>Concordo que a IGL Consulting use estes dados para entrar em contato comigo, nos termos da <a href="/privacidade" target="_blank" rel="noopener" style="color:#c9a84c" onclick="event.stopPropagation()">Política de Privacidade</a>.</span></label>' +
         '<p class="ct-erro" data-erro="consentimento"></p>' +
         '<input class="ct-armadilha" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">' +
         '<button type="submit" class="ct-enviar">Continuar</button>' +
