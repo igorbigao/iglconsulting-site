@@ -582,6 +582,29 @@
 
   .error-screen.visible { display: block; }
 
+  .error-actions { margin-top: 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+  .whats-btn, .retry-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 10px;
+    padding: 14px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+  }
+
+  .whats-btn { background: #25D366; color: white; }
+  .whats-btn:hover { background: #1ebe5b; transform: translateY(-1px); }
+  .retry-btn { background: var(--blue); color: white; }
+  .retry-btn:hover { background: #0066cc; transform: translateY(-1px); }
+
   /* ── FOOTER ── */
   footer {
     text-align: center;
@@ -729,6 +752,10 @@
     <div class="error-screen" id="errorScreen">
       <h2>Algo deu errado</h2>
       <p id="errorMsg">Não foi possível confirmar a reunião. Tente novamente.</p>
+      <div class="error-actions">
+        <a class="whats-btn" id="errorWhats" href="#" target="_blank" rel="noopener">Falar com o Igor no WhatsApp</a>
+        <button class="retry-btn" id="errorRetry" onclick="location.reload()">Escolher outro horário</button>
+      </div>
     </div>
 
   </div>
@@ -1064,12 +1091,28 @@
           }
         }
         showSuccess(nome, email, empresa);
+      } else if (data.motivo === 'horario_ocupado') {
+        showError('Esse horário acabou de ser ocupado. Escolha outro, por favor.', { outroHorario: true });
       } else {
-        showError('Não foi possível criar o evento. Tente novamente.');
+        showError('Não conseguimos confirmar sua reunião automaticamente. Fale direto com o Igor pelo WhatsApp, que ele confirma o horário com você.',
+          { whats: linkWhatsIgor(nome, empresa) });
       }
     } catch(e) {
-      showError('Erro de conexão. Verifique sua internet e tente novamente.');
+      showError('Não conseguimos confirmar sua reunião (falha de conexão). Fale direto com o Igor pelo WhatsApp, que ele confirma o horário com você.',
+        { whats: linkWhatsIgor(nome, empresa) });
     }
+  }
+
+  // Reserva quando a confirmação falha: WhatsApp direto do Igor (decisão dele em 2026-10-28; o resto do site usa a
+  // linha comercial). A mensagem já leva quem é e o horário tentado, para ele confirmar sem perguntar de novo.
+  const WHATSAPP_IGOR = ['55', '42', '99134', '1983'].join('');
+  function linkWhatsIgor(nome, empresa) {
+    const quando = selectedSlot ? new Date(selectedSlot).toLocaleString('pt-BR', {
+      weekday: 'long', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo'
+    }) : '';
+    const texto = `Olá, Igor! Tentei agendar uma conversa pelo site${quando ? ' para ' + quando : ''}, mas deu erro na confirmação. `
+      + `Sou ${nome}${empresa ? ', da ' + empresa : ''}.`;
+    return `https://wa.me/${WHATSAPP_IGOR}?text=${encodeURIComponent(texto)}`;
   }
 
   function showSuccess(nome, email, empresa) {
@@ -1095,9 +1138,13 @@
     document.getElementById('successScreen').classList.add('visible');
   }
 
-  function showError(msg) {
+  function showError(msg, opcoes = {}) {
     document.getElementById('mainScreen').style.display = 'none';
     document.getElementById('errorMsg').textContent = msg;
+    const whats = document.getElementById('errorWhats');
+    whats.href = opcoes.whats || '#';
+    whats.style.display = opcoes.whats ? 'inline-flex' : 'none';
+    document.getElementById('errorRetry').style.display = opcoes.outroHorario ? 'inline-flex' : 'none';
     document.getElementById('errorScreen').classList.add('visible');
   }
 
