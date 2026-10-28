@@ -809,6 +809,12 @@
 
     await fetchSlots();
     renderCalendar();
+    // Em 60 dias sempre há horário: lista vazia = agenda desligada pelo monitor (credencial caída) ou consulta
+    // com erro. Em vez de um calendário vazio, oferece o WhatsApp direto do Igor.
+    if (!allSlots.length) {
+      showError('A agenda online está fora do ar neste momento. Fale direto com o Igor pelo WhatsApp, que ele marca o horário com você.',
+        { whats: linkWhatsIgor(leadData.nome, leadData.empresa, true) });
+    }
   }
 
   async function fetchLeadData(cid) {
@@ -1106,12 +1112,14 @@
   // Reserva quando a confirmação falha: WhatsApp direto do Igor (decisão dele em 2026-10-28; o resto do site usa a
   // linha comercial). A mensagem já leva quem é e o horário tentado, para ele confirmar sem perguntar de novo.
   const WHATSAPP_IGOR = ['55', '42', '99134', '1983'].join('');
-  function linkWhatsIgor(nome, empresa) {
+  function linkWhatsIgor(nome, empresa, foraDoAr = false) {
     const quando = selectedSlot ? new Date(selectedSlot).toLocaleString('pt-BR', {
       weekday: 'long', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo'
     }) : '';
-    const texto = `Olá, Igor! Tentei agendar uma conversa pelo site${quando ? ' para ' + quando : ''}, mas deu erro na confirmação. `
-      + `Sou ${nome}${empresa ? ', da ' + empresa : ''}.`;
+    const sou = nome ? ` Sou ${nome}${empresa ? ', da ' + empresa : ''}.` : '';
+    const texto = foraDoAr
+      ? `Olá, Igor! Tentei agendar uma conversa pelo site, mas a agenda estava fora do ar.${sou}`
+      : `Olá, Igor! Tentei agendar uma conversa pelo site${quando ? ' para ' + quando : ''}, mas deu erro na confirmação.${sou}`;
     return `https://wa.me/${WHATSAPP_IGOR}?text=${encodeURIComponent(texto)}`;
   }
 
